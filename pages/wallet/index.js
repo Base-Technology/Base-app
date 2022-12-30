@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback, useRef} from 'react';
 import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useColorScheme,
   View,
 } from 'react-native';
@@ -11,6 +12,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {AppBar} from '@react-native-material/core';
 import {IconButton} from 'react-native-paper';
 import {SvgUri} from 'react-native-svg';
+import Modal from 'react-native-modal';
 import {TokenList} from '../../constants/token_list';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -24,9 +26,14 @@ import MoreVertIcon from '../../assets/icon_more_vert.svg';
 const WalletMain = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const [isShow, setisShow] = useState(true);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
   };
 
   const styles = StyleSheet.create({
@@ -96,6 +103,7 @@ const WalletMain = () => {
     },
   });
 
+  // Card for assets list
   const AssetBox = ({logoSrc, tokenName}) => {
     const styles = StyleSheet.create({
       assetContainer: {
@@ -173,25 +181,27 @@ const WalletMain = () => {
       </View>
       <View style={styles.boxSection}>
         <View style={styles.box}>
-          <SendIcon width="32" height="32" />
+          <SendIcon width="32" height="32" fill={'white'} />
           <Text style={styles.boxText}>Send</Text>
         </View>
         <View style={styles.box}>
-          <ReceiveIcon width="32" height="32" />
+          <ReceiveIcon width="32" height="32" fill={'white'} />
           <Text style={styles.boxText}>Receive</Text>
         </View>
         <View style={styles.box}>
-          <SwapIcon width="32" height="32" />
+          <SwapIcon width="32" height="32" fill={'white'} />
           <Text style={styles.boxText}>Swap</Text>
         </View>
         <View style={styles.box}>
-          <MoreIcon width="32" height="32" />
+          <MoreIcon width="32" height="32" fill={'white'} />
           <Text style={styles.boxText}>More</Text>
         </View>
       </View>
       <View style={styles.boxHorizontal}>
         <Text style={styles.boxHorizontalText}>Assets</Text>
-        <MoreVertIcon width="24" height="24" fill={'black'} />
+        <TouchableOpacity onPress={() => {}}>
+          <MoreVertIcon width="24" height="24" fill={'black'} />
+        </TouchableOpacity>
       </View>
       <View onStartShouldSetResponder={() => true}>
         <ScrollView
@@ -212,6 +222,13 @@ const WalletMain = () => {
             <Text>Loading</Text>
           )}
         </ScrollView>
+      </View>
+      <View style={{flex: 1}}>
+        <Modal isVisible={isModalVisible} onBackdropPress={toggleModal}>
+          <View style={{flex: 1}}>
+            <Text>Hello!</Text>
+          </View>
+        </Modal>
       </View>
     </View>
   );
