@@ -14,7 +14,6 @@ import {IconButton} from 'react-native-paper';
 import {SvgUri} from 'react-native-svg';
 import Modal from 'react-native-modal';
 import {TokenList} from '../../constants/token_list';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import SendIcon from '../../assets/icon_send.svg';
@@ -23,7 +22,7 @@ import SwapIcon from '../../assets/icon_swap.svg';
 import MoreIcon from '../../assets/icon_more.svg';
 import MoreVertIcon from '../../assets/icon_more_vert.svg';
 
-const WalletMain = () => {
+const WalletMain = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
   const [isShow, setisShow] = useState(true);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -101,6 +100,22 @@ const WalletMain = () => {
       color: 'black',
       fontSize: 16,
     },
+    view: {
+      justifyContent: 'flex-end',
+      margin: 0,
+    },
+    content: {
+      backgroundColor: 'white',
+      padding: 22,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 4,
+      borderColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    contentTitle: {
+      fontSize: 20,
+      marginBottom: 12,
+    },
   });
 
   // Card for assets list
@@ -144,7 +159,7 @@ const WalletMain = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <AppBar
+      {/* <AppBar
         title="Wallet"
         leading={props => (
           <IconButton
@@ -153,7 +168,7 @@ const WalletMain = () => {
             onPress={() => {}}
           />
         )}
-      />
+      /> */}
       <View style={styles.balanceShow}>
         {!isShow ? (
           <View style={styles.balanceSection}>
@@ -199,34 +214,31 @@ const WalletMain = () => {
       </View>
       <View style={styles.boxHorizontal}>
         <Text style={styles.boxHorizontalText}>Assets</Text>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={toggleModal}>
           <MoreVertIcon width="24" height="24" fill={'black'} />
         </TouchableOpacity>
       </View>
-      <View onStartShouldSetResponder={() => true}>
-        <ScrollView
-          contentContainerStyle={{flexGrow: 1}}
-          style={backgroundStyle}>
-          {TokenList ? (
-            TokenList.map(tokens => {
-              return (
-                <View>
-                  <AssetBox
-                    logoSrc={tokens.logoURI}
-                    tokenName={tokens.symbol}
-                  />
-                </View>
-              );
-            })
-          ) : (
-            <Text>Loading</Text>
-          )}
-        </ScrollView>
-      </View>
-      <View style={{flex: 1}}>
-        <Modal isVisible={isModalVisible} onBackdropPress={toggleModal}>
-          <View style={{flex: 1}}>
-            <Text>Hello!</Text>
+      <ScrollView
+        contentContainerStyle={{minHeight: '85%'}}
+        style={backgroundStyle}>
+        {TokenList ? (
+          TokenList.map(tokens => {
+            return (
+              <AssetBox logoSrc={tokens.logoURI} tokenName={tokens.symbol} />
+            );
+          })
+        ) : (
+          <Text>Loading</Text>
+        )}
+      </ScrollView>
+      <View>
+        <Modal
+          isVisible={isModalVisible}
+          onBackdropPress={toggleModal}
+          swipeDirection={['up', 'left', 'right', 'down']}
+          style={styles.view}>
+          <View style={styles.content}>
+            <Text style={styles.contentTitle}>Hi 👋!</Text>
           </View>
         </Modal>
       </View>

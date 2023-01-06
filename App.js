@@ -8,6 +8,8 @@
 
 import React from 'react';
 import type {Node} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   SafeAreaView,
   ScrollView,
@@ -25,7 +27,10 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {IconButton} from 'react-native-paper';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 import WalletMain from './pages/wallet';
+import WalletModal from './pages/wallet';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -62,10 +67,36 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  // for page navigation
+  const Stack = createNativeStackNavigator();
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <WalletMain />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Wallet">
+        <Stack.Screen
+          name="Wallet"
+          options={{
+            title: 'Wallet',
+            headerLeft: props => (
+              <IconButton
+                icon={props => (
+                  <EntypoIcon name="menu" color="white" {...props} />
+                )}
+                iconColor="white"
+                onPress={() => {}}
+                style={{marginLeft: -5, marginRight: 20}}
+              />
+            ),
+            headerStyle: {
+              backgroundColor: '#6200ee',
+            },
+            headerTintColor: '#fff',
+          }}
+          component={WalletMain}
+        />
+        <Stack.Screen name="WalletModal" component={WalletModal} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
