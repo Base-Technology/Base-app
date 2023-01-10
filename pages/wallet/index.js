@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef} from 'react';
+import React, {useState, useCallback, useRef, useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {AppBar} from '@react-native-material/core';
 import {IconButton} from 'react-native-paper';
 import {SvgUri} from 'react-native-svg';
 import Modal from 'react-native-modal';
@@ -21,6 +20,60 @@ import ReceiveIcon from '../../assets/icon_receive.svg';
 import SwapIcon from '../../assets/icon_swap.svg';
 import MoreIcon from '../../assets/icon_more.svg';
 import MoreVertIcon from '../../assets/icon_more_vert.svg';
+
+import 'react-native-get-random-values';
+import '@ethersproject/shims';
+import {ethers} from 'ethers';
+import FactoryABI from '../../abis/Factory.json';
+
+let FactoryContract;
+let FactoryContractWithSigner;
+const owner = '0x3a790b0D5F04B13970E1CA37F8da2249dd9f5974';
+const ownerPrivateKey =
+  '377e9f7384cf3063b37ec202b5a367df811d01ca36bad75824e0d0bfcbc257df';
+const account = '0x624b8A9dCFEbdC65DF072eD2d17db4b5dDCd0F7f';
+
+function getSigner(library, account) {
+  return library.getSigner(account).connectUnchecked();
+}
+
+// account is optional
+function getProviderOrSigner(library, account) {
+  return account ? getSigner(library, account) : library;
+}
+
+// account is optional
+function getContract(address, ABI, library, account) {
+  if (
+    !ethers.utils.isAddress(address) ||
+    address === ethers.constants.AddressZero
+  ) {
+    throw Error(`Invalid 'address' parameter '${address}'.`);
+  }
+  return new ethers.Contract(
+    address,
+    ABI,
+    getProviderOrSigner(library, account),
+  );
+}
+
+const getSignerContract = () => {
+  const provider = new ethers.providers.JsonRpcProvider(
+    'https://data-seed-prebsc-1-s3.binance.org:8545',
+    97,
+  );
+  FactoryContract = getContract(
+    '0x3a9A86Ff94Cd9cDdE7268F3199938aDBA4990ab6',
+    FactoryABI,
+    provider,
+  );
+  const signer = new ethers.Wallet(ownerPrivateKey, provider);
+  FactoryContractWithSigner = FactoryContract.connect(signer);
+};
+
+const addManagerClick = () => {
+  FactoryContractWithSigner.addManager(account);
+};
 
 const WalletMain = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -157,6 +210,10 @@ const WalletMain = ({navigation}) => {
     );
   };
 
+  useEffect(() => {
+    getSignerContract();
+  });
+
   return (
     <View style={styles.mainContainer}>
       {/* <AppBar
@@ -214,7 +271,7 @@ const WalletMain = ({navigation}) => {
       </View>
       <View style={styles.boxHorizontal}>
         <Text style={styles.boxHorizontalText}>Assets</Text>
-        <TouchableOpacity onPress={toggleModal}>
+        <TouchableOpacity onPress={addManagerClick}>
           <MoreVertIcon width="24" height="24" fill={'black'} />
         </TouchableOpacity>
       </View>
