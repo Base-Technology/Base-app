@@ -23,12 +23,12 @@ import MoreIcon from '../../assets/icon_more.svg';
 import MoreVertIcon from '../../assets/icon_more_vert.svg';
 
 const WalletMain = ({navigation}) => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = 'dark';
   const [isShow, setisShow] = useState(true);
   const [isModalVisible, setModalVisible] = useState(false);
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    // backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
   const toggleModal = () => {
@@ -37,13 +37,11 @@ const WalletMain = ({navigation}) => {
 
   const styles = StyleSheet.create({
     mainContainer: {
-      backgroundColor: backgroundStyle.backgroundColor,
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',
     },
     balanceShow: {
-      backgroundColor: backgroundStyle.backgroundColor,
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -55,16 +53,18 @@ const WalletMain = ({navigation}) => {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
+      color: 'white',
     },
     balanceText: {
+
       alignSelf: 'center',
       fontSize: 28.8,
-      color: isDarkMode ? 'white' : 'black',
+      color: 'white',
     },
     boxSection: {
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       alignItems: 'center',
       paddingHorizontal: 35,
     },
@@ -88,7 +88,7 @@ const WalletMain = ({navigation}) => {
       height: 35,
       margin: 10,
       paddingHorizontal: 10,
-      borderColor: 'black',
+      borderColor: '#ffffff',
       borderWidth: 1,
       borderRadius: 15,
       display: 'flex',
@@ -97,7 +97,7 @@ const WalletMain = ({navigation}) => {
       alignItems: 'center',
     },
     boxHorizontalText: {
-      color: 'black',
+      color: '#ffffff',
       fontSize: 16,
     },
     view: {
@@ -127,6 +127,7 @@ const WalletMain = ({navigation}) => {
         alignItems: 'center',
         paddingHorizontal: 18,
         paddingVertical: 5,
+        
       },
       leftLogoPart: {
         flex: 0.2,
@@ -135,10 +136,12 @@ const WalletMain = ({navigation}) => {
       leftNamePart: {
         flex: 0.8,
         justifyContent: 'flex-start',
+        color: 'white'
       },
       rightAssetPart: {
         flexDirection: 'column',
         justifyContent: 'flex-end',
+        color: 'white'
       },
     });
     return (
@@ -147,11 +150,11 @@ const WalletMain = ({navigation}) => {
           <SvgUri width="26" height="26" uri={logoSrc} />
         </View>
         <View style={styles.leftNamePart}>
-          <Text>{tokenName}</Text>
+          <Text style={{color:'#ffffff'}}>{tokenName}</Text>
         </View>
         <View style={styles.rightAssetPart}>
-          <Text style={{alignSelf: 'flex-end'}}>0.25</Text>
-          <Text>$750.32</Text>
+          <Text style={{alignSelf: 'flex-end',color:'#ffffff'}}>0.25</Text>
+          <Text style={{color:'#ffffff'}}>$750.32</Text>
         </View>
       </View>
     );
@@ -161,19 +164,12 @@ const WalletMain = ({navigation}) => {
     <View style={styles.mainContainer}>
       {/* <AppBar
         title="Wallet"
-        leading={props => (
-          <IconButton
-            icon={props => <EntypoIcon name="menu" color="white" {...props} />}
-            iconColor="white"
-            onPress={() => {}}
-          />
-        )}
       /> */}
       <View style={styles.balanceShow}>
         {!isShow ? (
           <View style={styles.balanceSection}>
-            <Ionicon name="ellipsis-horizontal" size={36} color="black" />
-            <Ionicon name="ellipsis-horizontal" size={36} color="black" />
+            <Ionicon name="ellipsis-horizontal" size={36} color="#ffffff" />
+            <Ionicon name="ellipsis-horizontal" size={36} color="#ffffff" />
           </View>
         ) : (
           <Text style={styles.balanceText}>$ 0.00</Text>
@@ -183,15 +179,15 @@ const WalletMain = ({navigation}) => {
             icon={props => (
               <Ionicon
                 name={isShow ? 'eye' : 'eye-off'}
-                color="black"
+                color="#ffffff"
                 {...props}
               />
             )}
-            iconColor="black"
+            iconColor="#ffffff"
             size={16}
             onPress={() => setisShow(!isShow)}
           />
-          {isShow ? <Text>Hide Balance</Text> : <Text>Show Balance</Text>}
+          {isShow ? <Text style={{color:'#ffffff'}}>Hide Balance</Text> : <Text  style={{color:'#ffffff'}}>Show Balance</Text>}
         </View>
       </View>
       <View style={styles.boxSection}>
@@ -200,23 +196,15 @@ const WalletMain = ({navigation}) => {
           <Text style={styles.boxText}>Send</Text>
         </View>
         <View style={styles.box}>
-          <ReceiveIcon width="32" height="32" fill={'white'} />
-          <Text style={styles.boxText}>Receive</Text>
-        </View>
-        <View style={styles.box}>
           <SwapIcon width="32" height="32" fill={'white'} />
-          <Text style={styles.boxText}>Swap</Text>
-        </View>
-        <View style={styles.box}>
-          <MoreIcon width="32" height="32" fill={'white'} />
-          <Text style={styles.boxText}>More</Text>
+        <Text style={styles.boxText}>Trade</Text>
         </View>
       </View>
       <View style={styles.boxHorizontal}>
         <Text style={styles.boxHorizontalText}>Assets</Text>
-        <TouchableOpacity onPress={toggleModal}>
-          <MoreVertIcon width="24" height="24" fill={'black'} />
-        </TouchableOpacity>
+        {/* <TouchableOpacity onPress={toggleModal}>
+          <MoreVertIcon width="24" height="24" fill={'#ffffff'} />
+        </TouchableOpacity> */}
       </View>
       <ScrollView
         contentContainerStyle={{minHeight: '85%'}}

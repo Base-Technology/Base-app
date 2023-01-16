@@ -1,122 +1,79 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {IconButton} from 'react-native-paper';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
+import * as React from 'react';
+import { Text, View } from 'react-native';
+import { NavigationContainer, DarkTheme } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, Layout } from '@ui-kitten/components';
+import HomeIcon from './assets/icon_home';
+import ChatIcon from './assets/icon_chat.svg';
+import WalletIcon from './assets/icon_wallet.svg';
+import MomentIcon from './assets/icon_moment.svg';
 import WalletMain from './pages/wallet';
-import WalletModal from './pages/wallet';
+import HomeScreen from './pages/home';
+const MyTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: 'rgb(235, 92, 32)',
+    background: 'rgb(18, 18, 18)'
+  },
+};
+// function HomeScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Home!</Text>
+//     </View>
+//   );
+// }
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+function SettingsScreen() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings!</Text>
     </View>
   );
-};
+}
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+const Tab = createBottomTabNavigator();
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  // for page navigation
-  const Stack = createNativeStackNavigator();
-
+function MyTabs() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Wallet">
-        <Stack.Screen
-          name="Wallet"
-          options={{
-            title: 'Wallet',
-            headerLeft: props => (
-              <IconButton
-                icon={props => (
-                  <EntypoIcon name="menu" color="white" {...props} />
-                )}
-                iconColor="white"
-                onPress={() => {}}
-                style={{marginLeft: -5, marginRight: 20}}
-              />
-            ),
-            headerStyle: {
-              backgroundColor: '#6200ee',
-            },
-            headerTintColor: '#fff',
-          }}
-          component={WalletMain}
-        />
-        <Stack.Screen name="WalletModal" component={WalletModal} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator
+      
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          // You can return any component that you like here!
+          switch (route.name) {
+            case 'Home':
+              return <HomeIcon width="24" height="24" fill={color} />;
+            case 'Chats':
+              return <ChatIcon width="24" height="24" fill={color} />;
+            case 'Moment':
+              return <MomentIcon width="24" height="24" fill={color} />;
+            default:
+              return <WalletIcon width="24" height="24" fill={color} />;
+          }
+
+        }
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Chats" component={HomeScreen} />
+      <Tab.Screen name="Moment" component={HomeScreen} />
+      <Tab.Screen name="Wallet" component={WalletMain} />
+    </Tab.Navigator>
   );
-};
+}
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+export default function App() {
+  return (
+    <ApplicationProvider {...eva} theme={eva.light}>
+    <NavigationContainer
+      theme={MyTheme}
 
-export default App;
+    >
+      <MyTabs />
+    </ NavigationContainer>
+    </ApplicationProvider>
+  );
+}
