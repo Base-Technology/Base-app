@@ -1,15 +1,22 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { View, Button, ScrollView, Text, Image } from 'react-native';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout } from '@ui-kitten/components';
-import HomeIcon from './assets/icon_home';
-import ChatIcon from './assets/icon_chat.svg';
-import WalletIcon from './assets/icon_wallet.svg';
-import MomentIcon from './assets/icon_moment.svg';
-import WalletMain from './pages/wallet';
-import HomeScreen from './pages/home';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Frist from './frist';
+import SendScreen from './pages/wallet/swap';
+import TradeScreen from './pages/wallet/trade';
+
+function FeedScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button
+        title="Go to Settings"
+        onPress={() => navigation.navigate('Doctor')}
+      />
+    </View>
+  );
+}
 const MyTheme = {
   ...DarkTheme,
   colors: {
@@ -18,62 +25,95 @@ const MyTheme = {
     background: 'rgb(18, 18, 18)'
   },
 };
-// function HomeScreen() {
-//   return (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       <Text>Home!</Text>
-//     </View>
-//   );
-// }
+function ProfileScreen() {
+  return <View />;
+}
+
+function AccountScreen() {
+  return <View />;
+}
 
 function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
+  return <View><ScrollView
+    contentContainerStyle={{ minHeight: '85%' }}
+    style={{ padding: 20 }}
+  >
+    <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+      <View>
+        <Image
+          style={{ width: 40, height: 40, borderRadius: 100, }}
+          source={require('./assets/header.jpg')}
+        />
+      </View>
+      <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 10 }}>
+        <Text style={{padding:5}}>Hello</Text>
+      </View>
     </View>
-  );
+    <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+      <View>
+        <Image
+          style={{ width: 40, height: 40, borderRadius: 100, }}
+          source={require('./assets/header.jpg')}
+        />
+      </View>
+      <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 10 }}>
+        <Text style={{padding:5}}>Hello</Text>
+      </View>
+    </View>
+    <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+      <View>
+        <Image
+          style={{ width: 40, height: 40, borderRadius: 100, }}
+          source={require('./assets/header.jpg')}
+        />
+      </View>
+      <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 10 }}>
+        <Text style={{padding:5}}>Hello</Text>
+      </View>
+    </View>
+    <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+      
+      <View style={{ backgroundColor: '#fff', flex: 1, marginRight: 10, borderRadius: 10 }}>
+        <Text style={{padding:5}}>Hello</Text>
+      </View>
+      <View>
+        <Image
+          style={{ width: 40, height: 40, borderRadius: 100, }}
+          source={require('./assets/header.jpg')}
+        />
+      </View>
+    </View>
+  </ScrollView>
+
+  </View>
+    ;
 }
 
 const Tab = createBottomTabNavigator();
 
-function MyTabs() {
+function HomeTabs() {
   return (
-    <Tab.Navigator
-      
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          // You can return any component that you like here!
-          switch (route.name) {
-            case 'Home':
-              return <HomeIcon width="24" height="24" fill={color} />;
-            case 'Chats':
-              return <ChatIcon width="24" height="24" fill={color} />;
-            case 'Moment':
-              return <MomentIcon width="24" height="24" fill={color} />;
-            default:
-              return <WalletIcon width="24" height="24" fill={color} />;
-          }
-
-        }
-      })}
-    >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Chats" component={HomeScreen} />
-      <Tab.Screen name="Moment" component={HomeScreen} />
-      <Tab.Screen name="Wallet" component={WalletMain} />
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="Feed" component={FeedScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Account" component={AccountScreen} />
     </Tab.Navigator>
   );
 }
 
+const Stack = createNativeStackNavigator();
+
 export default function App() {
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
     <NavigationContainer
       theme={MyTheme}
-
     >
-      <MyTabs />
-    </ NavigationContainer>
-    </ApplicationProvider>
+      <Stack.Navigator>
+        <Stack.Screen options={{ headerShown: false }} name="Home" component={Frist} />
+        <Stack.Screen name="Doctor" component={SettingsScreen} />
+        <Stack.Screen name="Send" component={SendScreen} />
+        <Stack.Screen name="Trade" component={TradeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }

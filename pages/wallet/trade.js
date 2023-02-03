@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, {useState, useCallback, useRef} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -6,15 +6,14 @@ import {
   Text,
   TouchableOpacity,
   useColorScheme,
-  TouchableHighlight,
   View,
 } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { AppBar } from '@react-native-material/core';
-import { IconButton } from 'react-native-paper';
-import { SvgUri } from 'react-native-svg';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {AppBar} from '@react-native-material/core';
+import {IconButton} from 'react-native-paper';
+import {SvgUri} from 'react-native-svg';
 import Modal from 'react-native-modal';
-import { TokenList } from '../../constants/token_list';
+import {TokenList} from '../../constants/token_list';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import SendIcon from '../../assets/icon_send.svg';
@@ -23,7 +22,7 @@ import SwapIcon from '../../assets/icon_swap.svg';
 import MoreIcon from '../../assets/icon_more.svg';
 import MoreVertIcon from '../../assets/icon_more_vert.svg';
 
-const WalletMain = ({ navigation }) => {
+const WalletMain = ({navigation}) => {
   const isDarkMode = 'dark';
   const [isShow, setisShow] = useState(true);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -74,18 +73,18 @@ const WalletMain = ({ navigation }) => {
       paddingVertical: 5.5,
       backgroundColor: '#252928',
       height: 40,
-      width: 100,
+      width:100,
       margin: 8,
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent:'center',
       flexDirection: 'row',
       borderRadius: 10,
     },
     boxText: {
       color: 'white',
       fontSize: 12,
-      marginLeft: 5
+      marginLeft:5
     },
     boxHorizontal: {
       height: 35,
@@ -122,7 +121,7 @@ const WalletMain = ({ navigation }) => {
   });
 
   // Card for assets list
-  const AssetBox = ({ logoSrc, tokenName }) => {
+  const AssetBox = ({logoSrc, tokenName}) => {
     const styles = StyleSheet.create({
       assetContainer: {
         flexDirection: 'row',
@@ -130,7 +129,7 @@ const WalletMain = ({ navigation }) => {
         alignItems: 'center',
         paddingHorizontal: 18,
         paddingVertical: 5,
-
+       
       },
       leftLogoPart: {
         flex: 0.2,
@@ -153,11 +152,11 @@ const WalletMain = ({ navigation }) => {
           <SvgUri width="26" height="26" uri={logoSrc} />
         </View>
         <View style={styles.leftNamePart}>
-          <Text style={{ color: '#ffffff' }}>{tokenName}</Text>
+          <Text style={{color:'#ffffff'}}>{tokenName}</Text>
         </View>
-        <View style={{ ...styles.rightAssetPart, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <Text style={{ alignSelf: 'flex-end', color: '#ffffff' }}>0.25</Text>
-          <Text style={{ color: '#ffffff' }}></Text>
+        <View style={{...styles.rightAssetPart,display:'flex',flexDirection:'column',justifyContent:'center'}}>
+          <Text style={{alignSelf: 'flex-end',color:'#ffffff'}}>0.25</Text>
+          <Text style={{color:'#ffffff'}}></Text>
         </View>
       </View>
     );
@@ -168,71 +167,7 @@ const WalletMain = ({ navigation }) => {
       {/* <AppBar
         title="Wallet"
       /> */}
-      <View style={styles.balanceShow}>
-        {!isShow ? (
-          <View style={styles.balanceSection}>
-            <Ionicon name="ellipsis-horizontal" size={36} color="#ffffff" />
-            <Ionicon name="ellipsis-horizontal" size={36} color="#ffffff" />
-          </View>
-        ) : (
-          <Text style={styles.balanceText}>$ 0.00</Text>
-        )}
-        <View style={styles.balanceSection}>
-          <IconButton
-            icon={props => (
-              <Ionicon
-                name={isShow ? 'eye' : 'eye-off'}
-                color="#ffffff"
-                {...props}
-              />
-            )}
-            iconColor="#ffffff"
-            size={16}
-            onPress={() => setisShow(!isShow)}
-          />
-          {isShow ? <Text style={{ color: '#ffffff' }}>Hide Balance</Text> : <Text style={{ color: '#ffffff' }}>Show Balance</Text>}
-        </View>
-      </View>
-      <View style={styles.boxSection}>
-        <TouchableHighlight onPress={() => navigation.navigate('Send')}>
-          <View style={styles.box}  >
-            <SendIcon width="32" height="32" fill={'white'} />
-            <Text style={styles.boxText}>Send</Text>
-          </View>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => navigation.navigate('Trade')}>
-
-          <View style={styles.box}>
-            <SwapIcon width="32" height="32" fill={'white'} />
-            <Text style={styles.boxText}>Trade</Text>
-          </View>
-        </TouchableHighlight>
-
-      </View>
-      <ScrollView
-        contentContainerStyle={{ minHeight: '85%' }}
-        style={backgroundStyle}>
-        {TokenList ? (
-          TokenList.map(tokens => {
-            return (
-              <AssetBox logoSrc={tokens.logoURI} tokenName={tokens.symbol} />
-            );
-          })
-        ) : (
-          <Text>Loading</Text>
-        )}
-      </ScrollView>
-      <View>
-        <Modal
-          isVisible={isModalVisible}
-          onBackdropPress={toggleModal}
-          swipeDirection={['up', 'left', 'right', 'down']}
-          style={styles.view}>
-          <View style={styles.content}>
-            <Text style={styles.contentTitle}>Hi 👋!</Text>
-          </View>
-        </Modal>
-      </View>
+      <Text></Text>
     </View>
   );
 };

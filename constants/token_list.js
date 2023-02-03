@@ -29,16 +29,16 @@ export const TokenList = [
       'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_usdt.svg',
     idOnCoingecko: 'tether',
   },
-  {
-    name: 'Near Protocol',
-    symbol: 'NEAR',
-    address: '0x55d398326f99059ff775485246999027b3197955',
-    isStable: false,
-    decimals: 18,
-    logoURI:
-      'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_near.svg',
-    idOnCoingecko: 'tether',
-  },
+  // {
+  //   name: 'Near Protocol',
+  //   symbol: 'NEAR',
+  //   address: '0x55d398326f99059ff775485246999027b3197955',
+  //   isStable: false,
+  //   decimals: 18,
+  //   logoURI:
+  //     'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_near.svg',
+  //   idOnCoingecko: 'tether',
+  // },
   {
     name: 'Doge Coin',
     symbol: 'DOGE',
@@ -99,16 +99,16 @@ export const TokenList = [
       'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_bnb.svg',
     idOnCoingecko: 'binancecoin',
   },
-  {
-    name: 'XRP',
-    symbol: 'XRP',
-    address: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
-    isStable: false,
-    decimals: 18,
-    logoURI:
-      'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_xrp.svg',
-    idOnCoingecko: 'binancecoin',
-  },
+  // {
+  //   name: 'XRP',
+  //   symbol: 'XRP',
+  //   address: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+  //   isStable: false,
+  //   decimals: 18,
+  //   logoURI:
+  //     'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_xrp.svg',
+  //   idOnCoingecko: 'binancecoin',
+  // },
   {
     name: 'Uniswap',
     symbol: 'UNI',
