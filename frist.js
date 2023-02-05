@@ -15,7 +15,7 @@ const MyTheme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
-    primary: 'rgb(235, 92, 32)',
+    primary: '#422DDD',
     background: 'rgb(18, 18, 18)'
   },
 };

@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   useColorScheme,
+  TouchableHighlight,
   TextInput,
   Image,
   View,
@@ -171,7 +172,7 @@ const WalletMain = ({ navigation }) => {
         title="Wallet"
       /> */}
       <Text style={{ marginTop: 20, color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Trade From</Text>
-      <View style={{ display: 'flex', flexDirection: 'row',alignItems:'center', borderWidth: 1, borderColor: 'gray', marginTop: 5 }}>
+      <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: 'gray', marginTop: 5 }}>
         <View>
           <Image
             style={{ width: 30, height: 30 }}
@@ -187,8 +188,18 @@ const WalletMain = ({ navigation }) => {
         </View>
 
       </View>
-      <Text style={{ marginTop: 20, color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Trade To</Text>
-      <View style={{ display: 'flex', flexDirection: 'row',alignItems:'center', borderWidth: 1, borderColor: 'gray', marginTop: 5 }}>
+      <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', margin: 20 }}>
+        <TouchableHighlight
+          underlayColor="rgba(255, 255, 255, 0.08)"
+          style={{borderRadius:100,padding:5}}
+          onPress={() => function () { }}>
+          <SwapIcon width={30} height={30} fill='#fff' />
+        </TouchableHighlight>
+
+      </View>
+
+      <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Trade To</Text>
+      <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: 'gray', marginTop: 5 }}>
         <View>
           <Image
             style={{ width: 30, height: 30 }}

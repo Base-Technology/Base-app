@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import SettingsIcon from '../../assets/icon_settings.svg';
 import AddIcon from '../../assets/icon_add.svg';
+import BaseIcon from '../../assets/logo.svg';
 import { Datepicker, Icon } from '@ui-kitten/components';
 const CalendarIcon = (props) => (
   <Icon {...props} name='calendar' />
@@ -24,23 +25,28 @@ const HomeScreen = () => {
   return (
     <View>
       <View>
-        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignContent: 'center', margin: 20, marginBottom: 10 }}>
-          <AddIcon style={{ marginRight: 5 }} width="24" height="24" fill='#fff' />
-          <SettingsIcon width="24" height="24" fill='#fff' />
+        <View style={{ margin: 20, marginBottom: 10 }}>
+          {/* <AddIcon style={{ marginRight: 8 }} width="24" height="24" fill='#fff' /> */}
+          {/* <SettingsIcon width="24" height="24" fill='#fff' /> */}
+          <TextInput
+          style={{ height: 40, borderColor: 'gray', borderWidth: 2, color: '#ffffff', borderRadius: 5 }}
+          onChangeText={text => onChangeText(text)}
+          defaultValue=""
+        />
         </View>
 
       </View>
-      <View style={{ margin: 20, marginTop: 10 }}>
+      {/* <View style={{ margin: 20, marginTop: 10 }}>
         <TextInput
-          style={{ height:40, borderColor: 'gray', borderWidth: 2, color: '#ffffff',borderRadius:5 }}
+          style={{ height: 40, borderColor: 'gray', borderWidth: 2, color: '#ffffff', borderRadius: 5 }}
           onChangeText={text => onChangeText(text)}
           value={value}
         />
-      </View>
-      <ScrollView 
-      contentContainerStyle={{ minHeight: '85%' }}
+      </View> */}
+      <ScrollView
+        contentContainerStyle={{ minHeight: '85%' }}
       >
-        <View style={{ display: 'flex', flexDirection: 'row', margin: 10 }}>
+        {/* <View style={{ display: 'flex', flexDirection: 'row', margin: 10 }}>
           <View style={{ width: 66, height: 66, borderRadius: 100, marginRight: 20, backgroundColor: 'gray' }}>
             <Image
               style={{ width: 66, height: 66, borderRadius: 100, }}
@@ -52,7 +58,7 @@ const HomeScreen = () => {
             <Text style={{ color: 'rgba(255,255,255,0.6)' }}>Now or Never</Text>
             <Text style={{ color: 'rgba(255,255,255,0.6)' }}>Keep</Text>
           </View>
-        </View>
+        </View> */}
         {/* Setting */}
         <View style={{ margin: 20 }}>
           <Text style={{ color: '#ffffff', fontSize: 20 }}>Setting</Text>
@@ -113,12 +119,22 @@ const HomeScreen = () => {
         title="Go to Settings"
         onPress={() => navigation.navigate('Settings')}
       /> */}
-        <View style={{ backgroundColor: 'rgba(255,255,255,1)', minHeight: 200, margin: 20, borderRadius: 5 }}>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 5, }}>
-            <Text>Base</Text>
-            <Text>3 minutes ago</Text>
+        {/* <View style={{ backgroundColor: 'rgba(255,255,255,1)', minHeight: 200, margin: 20, borderRadius: 5 }}>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 5, alignItems: 'center' }}>
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 5, }}>
+              <BaseIcon width={30} height={30} />
+              <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 10 }}>Base</Text>
+            </View>
+            <View>
+
+              <Text>3 minutes ago</Text>
+            </View>
           </View>
-          <View style={{ backgroundColor: 'gray', height: 150 }}>
+          <View style={{ minHeight: 150 }}>
+            <Image
+              style={{ width: 375, height: 200 }}
+              source={{ uri: 'https://base.tech/static/dis.466c25c7.jpg' }}
+            />
 
           </View>
           <View style={{ padding: 5 }}>
@@ -127,11 +143,21 @@ const HomeScreen = () => {
           </View>
         </View>
         <View style={{ backgroundColor: 'rgba(255,255,255,1)', minHeight: 200, margin: 20, borderRadius: 5 }}>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 5, }}>
-            <Text>Base</Text>
-            <Text>3 minutes ago</Text>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 5, alignItems: 'center' }}>
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 5, }}>
+              <BaseIcon width={30} height={30} />
+              <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 10 }}>Base</Text>
+            </View>
+            <View>
+
+              <Text>3 minutes ago</Text>
+            </View>
           </View>
-          <View style={{ backgroundColor: 'gray', height: 150 }}>
+          <View style={{ minHeight: 150 }}>
+            <Image
+              style={{ width: 375, height: 200 }}
+              source={{ uri: 'https://base.tech/static/dis.466c25c7.jpg' }}
+            />
 
           </View>
           <View style={{ padding: 5 }}>
@@ -140,11 +166,21 @@ const HomeScreen = () => {
           </View>
         </View>
         <View style={{ backgroundColor: 'rgba(255,255,255,1)', minHeight: 200, margin: 20, borderRadius: 5 }}>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 5, }}>
-            <Text>Base</Text>
-            <Text>3 minutes ago</Text>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 5, alignItems: 'center' }}>
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 5, }}>
+              <BaseIcon width={30} height={30} />
+              <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 10 }}>Base</Text>
+            </View>
+            <View>
+
+              <Text>3 minutes ago</Text>
+            </View>
           </View>
-          <View style={{ backgroundColor: 'gray', height: 150 }}>
+          <View style={{ minHeight: 150 }}>
+            <Image
+              style={{ width: 375, height: 200 }}
+              source={{ uri: 'https://base.tech/static/dis.466c25c7.jpg' }}
+            />
 
           </View>
           <View style={{ padding: 5 }}>
@@ -153,32 +189,28 @@ const HomeScreen = () => {
           </View>
         </View>
         <View style={{ backgroundColor: 'rgba(255,255,255,1)', minHeight: 200, margin: 20, borderRadius: 5 }}>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 5, }}>
-            <Text>Base</Text>
-            <Text>3 minutes ago</Text>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 5, alignItems: 'center' }}>
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 5, }}>
+              <BaseIcon width={30} height={30} />
+              <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 10 }}>Base</Text>
+            </View>
+            <View>
+
+              <Text>3 minutes ago</Text>
+            </View>
           </View>
-          <View style={{ backgroundColor: 'gray', height: 150 }}>
+          <View style={{ minHeight: 150 }}>
+            <Image
+              style={{ width: 375, height: 200 }}
+              source={{ uri: 'https://base.tech/static/dis.466c25c7.jpg' }}
+            />
 
           </View>
           <View style={{ padding: 5 }}>
             <Text>Most people get their crypto news on social media which is mostly biased. #Catcoin aims to create an avenue for you to read unbiased news and earn even as you share.
               Are you ready to join the revolution?</Text>
           </View>
-        </View>
-        <View style={{ backgroundColor: 'rgba(255,255,255,1)', minHeight: 200, margin: 20, borderRadius: 5 }}>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 5, }}>
-            <Text>Base</Text>
-            <Text>3 minutes ago</Text>
-          </View>
-          <View style={{ backgroundColor: 'gray', height: 150 }}>
-
-          </View>
-          <View style={{ padding: 5 }}>
-            <Text>Most people get their crypto news on social media which is mostly biased. #Catcoin aims to create an avenue for you to read unbiased news and earn even as you share.
-              Are you ready to join the revolution?</Text>
-          </View>
-        </View>
-
+        </View> */}
       </ScrollView>
 
     </View>

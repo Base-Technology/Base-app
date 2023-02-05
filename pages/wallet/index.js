@@ -148,6 +148,10 @@ const WalletMain = ({ navigation }) => {
       },
     });
     return (
+      <TouchableHighlight
+      underlayColor="rgba(255, 255, 255, 0.08)"
+      style={{borderRadius:5,padding:5}}
+      onPress={() => function () { }}>
       <View style={styles.assetContainer}>
         <View style={styles.leftLogoPart}>
           <SvgUri width="26" height="26" uri={logoSrc} />
@@ -160,6 +164,7 @@ const WalletMain = ({ navigation }) => {
           <Text style={{ color: '#ffffff' }}></Text>
         </View>
       </View>
+      </TouchableHighlight>
     );
   };
 
