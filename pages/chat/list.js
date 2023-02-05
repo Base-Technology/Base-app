@@ -136,12 +136,6 @@ const Item = ({ name, content, navigation,header }) => {
             <Text style={styles.title}>{name}</Text>
             <Text style={styles.content}>{content}</Text>
           </View>
-
-
-
-           c
-          
-
         </View>
         <View style={{display:'flex',flexDirection:'row',justifyContent:'flex-start'}}>
           <View style={{backgroundColor:'#fff',height:20,minWidth:20,borderRadius:100,marginRight:10}}>

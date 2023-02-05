@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { View, Button, ScrollView, Text, Image } from 'react-native';
+import { View, Button, ScrollView, Text, Image,TextInput } from 'react-native';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Frist from './frist';
+import SendIcon from './assets/icon_sendmessage.svg';
 import SendScreen from './pages/wallet/send';
 import TradeScreen from './pages/wallet/trade';
 
@@ -34,57 +35,61 @@ function AccountScreen() {
 }
 
 function SettingsScreen() {
-  return <View><ScrollView
-    contentContainerStyle={{ minHeight: '85%' }}
-    style={{ padding: 20 }}
-  >
-    <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
-      <View>
-        <Image
-          style={{ width: 40, height: 40, borderRadius: 100, }}
-          source={require('./assets/header.jpg')}
-        />
+  return <View>
+    <ScrollView
+      contentContainerStyle={{ minHeight: '85%' }}
+      style={{ padding: 20 }}
+    >
+      <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+        <View>
+          <Image
+            style={{ width: 40, height: 40, borderRadius: 100, }}
+            source={require('./assets/header.jpg')}
+          />
+        </View>
+        <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 10 }}>
+          <Text style={{ padding: 5 }}>Hello</Text>
+        </View>
       </View>
-      <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 10 }}>
-        <Text style={{padding:5}}>Hello</Text>
+      <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+        <View>
+          <Image
+            style={{ width: 40, height: 40, borderRadius: 100, }}
+            source={require('./assets/header.jpg')}
+          />
+        </View>
+        <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 10 }}>
+          <Text style={{ padding: 5 }}>Hello</Text>
+        </View>
       </View>
-    </View>
-    <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
-      <View>
-        <Image
-          style={{ width: 40, height: 40, borderRadius: 100, }}
-          source={require('./assets/header.jpg')}
-        />
+      <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+        <View>
+          <Image
+            style={{ width: 40, height: 40, borderRadius: 100, }}
+            source={require('./assets/header.jpg')}
+          />
+        </View>
+        <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 10 }}>
+          <Text style={{ padding: 5 }}>Hello</Text>
+        </View>
       </View>
-      <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 10 }}>
-        <Text style={{padding:5}}>Hello</Text>
-      </View>
-    </View>
-    <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
-      <View>
-        <Image
-          style={{ width: 40, height: 40, borderRadius: 100, }}
-          source={require('./assets/header.jpg')}
-        />
-      </View>
-      <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 10 }}>
-        <Text style={{padding:5}}>Hello</Text>
-      </View>
-    </View>
-    <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
-      
-      <View style={{ backgroundColor: '#fff', flex: 1, marginRight: 10, borderRadius: 10 }}>
-        <Text style={{padding:5}}>Hello</Text>
-      </View>
-      <View>
-        <Image
-          style={{ width: 40, height: 40, borderRadius: 100, }}
-          source={require('./assets/header.jpg')}
-        />
-      </View>
-    </View>
-  </ScrollView>
+      <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
 
+        <View style={{ backgroundColor: '#fff', flex: 1, marginRight: 10, borderRadius: 10 }}>
+          <Text style={{ padding: 5 }}>Hello</Text>
+        </View>
+        <View>
+          <Image
+            style={{ width: 40, height: 40, borderRadius: 100, }}
+            source={require('./assets/header.jpg')}
+          />
+        </View>
+      </View>
+    </ScrollView>
+    <View style={{display:'flex',flexDirection:'row',alignItems:'center', borderTopWidth:1,borderTopColor:'rgba(255,255,255,0.1)',paddingLeft:10,paddingRight:10}}>
+     <TextInput value='Send Message' style={{color:'#fff',flex:1}} />
+     <SendIcon width={30} height={30}  fill={'white'}/>
+    </View>
   </View>
     ;
 }

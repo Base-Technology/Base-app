@@ -171,12 +171,12 @@ const WalletMain = ({ navigation }) => {
         title="Wallet"
       /> */}
       <Text style={{ marginTop: 20, color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Trade From</Text>
-      <View style={{ display: 'flex', flexDirection: 'row', borderWidth: 1, borderColor: 'gray', marginTop: 5 }}>
+      <View style={{ display: 'flex', flexDirection: 'row',alignItems:'center', borderWidth: 1, borderColor: 'gray', marginTop: 5 }}>
         <View>
           <Image
-            style={{ width: 50, height: 50 }}
+            style={{ width: 30, height: 30 }}
             source={{
-              uri: 'https://reactnative.dev/img/tiny_logo.png',
+              uri: 'https://dv3jj1unlp2jl.cloudfront.net/128/color/eth.png',
             }}
           />
         </View>
@@ -188,12 +188,12 @@ const WalletMain = ({ navigation }) => {
 
       </View>
       <Text style={{ marginTop: 20, color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Trade To</Text>
-      <View style={{ display: 'flex', flexDirection: 'row', borderWidth: 1, borderColor: 'gray', marginTop: 5 }}>
+      <View style={{ display: 'flex', flexDirection: 'row',alignItems:'center', borderWidth: 1, borderColor: 'gray', marginTop: 5 }}>
         <View>
           <Image
-            style={{ width: 50, height: 50 }}
+            style={{ width: 30, height: 30 }}
             source={{
-              uri: 'https://reactnative.dev/img/tiny_logo.png',
+              uri: 'https://dv3jj1unlp2jl.cloudfront.net/128/color/eth.png',
             }}
           />
         </View>
