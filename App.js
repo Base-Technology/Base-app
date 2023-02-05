@@ -4,7 +4,7 @@ import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Frist from './frist';
-import SendScreen from './pages/wallet/swap';
+import SendScreen from './pages/wallet/send';
 import TradeScreen from './pages/wallet/trade';
 
 function FeedScreen({ navigation }) {

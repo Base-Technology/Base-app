@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableHighlight, Button } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableHighlight, Button,Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const DATA = [
   {
@@ -9,8 +9,9 @@ const DATA = [
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'K',
-    content: 'Ok!'
+    name: 'KangShuiYue',
+    content: 'Ok!',
+    header:'ks.jpg'
   }, {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     name: 'John',
@@ -114,7 +115,7 @@ const DATA = [
   },
 ];
 const Stack = createNativeStackNavigator();
-const Item = ({ name, content, navigation }) => {
+const Item = ({ name, content, navigation,header }) => {
   return (
     <TouchableHighlight
       underlayColor="rgba(255, 255, 255, 0.08)"
@@ -123,12 +124,23 @@ const Item = ({ name, content, navigation }) => {
       <View style={styles.item}>
         <View style={styles.itemc}>
           <View style={{ width: 50, height: 50, borderRadius: 40, backgroundColor: 'gray', marginRight: 10 }}>
-
+          {header&&<Image
+                style={{ width: 50, height: 50, borderRadius: 100, }}
+                source={require('../../assets/ks.jpg')}
+              />||<Image
+              style={{ width: 50, height: 50, borderRadius: 100, }}
+              source={require('../../assets/group.png')}
+            />}
           </View>
           <View>
             <Text style={styles.title}>{name}</Text>
             <Text style={styles.content}>{content}</Text>
           </View>
+
+
+
+           c
+          
 
         </View>
         <View style={{display:'flex',flexDirection:'row',justifyContent:'flex-start'}}>

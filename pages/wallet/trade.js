@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef} from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -6,14 +6,16 @@ import {
   Text,
   TouchableOpacity,
   useColorScheme,
+  TextInput,
+  Image,
   View,
 } from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {AppBar} from '@react-native-material/core';
-import {IconButton} from 'react-native-paper';
-import {SvgUri} from 'react-native-svg';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { AppBar } from '@react-native-material/core';
+import { IconButton } from 'react-native-paper';
+import { SvgUri } from 'react-native-svg';
 import Modal from 'react-native-modal';
-import {TokenList} from '../../constants/token_list';
+import { TokenList } from '../../constants/token_list';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import SendIcon from '../../assets/icon_send.svg';
@@ -22,7 +24,7 @@ import SwapIcon from '../../assets/icon_swap.svg';
 import MoreIcon from '../../assets/icon_more.svg';
 import MoreVertIcon from '../../assets/icon_more_vert.svg';
 
-const WalletMain = ({navigation}) => {
+const WalletMain = ({ navigation }) => {
   const isDarkMode = 'dark';
   const [isShow, setisShow] = useState(true);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -40,6 +42,7 @@ const WalletMain = ({navigation}) => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',
+      padding: 20
     },
     balanceShow: {
       display: 'flex',
@@ -73,18 +76,18 @@ const WalletMain = ({navigation}) => {
       paddingVertical: 5.5,
       backgroundColor: '#252928',
       height: 40,
-      width:100,
+      width: 100,
       margin: 8,
       display: 'flex',
       alignItems: 'center',
-      justifyContent:'center',
+      justifyContent: 'center',
       flexDirection: 'row',
       borderRadius: 10,
     },
     boxText: {
       color: 'white',
       fontSize: 12,
-      marginLeft:5
+      marginLeft: 5
     },
     boxHorizontal: {
       height: 35,
@@ -121,7 +124,7 @@ const WalletMain = ({navigation}) => {
   });
 
   // Card for assets list
-  const AssetBox = ({logoSrc, tokenName}) => {
+  const AssetBox = ({ logoSrc, tokenName }) => {
     const styles = StyleSheet.create({
       assetContainer: {
         flexDirection: 'row',
@@ -129,7 +132,7 @@ const WalletMain = ({navigation}) => {
         alignItems: 'center',
         paddingHorizontal: 18,
         paddingVertical: 5,
-       
+
       },
       leftLogoPart: {
         flex: 0.2,
@@ -152,11 +155,11 @@ const WalletMain = ({navigation}) => {
           <SvgUri width="26" height="26" uri={logoSrc} />
         </View>
         <View style={styles.leftNamePart}>
-          <Text style={{color:'#ffffff'}}>{tokenName}</Text>
+          <Text style={{ color: '#ffffff' }}>{tokenName}</Text>
         </View>
-        <View style={{...styles.rightAssetPart,display:'flex',flexDirection:'column',justifyContent:'center'}}>
-          <Text style={{alignSelf: 'flex-end',color:'#ffffff'}}>0.25</Text>
-          <Text style={{color:'#ffffff'}}></Text>
+        <View style={{ ...styles.rightAssetPart, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <Text style={{ alignSelf: 'flex-end', color: '#ffffff' }}>0.25</Text>
+          <Text style={{ color: '#ffffff' }}></Text>
         </View>
       </View>
     );
@@ -167,7 +170,40 @@ const WalletMain = ({navigation}) => {
       {/* <AppBar
         title="Wallet"
       /> */}
-      <Text></Text>
+      <Text style={{ marginTop: 20, color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Trade From</Text>
+      <View style={{ display: 'flex', flexDirection: 'row', borderWidth: 1, borderColor: 'gray', marginTop: 5 }}>
+        <View>
+          <Image
+            style={{ width: 50, height: 50 }}
+            source={{
+              uri: 'https://reactnative.dev/img/tiny_logo.png',
+            }}
+          />
+        </View>
+        <View>
+          <TextInput style={{ borderColor: 'gray', borderWidth: 0, color: '#ffffff' }}
+            defaultValue="ETH"
+          />
+        </View>
+
+      </View>
+      <Text style={{ marginTop: 20, color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Trade To</Text>
+      <View style={{ display: 'flex', flexDirection: 'row', borderWidth: 1, borderColor: 'gray', marginTop: 5 }}>
+        <View>
+          <Image
+            style={{ width: 50, height: 50 }}
+            source={{
+              uri: 'https://reactnative.dev/img/tiny_logo.png',
+            }}
+          />
+        </View>
+        <View>
+          <TextInput style={{ borderColor: 'gray', borderWidth: 0, color: '#ffffff' }}
+            defaultValue="ETH"
+          />
+        </View>
+
+      </View>
     </View>
   );
 };

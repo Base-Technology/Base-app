@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowDown from "../../assets/arrow-ios-downward-outline.svg";
+import Logo from "../../assets/logo.svg";
 import { SafeAreaView, View, FlatList, StyleSheet, Text, Image } from 'react-native';
 import { Tooltip, Button } from '@ui-kitten/components';
 const DATA = [
@@ -123,7 +123,8 @@ const Item = ({ title, content }) => {
   return (
     <View style={styles.item}>
       <View style={styles.itemc}>
-        <View style={{ width: 40, height: 40, borderRadius: 40, backgroundColor: 'gray', marginRight: 10 }}>
+        <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
+          <Logo />
         </View>
       </View>
       <View style={{ paddingRight: 20 }}>
