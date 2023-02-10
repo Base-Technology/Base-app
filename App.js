@@ -105,7 +105,7 @@ function SettingsScreen() {
       <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 20 }}>
         <View>
           <View style={{ padding: 10, backgroundColor: '#422DDD', marginLeft: 5, borderRadius: 100, borderBottomRightRadius: 0 }}>
-            <Text style={{ color: '#fff' }}>A string representing the </Text>
+            <Text style={{ color: '#fff',fontFamily: "Karla-Light" }}>A stringdd representing the </Text>
           </View>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -236,7 +236,6 @@ function SettingsScreen() {
         value!=""&&<Button
         title="Send"
         color="#422DDD"
-        style={{texttran}}
       />||
       <MoreIcon width={30} height={30} fill="rgba(255,255,255,0.7)" />
 
