@@ -4,114 +4,33 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     name: 'KangShuiYue',
     content: 'Ok!',
     header:'ks.jpg'
-  }, {
+  },
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    name: 'Doctor',
+    content: '....',
+    header:'https://cdn.cdnjson.com/wx1.sinaimg.cn/large/87c01ec7gy1fsnqqz23ikj21kw0w0dxd.jpg'
+  },
+  {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     name: 'John',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
+    content: 'no',
+    header:'https://cdn.cdnjson.com/wx1.sinaimg.cn/large/87c01ec7gy1fsnqr1d4ezj21kw0w0wwx.jpg'
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
+    name: 'HeeJu',
+    content: 'TouchableHighlight',
+    header:'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/87c01ec7gy1fsnqqtg5n9j21kw0w04et.jpg'
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
-  }, {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
-    content: 'Ok!'
+    name: 'Mark',
+    content: 'https://akveo.github.io/react-native-ui-kitten',
+    header:'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/0072Vf1pgy1fodqnpms36j31hc0u0b2a.jpg'
   },
 ];
 const Stack = createNativeStackNavigator();
@@ -124,12 +43,12 @@ const Item = ({ name, content, navigation,header }) => {
       <View style={styles.item}>
         <View style={styles.itemc}>
           <View style={{ width: 50, height: 50, borderRadius: 40, backgroundColor: 'gray', marginRight: 10 }}>
-          {header&&<Image
+          {name=="KangShuiYue"&&<Image
                 style={{ width: 50, height: 50, borderRadius: 100, }}
                 source={require('../../assets/ks.jpg')}
               />||<Image
               style={{ width: 50, height: 50, borderRadius: 100, }}
-              source={require('../../assets/group.png')}
+              source={{uri:header}}
             />}
           </View>
           <View>
@@ -138,9 +57,9 @@ const Item = ({ name, content, navigation,header }) => {
           </View>
         </View>
         <View style={{display:'flex',flexDirection:'row',justifyContent:'flex-start'}}>
-          <View style={{backgroundColor:'#fff',height:20,minWidth:20,borderRadius:100,marginRight:10}}>
+          {/* <View style={{backgroundColor:'#fff',height:20,minWidth:20,borderRadius:100,marginRight:10}}>
             <Text style={{textAlign:'center'}}>3</Text>
-          </View>
+          </View> */}
           <Text style={styles.time}>9:08</Text>
         </View>
       </View>

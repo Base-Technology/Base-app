@@ -10,7 +10,10 @@ import VoiceIcon from './assets/icon_voice.svg';
 import DoneIcon from './assets/icon_doneall.svg';
 import SendScreen from './pages/wallet/send';
 import TradeScreen from './pages/wallet/trade';
-
+import DetailsScreen from './pages/home/details';
+import * as eva from '@eva-design/eva';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 function FeedScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -25,8 +28,8 @@ const MyTheme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
-    primary: 'rgb(235, 92, 32)',
-    background: 'rgb(18, 18, 18)'
+    primary: '#E0E0E0',
+    background: '#1e1e1e'
   },
 };
 function ProfileScreen() {
@@ -105,7 +108,7 @@ function SettingsScreen() {
       <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 20 }}>
         <View>
           <View style={{ padding: 10, backgroundColor: '#422DDD', marginLeft: 5, borderRadius: 100, borderBottomRightRadius: 0 }}>
-            <Text style={{ color: '#fff',fontFamily: "Karla-Light" }}>A stringdd representing the </Text>
+            <Text style={{ color: '#fff' }}>A stringdd representing the </Text>
           </View>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -233,11 +236,11 @@ function SettingsScreen() {
 
       </View>
       {
-        value!=""&&<Button
-        title="Send"
-        color="#422DDD"
-      />||
-      <MoreIcon width={30} height={30} fill="rgba(255,255,255,0.7)" />
+        value != "" && <Button
+          title="Send"
+          color="#422DDD"
+        /> ||
+        <MoreIcon width={30} height={30} fill="rgba(255,255,255,0.7)" />
 
       }
 
@@ -264,15 +267,21 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer
-      theme={MyTheme}
-    >
-      <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="Home" component={Frist} />
-        <Stack.Screen name="Doctor" component={SettingsScreen} />
-        <Stack.Screen name="Send" component={SendScreen} />
-        <Stack.Screen name="Trade" component={TradeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+    <IconRegistry icons={EvaIconsPack} />
+    <ApplicationProvider {...eva} theme={{...eva.dark}}>
+      <NavigationContainer
+        theme={MyTheme}
+      >
+        <Stack.Navigator>
+          <Stack.Screen options={{ headerShown: false }} name="Home" component={Frist} />
+          <Stack.Screen name="Doctor" component={SettingsScreen} />
+          <Stack.Screen name="Send" component={SendScreen} />
+          <Stack.Screen name="Trade" component={TradeScreen} />
+          <Stack.Screen options={{ headerShown: false }} name="Details" component={DetailsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ApplicationProvider>
+    </>
   );
 }
