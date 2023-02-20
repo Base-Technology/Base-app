@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, KeyboardAvoidingView, TextInput, StyleSheet, Platform, TouchableWithoutFeedback, Button, Keyboard, ScrollView } from 'react-native';
+import { View, KeyboardAvoidingView, TextInput, StyleSheet, Platform, TouchableWithoutFeedback, Button, Keyboard, ScrollView, Image } from 'react-native';
 import { Icon, Layout, MenuItem, OverflowMenu, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
-import { BaseVideo,BaseSwiper } from '../../components/Base'
-
-const BackIcon = (props) => (
-  <Icon {...props} name='arrow-back' />
-);
+import { BaseVideoFull, BaseSwiper,BaseText } from '../../components/Base'
+import BackIcon from "../../assets/icon_arrow_back.svg";
+// const BackIcon = (props) => (
+//   <Icon {...props} name='arrow-back' />
+// );
 
 const EditIcon = (props) => (
   <Icon {...props} name='edit' />
@@ -23,7 +23,7 @@ const LogoutIcon = (props) => (
   <Icon {...props} name='log-out' />
 );
 
-export const DetailsScreen = () => {
+export const DetailsScreen = ({ navigation }) => {
 
   const [menuVisible, setMenuVisible] = React.useState(false);
 
@@ -54,64 +54,65 @@ export const DetailsScreen = () => {
   );
 
   return (
-
-    <Layout style={styles.container} level='1'>
-      <TopNavigation
-        alignment='center'
-        title='Our song'
-        accessoryLeft={renderBackAction}
-        accessoryRight={renderRightActions}
-      />
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
-        <ScrollView contentContainerStyle={{ minHeight: '85%' }}>
-          <View style={{height:200}}>
-            <BaseVideo />
+    <View style={{ flexDirection: 'column', flex: 1 }}>
+      <View style={{ flex: 1, position: 'relative' }}>
+        <BaseVideoFull />
+        <View style={{ position: 'absolute', top: 0, right: 0, left: 0, padding: 10, zIndex: 1 }}>
+          <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+            <BackIcon width={30} height={30} fill="#fff" />
+          </TouchableWithoutFeedback>
+        </View>
+        <View style={{ position: 'absolute', bottom: 0, right: 0, left: 0, padding: 20 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
+              <Image
+                style={{ width: 50, height: 50, borderRadius: 100, }}
+                source={require('../../assets/img/s5.png')}
+              />
+            </View>
+            <Text style={{ marginLeft: 10, marginRight: 20 }}>KangShuiYue</Text>
+            <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
+              <Text> Join</Text>
+            </View>
           </View>
-          <View style={{ padding: 10 }}>
-            <Text>感谢大神色终于搞懂了985，211和双一流少4985高校共39所，211高校共116所，双流高校共147所。军校
-              。6作者已用不同颜色标注出来，红色为 985蓝色为 211，黑色为双一流，所有的985都是211和双一流，所有的211都是双一流。
-              0其中双一流:北京34所
-              上海15所
-              广东7所</Text>
+          <View>
+            <BaseText style={{fontSize:16,marginTop:20}}>A linear error-correcting code with message length  and codeword length  is a linear subspace , such that there exists an injective mapping from message to codeword , which is called the encoder of the code.</BaseText>
           </View>
-          <BaseSwiper />
-        </ScrollView>
-        <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', borderTopColor: 'rgba(255,255,255,0.1)', paddingLeft: 10, paddingRight: 10 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, padding: 10, borderRadius: 100, backgroundColor: 'rgba(255,255,255,0.05)', height: 40, marginLeft: 10, marginRight: 10 }}>
-            <TextInput
-              style={{ height: 40, borderColor: 'gray', color: '#fff', flex: 1 }}
+        </View>
 
-            />
+      </View>
 
-          </View>
+      <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', borderTopColor: 'rgba(255,255,255,0.1)', padding: 10 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, padding: 10, borderRadius: 100, backgroundColor: 'rgba(255,255,255,0.05)', height: 40, marginLeft: 10, marginRight: 10 }}>
+          <TextInput
+            style={{ height: 40, borderColor: 'gray', color: '#fff', flex: 1 }}
 
-          <Icon
-            style={styles.icon}
-            fill='#8F9BB3'
-            name='message-square-outline'
           />
-          <Text>11k</Text>
-          <Icon
-            style={styles.icon}
-            fill='#8F9BB3'
-            name='heart-outline'
-          />
-          <Text>11k</Text>
-          <Icon
-            style={styles.icon}
-            fill='#8F9BB3'
-            name='share-outline'
-          />
-          <Text>11k</Text>
-          {/*  */}
 
         </View>
-      </KeyboardAvoidingView>
 
-    </Layout>
+        <Icon
+          style={styles.icon}
+          fill='#8F9BB3'
+          name='message-square-outline'
+        />
+        <Text>11k</Text>
+        <Icon
+          style={styles.icon}
+          fill='#8F9BB3'
+          name='heart-outline'
+        />
+        <Text>11k</Text>
+        <Icon
+          style={styles.icon}
+          fill='#8F9BB3'
+          name='share-outline'
+        />
+        <Text>11k</Text>
+        {/*  */}
+
+      </View>
+    </View>
   );
 };
 
