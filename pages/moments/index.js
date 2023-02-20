@@ -44,8 +44,23 @@ const Momnet = () => {
               source={header}
             />
           </View>
-          <Text style={{ marginLeft: 10 }}>KangShuiYue</Text>
-          <Text style={{ marginLeft: 20, fontSize: 8 }}>1 days ago</Text>
+          <View style={{ marginLeft: 10 }}>
+            <Text >KangShuiYue</Text>
+            <View style={{ flexDirection: 'row', marginTop: 5 }}>
+              <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5 }}>
+                <Text style={{ textAlign: 'center', fontSize: 8 }}>
+                  @dodo.base
+                </Text>
+              </View>
+              <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, marginLeft: 10, paddingLeft: 5, paddingRight: 5, padding: 0 }}>
+                <Text style={{ textAlign: 'center', padding: 0, fontSize: 8 }}>
+                  0xebaD...89e1
+                </Text>
+              </View>
+              <Text style={{ marginLeft: 10, fontSize: 8 }}>1 days ago</Text>
+
+            </View>
+          </View>
         </View>
         <View style={{ marginTop: 10, overflow: 'hidden' }}>
           {/* <Image source={poster} /> */}
@@ -56,13 +71,13 @@ const Momnet = () => {
           }
 
         </View>
-        <View style={{ margin: 20, marginBottom: 0,marginTop:10 }}>
+        <View style={{ margin: 20, marginBottom: 0, marginTop: 10 }}>
           <TouchableWithoutFeedback
             onPress={() => {
               setModalVisible(true);
             }}>
             <View>
-              <BaseText style={{ fontSize: 14,marginBottom:5 }}>What is Fox Tech?</BaseText>
+              <BaseText style={{ fontSize: 14, marginBottom: 5 }}>What is Fox Tech?</BaseText>
               <BaseText style={{ lineHeight: 20 }}>Way Network is a universal solution to enable interchain transaction with trustless and valid delivery. It's the first chain-wide interoperability protocol that provides a powerful low-level...
               </BaseText>
             </View>
@@ -80,12 +95,11 @@ const Momnet = () => {
             <TouchableWithoutFeedback
               onPress={() => {
                 setModalVisible(true);
-                
+
                 setTimeout(() => {
                   setLongText(!longText);
 
-                  if(!longText)
-                  {
+                  if (!longText) {
                     myScrollView.current.scrollTo({ x: 0, y: 300, animated: true });
 
                   }
@@ -97,9 +111,9 @@ const Momnet = () => {
               <CommentIcon width={23} height={23} fill="#fff" />
             </TouchableWithoutFeedback>
 
-            <Text style={{ marginLeft: 5, marginRight: 15 }}>134</Text>
+            <Text style={{ marginLeft: 5, marginRight: 20 }}>134</Text>
             <FavoriteIcon width={23} height={23} fill="#fff" />
-            <Text style={{ marginLeft: 5, marginRight: 15 }}>420</Text>
+            <Text style={{ marginLeft: 5, marginRight: 20 }}>420</Text>
             <StarIcon width={23} height={23} fill="#fff" />
             <Text style={{ marginLeft: 5, }}>909</Text>
           </View>
@@ -108,7 +122,7 @@ const Momnet = () => {
           </View>
 
         </View>
-        
+
       </View >
     );
   }
@@ -131,7 +145,7 @@ const Momnet = () => {
         presentationStyle="fullScreen"
       >
         <View style={styles.centeredView}>
-          <View style={{...styles.modalView,height:longText&&600||500}}>
+          <View style={{ ...styles.modalView, height: longText && 600 || 500 }}>
             {/* <Text style={styles.modalText}>Hello World!</Text>
 
             <TouchableWithoutFeedback
@@ -144,7 +158,7 @@ const Momnet = () => {
             </TouchableWithoutFeedback> */}
             <View style={{ flex: 1, flexDirection: 'column', borderTopColor: 'rgba(255,255,255,0.1)', paddingLeft: 10, paddingRight: 10 }}>
               <View style={{ position: 'relative', minHeight: 40 }}>
-                <BaseText style={{ textAlign: 'left', fontSize: 14 }}>{longText&&'zkEVM Overview'|| "What is Fox Tech?"}</BaseText>
+                <BaseText style={{ textAlign: 'left', fontSize: 14 }}>{longText && 'zkEVM Overview' || "What is Fox Tech?"}</BaseText>
                 <CloseIcon style={{ position: 'absolute', right: 0 }} width={20} height={20} fill="rgba(255,255,255,0.8)" />
               </View>
               <ScrollView
@@ -153,14 +167,14 @@ const Momnet = () => {
               >
                 <BaseText>Fox is an Ethereum zkRollup using zkEVM (zero-knowledge Ethereum Virtual Machine) and zk-FOAKs (zero-knowledge Fast Objective Argument of Knowledge). Fox redesigns the zkEVM which is more efficient than all the existing zkEVMs by optimizing the structure of the zkEVM. In addition, given the EVM opcode compatibility, zk-FOAKs is designed to verify state changes efficiently. It promises not only to be secure and efficient but also to accomplish competitive decentralization. </BaseText>
                 {
-                  longText&&<BaseText style={{ marginTop: 10 }}>Fox Sequencer runs an Ethereum node, receives transactions from the users, generates new states and a special zkEVM-friendly execution trace. Fox Folder is the proof generator, taking the trace from the sequencer, and processing it inside the zkEVM using a large number of small tables, rather than a surprisingly large table, which will significantly reduce the redundancy and increase the speed of generating proofs.
-                  Fox Tech aims to improve scalability and performance in blockchains by providing cryptographic proofs that are zero-knowledge with a quantum secure, fully EVM-compatible, and non-trusted setup. It initiates a strong proof network, combining software and hardware to support fast, reliable generation and verification of computational integrity proofs for general computations, on which the universal dApps can easily be deployed and get their compatibility. These includes:
-                  100% EVM compatible
-                  20,000+ TPS targeted
-                  $0.01 Gas level targeted
-                  Special Layer 3 Design, Open to C++/Rust/Move dAppChain </BaseText>
+                  longText && <BaseText style={{ marginTop: 10 }}>Fox Sequencer runs an Ethereum node, receives transactions from the users, generates new states and a special zkEVM-friendly execution trace. Fox Folder is the proof generator, taking the trace from the sequencer, and processing it inside the zkEVM using a large number of small tables, rather than a surprisingly large table, which will significantly reduce the redundancy and increase the speed of generating proofs.
+                    Fox Tech aims to improve scalability and performance in blockchains by providing cryptographic proofs that are zero-knowledge with a quantum secure, fully EVM-compatible, and non-trusted setup. It initiates a strong proof network, combining software and hardware to support fast, reliable generation and verification of computational integrity proofs for general computations, on which the universal dApps can easily be deployed and get their compatibility. These includes:
+                    100% EVM compatible
+                    20,000+ TPS targeted
+                    $0.01 Gas level targeted
+                    Special Layer 3 Design, Open to C++/Rust/Move dAppChain </BaseText>
                 }
-                
+
                 <BaseText style={{ color: 'gray', fontSize: 12, marginTop: 10 }}>Today 11:09</BaseText>
                 <View style={{ borderBottomWidth: 0.5, borderBottomColor: 'gray', marginTop: 10, marginBottom: 10 }}>
 

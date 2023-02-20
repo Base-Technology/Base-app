@@ -1,8 +1,12 @@
 import React from 'react';
 import { View, KeyboardAvoidingView, TextInput, StyleSheet, Platform, TouchableWithoutFeedback, Button, Keyboard, ScrollView, Image } from 'react-native';
 import { Icon, Layout, MenuItem, OverflowMenu, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
-import { BaseVideoFull, BaseSwiper,BaseText } from '../../components/Base'
+import { BaseVideoFull, BaseSwiper, BaseText } from '../../components/Base'
 import BackIcon from "../../assets/icon_arrow_back.svg";
+import ShareIcon from "../../assets/icon_share.svg";
+import StarIcon from "../../assets/icon_star.svg";
+import CommentIcon from "../../assets/icon_comment.svg";
+import FavoriteIcon from "../../assets/icon_favorite.svg";
 // const BackIcon = (props) => (
 //   <Icon {...props} name='arrow-back' />
 // );
@@ -57,7 +61,7 @@ export const DetailsScreen = ({ navigation }) => {
     <View style={{ flexDirection: 'column', flex: 1 }}>
       <View style={{ flex: 1, position: 'relative' }}>
         <BaseVideoFull />
-        <View style={{ position: 'absolute', top: 0, right: 0, left: 0, padding: 10, zIndex: 1 }}>
+        <View style={{ position: 'absolute', top: 0, right: 0, left: 0, padding: 10, zIndex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
             <BackIcon width={30} height={30} fill="#fff" />
           </TouchableWithoutFeedback>
@@ -66,50 +70,41 @@ export const DetailsScreen = ({ navigation }) => {
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
               <Image
-                style={{ width: 50, height: 50, borderRadius: 100, }}
+                style={{ width: 40, height: 40, borderRadius: 100, }}
                 source={require('../../assets/img/s5.png')}
               />
             </View>
-            <Text style={{ marginLeft: 10, marginRight: 20 }}>KangShuiYue</Text>
+            <Text style={{ marginRight: 20 }}>KangShuiYue</Text>
             <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
-              <Text> Join</Text>
+              <Text>Follow</Text>
             </View>
           </View>
           <View>
-            <BaseText style={{fontSize:16,marginTop:20}}>A linear error-correcting code with message length  and codeword length  is a linear subspace , such that there exists an injective mapping from message to codeword , which is called the encoder of the code.</BaseText>
+            <BaseText style={{ fontSize: 16, marginTop: 20,color:'#fff' }}>A linear error-correcting code with messa ... More </BaseText>
           </View>
         </View>
 
       </View>
 
-      <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', borderTopColor: 'rgba(255,255,255,0.1)', padding: 10 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, padding: 10, borderRadius: 100, backgroundColor: 'rgba(255,255,255,0.05)', height: 40, marginLeft: 10, marginRight: 10 }}>
+      <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center',justifyContent:'space-between', borderTopColor: '#1e1e1e', padding: 10,paddingLeft:20,paddingRight:20 }}>
+        {/* <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, padding: 10, borderRadius: 100, backgroundColor: 'rgba(255,255,255,0.05)', height: 40, marginLeft: 10, marginRight: 10 }}>
           <TextInput
             style={{ height: 40, borderColor: 'gray', color: '#fff', flex: 1 }}
 
           />
 
+        </View> */}
+        <View style={{flexDirection:'row'}}>
+          <CommentIcon width={23} height={23} fill="#fff" />
+          <BaseText style={{ marginLeft: 5, marginRight: 20 }}>134</BaseText>
+          <FavoriteIcon width={23} height={23} fill="#fff" />
+          <BaseText style={{ marginLeft: 5, marginRight: 20 }}>420</BaseText>
+          <StarIcon width={23} height={23} fill="#fff" />
+          <BaseText style={{ marginLeft: 5, }}>909</BaseText>
         </View>
+        <ShareIcon width={23} height={23} fill="#fff" />
 
-        <Icon
-          style={styles.icon}
-          fill='#8F9BB3'
-          name='message-square-outline'
-        />
-        <Text>11k</Text>
-        <Icon
-          style={styles.icon}
-          fill='#8F9BB3'
-          name='heart-outline'
-        />
-        <Text>11k</Text>
-        <Icon
-          style={styles.icon}
-          fill='#8F9BB3'
-          name='share-outline'
-        />
-        <Text>11k</Text>
-        {/*  */}
+
 
       </View>
     </View>

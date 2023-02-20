@@ -9,7 +9,7 @@ import {
     Image
 } from 'react-native';
 import Text from "../../components/BaseText";
-import StarIcon from "../../assets/icon_star.svg";
+import EditIcon from "../../assets/icon_edit.svg";
 import CloseIcon from "../../assets/icon_close.svg";
 import FavoriteIcon from "../../assets/icon_favorite.svg";
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -47,7 +47,7 @@ const WalletMain = ({ navigation }) => {
         },
         balanceShow: {
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             justifyContent: 'center',
             paddingTop: 15,
             paddingBottom: 5,
@@ -60,7 +60,7 @@ const WalletMain = ({ navigation }) => {
             color: 'white',
         },
         balanceText: {
-            lineHeight:35,
+            lineHeight: 35,
             alignSelf: 'center',
             fontSize: 28.8,
             color: 'white',
@@ -73,21 +73,21 @@ const WalletMain = ({ navigation }) => {
             paddingHorizontal: 35,
         },
         box: {
-            paddingHorizontal: 5.5,
-            paddingVertical: 5.5,
-            backgroundColor: '#252928',
-            height: 40,
+            // paddingHorizontal: 5.5,
+            // paddingVertical: 5.5,
+            backgroundColor: '#422DDD',
+            height: 35,
             width: 100,
             margin: 8,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            borderRadius: 10,
+            borderRadius: 100,
         },
         boxText: {
             color: 'white',
-            fontSize: 12,
+            fontSize: 16,
             marginLeft: 5
         },
         boxHorizontal: {
@@ -170,24 +170,46 @@ const WalletMain = ({ navigation }) => {
             </TouchableWithoutFeedback>
         );
     };
-
+    const [headerHeight, setHeaderHeight] = useState(200);
+    const headerOnLayout = useCallback((event: any) => {
+        const { height } = event.nativeEvent.layout;
+        setHeaderHeight(height);
+    }, []);
     return (
         <View style={styles.mainContainer}>
             {/* <AppBar
         title="Wallet"
       /> */}
-            <View style={{ margin: 20, flexDirection: 'row', alignItems: 'center' }}>
-                <View style={{ width: 70, height: 70, borderRadius: 40, marginRight: 10 }}>
-                    <Image
-                        style={{ width: 70, height: 70, borderRadius: 100, }}
-                        source={require('../../assets/img/s5.png')}
-                    />
-                </View>
-                <View>
-                    <Text style={{ marginLeft: 10, fontSize: 18 }}>KangShuiYue</Text>
-                    <Text style={{ marginLeft: 10, color: 'gray' }}>@dodo</Text>
-                </View>
+            <View style={{ margin: 20, marginTop: 60, flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ width: 50, height: 50, borderRadius: 40, marginRight: 10 }}>
+                        <Image
+                            style={{ width: 50, height: 50, borderRadius: 100, }}
+                            source={require('../../assets/img/s5.png')}
+                        />
+                    </View>
+                    <View style={{ marginLeft: 10 }}>
+                        <Text style={{ fontSize: 18 }}>KangShuiYue</Text>
 
+                        <View style={{ flexDirection: 'row',marginTop:5 }}>
+                            <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5,paddingLeft:5,paddingRight:5}}>
+                                <Text style={{ textAlign: 'center' }}>
+                                    @dodo.base
+                                </Text>
+                            </View>
+                            <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, marginLeft: 10 ,paddingLeft:5,paddingRight:5,padding:0}}>
+                                <Text style={{ textAlign: 'center',padding:0 }}>
+                                    0xebaD...89e1
+                                </Text>
+                            </View>
+                        </View>
+
+                    </View>
+                </View>
+                <View style={{ alignItems: 'flex-start' }}>
+                    <EditIcon width={25} height={25} fill="gray" />
+
+                </View>
             </View>
             <View style={{ margin: 20, marginTop: 0 }}>
                 <Text style={{ fontSize: 14 }}>
@@ -195,13 +217,11 @@ const WalletMain = ({ navigation }) => {
                 </Text>
             </View>
             <View style={{ flexDirection: 'row', margin: 20, marginTop: 0 }}>
-                <FavoriteIcon width={23} height={23} fill="#fff" />
-                <Text style={{ marginLeft: 5, marginRight: 15 }}>420</Text>
-                <StarIcon width={23} height={23} fill="#fff" />
-                <Text style={{ marginLeft: 5, marginRight: 15 }}>134</Text>
+                <Text style={{ marginLeft: 5, marginRight: 15, fontSize: 16, color: '#fff' }}>420 <Text>Following</Text></Text>
+                <Text style={{ marginLeft: 5, fontSize: 16, color: '#fff' }}>34 <Text>Followers</Text></Text>
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                <Text style={{ borderBottomWidth: 2, borderBottomColor: '#422DDD', marginRight: 10 }}>Wallet</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', borderBottomColor: 'rgba(255,255,255,0.1)', borderBottomWidth: 0.2 }}>
+                <Text style={{ borderBottomWidth: 2, borderBottomColor: '#422DDD', marginRight: 10, fontWeight: 'bold', paddingLeft: 10, paddingRight: 10, marginBottom: -1, paddingBottom: 5 }}>Wallet</Text>
                 <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10 }}>Posts</Text>
 
                 <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10 }}>Collects</Text>
@@ -216,6 +236,8 @@ const WalletMain = ({ navigation }) => {
                 ) : (
                     <Text style={styles.balanceText}>$ 0.00</Text>
                 )}
+
+
                 <View style={styles.balanceSection}>
                     <IconButton
                         icon={props => (
@@ -229,20 +251,20 @@ const WalletMain = ({ navigation }) => {
                         size={16}
                         onPress={() => setisShow(!isShow)}
                     />
-                    {isShow ? <Text style={{ color: '#ffffff' }}>Hide Balance</Text> : <Text style={{ color: '#ffffff' }}>Show Balance</Text>}
                 </View>
             </View>
+
             <View style={styles.boxSection}>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('Send')}>
                     <View style={styles.box}  >
-                        <SendIcon width="32" height="32" fill={'white'} />
+                        <SendIcon width="15" height="15" fill="#fff" />
                         <Text style={styles.boxText}>Send</Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('Trade')}>
 
                     <View style={styles.box}>
-                        <SwapIcon width="32" height="32" fill={'white'} />
+                        <SwapIcon width="15" height="15" fill="#fff" />
                         <Text style={styles.boxText}>Trade</Text>
                     </View>
                 </TouchableWithoutFeedback>
