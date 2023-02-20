@@ -4,9 +4,8 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   useColorScheme,
-  TouchableHighlight,
   View,
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -148,7 +147,7 @@ const WalletMain = ({ navigation }) => {
       },
     });
     return (
-      <TouchableHighlight
+      <TouchableWithoutFeedback
       underlayColor="rgba(255, 255, 255, 0.08)"
       style={{borderRadius:5,padding:5}}
       onPress={() => function () { }}>
@@ -164,7 +163,7 @@ const WalletMain = ({ navigation }) => {
           <Text style={{ color: '#ffffff' }}></Text>
         </View>
       </View>
-      </TouchableHighlight>
+      </TouchableWithoutFeedback>
     );
   };
 
@@ -199,19 +198,19 @@ const WalletMain = ({ navigation }) => {
         </View>
       </View>
       <View style={styles.boxSection}>
-        <TouchableHighlight onPress={() => navigation.navigate('Send')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Send')}>
           <View style={styles.box}  >
             <SendIcon width="32" height="32" fill={'white'} />
             <Text style={styles.boxText}>Send</Text>
           </View>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => navigation.navigate('Trade')}>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Trade')}>
 
           <View style={styles.box}>
             <SwapIcon width="32" height="32" fill={'white'} />
             <Text style={styles.boxText}>Trade</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableWithoutFeedback>
 
       </View>
       <ScrollView

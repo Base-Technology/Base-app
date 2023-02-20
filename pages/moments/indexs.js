@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     ScrollView,
-    TouchableOpacity,
+    TouchableWithoutFeedback,
     Text
 } from 'react-native';
 import Drawer from 'react-native-drawer'
@@ -77,9 +77,9 @@ class Home extends Component {
             >
                 {/*主内容区*/}
                 <ScrollView style={styles.container}>
-                    <TouchableOpacity style={styles.button} onPress={this.openDrawer}>
+                    <TouchableWithoutFeedback style={styles.button} onPress={this.openDrawer}>
                         <Text>Open Drawer</Text>
-                    </TouchableOpacity>
+                    </TouchableWithoutFeedback>
                 </ScrollView>
             </Drawer>
 

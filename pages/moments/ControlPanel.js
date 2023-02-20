@@ -4,7 +4,7 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    TouchableOpacity,
+    TouchableWithoutFeedback,
     View,
 } from 'react-native'
 
@@ -15,9 +15,9 @@ export default class ControlPanel extends Component {
             <ScrollView style={styles.container}>
                 <View style={{marginTop: 40}}>
                     <Text style={styles.controlText}>Control Panel</Text>
-                    <TouchableOpacity style={styles.button} onPress={closeDrawer}>
+                    <TouchableWithoutFeedback style={styles.button} onPress={closeDrawer}>
                         <Text>Close Drawer</Text>
-                    </TouchableOpacity>
+                    </TouchableWithoutFeedback>
                 </View>
             </ScrollView>
         )

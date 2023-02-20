@@ -4,9 +4,8 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   useColorScheme,
-  TouchableHighlight,
   TextInput,
   Image,
   View,
@@ -189,12 +188,12 @@ const WalletMain = ({ navigation }) => {
 
       </View>
       <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', margin: 20 }}>
-        <TouchableHighlight
+        <TouchableWithoutFeedback
           underlayColor="rgba(255, 255, 255, 0.08)"
           style={{borderRadius:100,padding:5}}
           onPress={() => function () { }}>
           <SwapIcon width={30} height={30} fill='#fff' />
-        </TouchableHighlight>
+        </TouchableWithoutFeedback>
 
       </View>
 

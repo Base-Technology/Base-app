@@ -4,9 +4,8 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   useColorScheme,
-  TouchableHighlight,
   View,
   TextInput
 } from 'react-native';
@@ -98,7 +97,7 @@ const WalletMain = ({ navigation }) => {
         defaultValue="Recipient's address"
       />
       <Text style={{ marginTop: 20, color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Recents</Text>
-      <TouchableHighlight
+      <TouchableWithoutFeedback
         underlayColor="rgba(255, 255, 255, 0.08)"
         onPress={() => function () { }}
       >
@@ -106,8 +105,8 @@ const WalletMain = ({ navigation }) => {
           <View style={{ backgroundColor: 'gray', width: 50, height: 50, borderRadius: 100 }}></View>
           <Text style={{ color: '#fff', marginLeft: 30 }}>0x818D...18B7</Text>
         </View>
-      </TouchableHighlight>
-      <TouchableHighlight
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback
         underlayColor="rgba(255, 255, 255, 0.08)"
         onPress={() => function () { }}
       >
@@ -115,7 +114,7 @@ const WalletMain = ({ navigation }) => {
           <View style={{ backgroundColor: 'gray', width: 50, height: 50, borderRadius: 100 }}></View>
           <Text style={{ color: '#fff', marginLeft: 30 }}>0x818D...18B7</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableWithoutFeedback>
       
     </View>
   );

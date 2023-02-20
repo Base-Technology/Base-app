@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableHighlight, Button,Image } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableWithoutFeedback, Button,Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const DATA = [
   {
@@ -23,7 +23,7 @@ const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     name: 'HeeJu',
-    content: 'TouchableHighlight',
+    content: 'TouchableWithoutFeedback',
     header:'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/87c01ec7gy1fsnqqtg5n9j21kw0w04et.jpg'
   },
   {
@@ -36,7 +36,7 @@ const DATA = [
 const Stack = createNativeStackNavigator();
 const Item = ({ name, content, navigation,header }) => {
   return (
-    <TouchableHighlight
+    <TouchableWithoutFeedback
       underlayColor="rgba(255, 255, 255, 0.08)"
       onPress={() => navigation.navigate('Doctor')}
     >
@@ -63,7 +63,7 @@ const Item = ({ name, content, navigation,header }) => {
           <Text style={styles.time}>9:08</Text>
         </View>
       </View>
-    </TouchableHighlight>
+    </TouchableWithoutFeedback>
   );
 }
 

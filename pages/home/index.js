@@ -3,9 +3,8 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   useColorScheme,
-  TouchableHighlight,
   View,
   TextInput,
   Image,
@@ -18,6 +17,7 @@ import MoreIcon from '../../assets/icon_moredown.svg';
 import RefreshIcon from '../../assets/icon_refresh.svg';
 import AddIcon from '../../assets/icon_plus.svg';
 import { Layout, ViewPager, Icon } from '@ui-kitten/components';
+import Swiper from 'react-native-swiper'
 import Text from "./BaseText";
 const CalendarIcon = (props) => (
   <Icon {...props} name='calendar' />
@@ -30,8 +30,8 @@ const InfoF = () => (
         <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: 'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/87c01ec7gy1fsnqquzufwj21kw0w0aqq.jpg' }} />
       </View>
       <View style={{ marginLeft: 10 }}>
-        <Text style={{  }}>Our song</Text>
-        <Text style={{ color: 'rgba(255,255,255,0.7)',fontSize:8 }}>20w member</Text>
+        <Text style={{}}>Our song</Text>
+        <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 8 }}>20w member</Text>
       </View>
     </View>
     <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
@@ -45,14 +45,16 @@ const ViewPagerSimpleUsageShowcase = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   return (
-    <ViewPager
-      selectedIndex={selectedIndex}
-      onSelect={index => setSelectedIndex(index)}>
+    <Swiper
+      autoplay
+      showsPagination={false}
+      loop
+    >
       <Layout
         level='1'
         style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
       >
-        <Bg  img={require('../../assets/img/s1.png')}/>
+        <Bg img={require('../../assets/img/s1.png')} />
 
         <View style={styles.container}>
           <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
@@ -65,9 +67,9 @@ const ViewPagerSimpleUsageShowcase = () => {
           <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
             <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: 'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/87c01ec7gy1fsnqquzufwj21kw0w0aqq.jpg' }} />
           </View>
-          <View style={{ margin: 15, marginTop: -5,marginBottom:5 }}>
+          <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={{  fontSize: 18}}>Base Group</Text>
+              <Text style={{ fontSize: 18 }}>Base Group</Text>
 
               <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
                 <Text style={{ fontSize: 14 }}>Join</Text>
@@ -98,7 +100,7 @@ const ViewPagerSimpleUsageShowcase = () => {
         level='1'
         style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
       >
-        <Bg  img={require('../../assets/img/s3.png')}/>
+        <Bg img={require('../../assets/img/s3.png')} />
 
         <View style={styles.container}>
           <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
@@ -111,9 +113,9 @@ const ViewPagerSimpleUsageShowcase = () => {
           <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
             <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: 'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/87c01ec7gy1fsnqquzufwj21kw0w0aqq.jpg' }} />
           </View>
-          <View style={{ margin: 15, marginTop: -5,marginBottom:5 }}>
+          <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={{  fontSize: 18}}>Base Group</Text>
+              <Text style={{ fontSize: 18 }}>Base Group</Text>
 
               <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
                 <Text style={{ fontSize: 14 }}>Join</Text>
@@ -144,7 +146,7 @@ const ViewPagerSimpleUsageShowcase = () => {
         level='1'
         style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
       >
-        <Bg img={require('../../assets/img/s4.png')}/>
+        <Bg img={require('../../assets/img/s4.png')} />
 
         <View style={styles.container}>
           <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
@@ -157,9 +159,9 @@ const ViewPagerSimpleUsageShowcase = () => {
           <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
             <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: 'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/87c01ec7gy1fsnqquzufwj21kw0w0aqq.jpg' }} />
           </View>
-          <View style={{ margin: 15, marginTop: -5,marginBottom:5 }}>
+          <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={{  fontSize: 18}}>Base Group</Text>
+              <Text style={{ fontSize: 18 }}>Base Group</Text>
 
               <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
                 <Text style={{ fontSize: 14 }}>Join</Text>
@@ -186,7 +188,7 @@ const ViewPagerSimpleUsageShowcase = () => {
           </View>
         </View>
       </Layout>
-    </ViewPager>
+    </Swiper>
   );
 };
 const HomeScreen = ({ navigation }) => {
@@ -195,18 +197,18 @@ const HomeScreen = ({ navigation }) => {
   const Info = () => (
 
     <View style={{ marginTop: 10 }}>
-      <TouchableHighlight onPress={() => navigation.navigate('Details')}>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Details')}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View>
             <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: 'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/87c01ec7gy1fsnqquzufwj21kw0w0aqq.jpg' }} />
           </View>
           <View style={{ marginLeft: 10 }}>
-            <Text style={{  }}>Our song</Text>
+            <Text style={{}}>Our song</Text>
             <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 8 }}>20w members</Text>
           </View>
 
         </View>
-      </TouchableHighlight>
+      </TouchableWithoutFeedback>
 
     </View >
   )
@@ -219,7 +221,7 @@ const HomeScreen = ({ navigation }) => {
         /> */}
       <View style={{ width: 20 }}></View>
       <View style={{ flexDirection: 'row' }}>
-        <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10  }}>Follw</Text>
+        <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10 }}>Follw</Text>
         <Text style={{ borderBottomWidth: 2, borderBottomColor: '#422DDD' }}>Group</Text>
         <Text style={{ color: 'rgba(255,255,255,0.6)', marginLeft: 10 }}>People</Text>
       </View>
@@ -233,11 +235,11 @@ const HomeScreen = ({ navigation }) => {
     <ScrollView
       contentContainerStyle={{ minHeight: '85%' }}
     >
-      <View style={{ margin: 20, overflow: 'hidden', borderRadius: 5, marginTop: 10 }}>
+      <View style={{ margin: 20, overflow: 'hidden', borderRadius: 5, marginTop: 10,height:180 }}>
         <ViewPagerSimpleUsageShowcase />
       </View>
-      <View style={{ margin: 20, marginTop: 0,marginBottom:0 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',paddingLeft:10,paddingRight:10  }}>
+      <View style={{ margin: 20, marginTop: 0, marginBottom: 0 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 10, paddingRight: 10 }}>
           <Text style={{ color: '#ffffff', fontSize: 16 }}>Active</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <RefreshIcon width={20} height={20} fill="#fff" />
@@ -245,7 +247,7 @@ const HomeScreen = ({ navigation }) => {
           </View>
 
         </View>
-        <View style={{ flexDirection: 'row',padding:10 }}>
+        <View style={{ flexDirection: 'row', padding: 10 }}>
           <View style={{ flex: 1 }}>
             <Info />
             <Info />
@@ -263,7 +265,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={{ padding: 10, borderRadius: 50 }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <View>
-              <Text style={{ color: '#ffffff', fontSize: 14,  backgroundColor: 'gray', borderRadius: 50, padding: 2, paddingLeft: 10, paddingRight: 10 }}>DeFi</Text>
+              <Text style={{ color: '#ffffff', fontSize: 14, backgroundColor: 'gray', borderRadius: 50, padding: 2, paddingLeft: 10, paddingRight: 10 }}>DeFi</Text>
 
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -282,7 +284,7 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <View style={{ margin: 20, padding: 10, marginTop: 10 }}>
         <View>
-          <Text style={{ color: '#ffffff', fontSize: 16,  marginBottom: 10 }}>Guessg You Like</Text>
+          <Text style={{ color: '#ffffff', fontSize: 16, marginBottom: 10 }}>Guessg You Like</Text>
         </View>
         <InfoF />
         <InfoF />
