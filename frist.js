@@ -11,7 +11,7 @@ import MeFullIcon from './assets/icon_mefull.svg';
 import MomentIcon from './assets/icon_moment.svg';
 import MomentFullIcon from './assets/icon_momentfull.svg';
 import CreateIcon from './assets/icon_create.svg';
-import WalletMain from './pages/wallet';
+import WalletMain from './pages/me/index';
 import HomeScreen from './pages/home';
 import Chat from './pages/chat/list';
 import Moment from './pages/moments';

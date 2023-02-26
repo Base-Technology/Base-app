@@ -1,14 +1,15 @@
 export const TokenList = [
   {
-    name: 'Bitcoin',
-    symbol: 'BTC',
+    name: 'Doge Coin',
+    symbol: 'DOGE',
     address: '0x55d398326f99059ff775485246999027b3197955',
     isStable: false,
     decimals: 18,
     logoURI:
-      'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_btc.svg',
+      'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_doge.svg',
     idOnCoingecko: 'tether',
   },
+ 
   {
     name: 'Ethereum',
     symbol: 'ETH',
@@ -29,6 +30,16 @@ export const TokenList = [
       'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_usdt.svg',
     idOnCoingecko: 'tether',
   },
+  {
+    name: 'Bitcoin',
+    symbol: 'BTC',
+    address: '0x55d398326f99059ff775485246999027b3197955',
+    isStable: false,
+    decimals: 18,
+    logoURI:
+      'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_btc.svg',
+    idOnCoingecko: 'tether',
+  },
   // {
   //   name: 'Near Protocol',
   //   symbol: 'NEAR',
@@ -39,16 +50,7 @@ export const TokenList = [
   //     'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_near.svg',
   //   idOnCoingecko: 'tether',
   // },
-  {
-    name: 'Doge Coin',
-    symbol: 'DOGE',
-    address: '0x55d398326f99059ff775485246999027b3197955',
-    isStable: false,
-    decimals: 18,
-    logoURI:
-      'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_doge.svg',
-    idOnCoingecko: 'tether',
-  },
+  
   {
     name: 'Axie Infinity',
     symbol: 'AXS',
@@ -67,6 +69,15 @@ export const TokenList = [
     decimals: 18,
     logoURI:
       'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_cro.svg',
+    idOnCoingecko: 'tether',
+  },
+  {
+    name: 'ACY',
+    symbol: 'ACY',
+    address: '0x55d398326f99059ff775485246999027b3197955',
+    isStable: false,
+    decimals: 18,
+    logoURI:'https://app.acy.finance/favicon.svg',
     idOnCoingecko: 'tether',
   },
   {

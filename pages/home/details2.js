@@ -60,7 +60,6 @@ export const DetailsScreen = ({ navigation }) => {
   return (
     <View style={{ flexDirection: 'column', flex: 1 }}>
       <View style={{ flex: 1, position: 'relative' }}>
-        <BaseVideoFull />
         <View style={{ position: 'absolute', top: 0, right: 0, left: 0, padding: 10, zIndex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
             <BackIcon width={30} height={30} fill="#fff" />
@@ -80,13 +79,16 @@ export const DetailsScreen = ({ navigation }) => {
             </View>
           </View>
           <View>
-            <BaseText style={{ fontSize: 16, marginTop: 20,color:'#fff' }}>A linear error-correcting code with messa ... More </BaseText>
+            <BaseText style={{ fontSize: 16, marginTop: 20, color: '#fff' }}>A linear error-correcting code with messa ... More </BaseText>
           </View>
+        </View>
+        <View style={{flex:1,flexDirection:'column',justifyContent:'center'}}>
+          <BaseSwiper />
         </View>
 
       </View>
 
-      <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center',justifyContent:'space-between', borderTopColor: '#1e1e1e', padding: 10,paddingLeft:20,paddingRight:20 }}>
+      <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderTopColor: '#1e1e1e', padding: 10, paddingLeft: 20, paddingRight: 20 }}>
         {/* <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, padding: 10, borderRadius: 100, backgroundColor: 'rgba(255,255,255,0.05)', height: 40, marginLeft: 10, marginRight: 10 }}>
           <TextInput
             style={{ height: 40, borderColor: 'gray', color: '#fff', flex: 1 }}
@@ -94,7 +96,7 @@ export const DetailsScreen = ({ navigation }) => {
           />
 
         </View> */}
-        <View style={{flexDirection:'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <CommentIcon width={23} height={23} fill="#fff" />
           <BaseText style={{ marginLeft: 5, marginRight: 20 }}>134</BaseText>
           <FavoriteIcon width={23} height={23} fill="#fff" />

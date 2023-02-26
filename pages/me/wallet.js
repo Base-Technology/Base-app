@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useRef } from 'react';
 import {
     SafeAreaView,
-    ScrollView,
     StyleSheet,
     TouchableWithoutFeedback,
     useColorScheme,
+    ScrollView,
     View,
     Image
 } from 'react-native';
@@ -25,7 +25,7 @@ import ReceiveIcon from '../../assets/icon_receive.svg';
 import SwapIcon from '../../assets/icon_swap.svg';
 import MoreIcon from '../../assets/icon_more.svg';
 import MoreVertIcon from '../../assets/icon_more_vert.svg';
-
+import { ScrollTabView, FlatList } from '../../components/BaseHead';
 const WalletMain = ({ navigation }) => {
     const isDarkMode = 'dark';
     const [isShow, setisShow] = useState(true);
@@ -136,12 +136,11 @@ const WalletMain = ({ navigation }) => {
 
             },
             leftLogoPart: {
-                flex: 0.2,
+                flex: 1,
                 flexWrap: 'wrap',
-            },
-            leftNamePart: {
-                flex: 0.8,
+                flexDirection:'row',
                 justifyContent: 'flex-start',
+                alignItems:'center',
                 color: 'white'
             },
             rightAssetPart: {
@@ -158,9 +157,8 @@ const WalletMain = ({ navigation }) => {
                 <View style={styles.assetContainer}>
                     <View style={styles.leftLogoPart}>
                         <SvgUri width="26" height="26" uri={logoSrc} />
-                    </View>
-                    <View style={styles.leftNamePart}>
-                        <Text style={{ color: '#ffffff' }}>{tokenName}</Text>
+
+                        <Text style={{ color: '#ffffff',marginLeft:10 }}>{tokenName}</Text>
                     </View>
                     <View style={{ ...styles.rightAssetPart, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         <Text style={{ alignSelf: 'flex-end', color: '#ffffff' }}>0.25</Text>
@@ -175,58 +173,42 @@ const WalletMain = ({ navigation }) => {
         const { height } = event.nativeEvent.layout;
         setHeaderHeight(height);
     }, []);
+    function TabView1(props) {
+        const data = new Array(200).fill({});
+        const renderItem = ({ item, index }) => {
+            return (
+                <View style={{ marginVertical: 2, padding: 10, borderWidth: 1 }}>
+                    <Text>{'tab1 => ' + index}</Text>
+                </View>
+            );
+        };
+        return <FlatList {...props} data={data} renderItem={renderItem} {...props} />;
+    }
+    const _renderScrollHeader = useCallback(() => {
+        const data = new Array(10).fill({});
+        return (
+            <View onLayout={headerOnLayout}>
+                <View style={{ backgroundColor: 'pink' }}>
+                    {data.map((o, i) => (
+                        <View style={{ marginVertical: 2, padding: 10, borderWidth: 1 }}>
+                            <Text>{'header => ' + i}</Text>
+                        </View>
+                    ))}
+                </View>
+            </View>
+        );
+    }, []);
     return (
         <View style={styles.mainContainer}>
+            {/* <ScrollTabView headerHeight={headerHeight} renderScrollHeader={_renderScrollHeader}>
+                <TabView1 tabLabel="tab1" />
+                <TabView1 tabLabel="tab2" />
+                <TabView1 tabLabel="tab3" />
+            </ScrollTabView> */}
             {/* <AppBar
         title="Wallet"
       /> */}
-            <View style={{ margin: 20, marginTop: 60, flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 50, height: 50, borderRadius: 40, marginRight: 10 }}>
-                        <Image
-                            style={{ width: 50, height: 50, borderRadius: 100, }}
-                            source={require('../../assets/img/s5.png')}
-                        />
-                    </View>
-                    <View style={{ marginLeft: 10 }}>
-                        <Text style={{ fontSize: 18 }}>KangShuiYue</Text>
 
-                        <View style={{ flexDirection: 'row',marginTop:5 }}>
-                            <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5,paddingLeft:5,paddingRight:5}}>
-                                <Text style={{ textAlign: 'center' }}>
-                                    @dodo.base
-                                </Text>
-                            </View>
-                            <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, marginLeft: 10 ,paddingLeft:5,paddingRight:5,padding:0}}>
-                                <Text style={{ textAlign: 'center',padding:0 }}>
-                                    0xebaD...89e1
-                                </Text>
-                            </View>
-                        </View>
-
-                    </View>
-                </View>
-                <View style={{ alignItems: 'flex-start' }}>
-                    <EditIcon width={25} height={25} fill="gray" />
-
-                </View>
-            </View>
-            <View style={{ margin: 20, marginTop: 0 }}>
-                <Text style={{ fontSize: 14 }}>
-                    Fox is an Ethereum zkRollup using zkEVM (zero-knowledge Ethereum Virtual Machine) and zk-FOAKs (zero-knowledge Fast Objective Argument of Knowledge).
-                </Text>
-            </View>
-            <View style={{ flexDirection: 'row', margin: 20, marginTop: 0 }}>
-                <Text style={{ marginLeft: 5, marginRight: 15, fontSize: 16, color: '#fff' }}>420 <Text>Following</Text></Text>
-                <Text style={{ marginLeft: 5, fontSize: 16, color: '#fff' }}>34 <Text>Followers</Text></Text>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', borderBottomColor: 'rgba(255,255,255,0.1)', borderBottomWidth: 0.2 }}>
-                <Text style={{ borderBottomWidth: 2, borderBottomColor: '#422DDD', marginRight: 10, fontWeight: 'bold', paddingLeft: 10, paddingRight: 10, marginBottom: -1, paddingBottom: 5 }}>Wallet</Text>
-                <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10 }}>Posts</Text>
-
-                <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10 }}>Collects</Text>
-                <Text style={{ color: 'rgba(255,255,255,0.6)', marginLeft: 10 }}>Likes</Text>
-            </View>
             <View style={styles.balanceShow}>
                 {!isShow ? (
                     <View style={styles.balanceSection}>
@@ -257,15 +239,15 @@ const WalletMain = ({ navigation }) => {
             <View style={styles.boxSection}>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('Send')}>
                     <View style={styles.box}  >
-                        <SendIcon width="15" height="15" fill="#fff" />
+                        {/* <SendIcon width="15" height="15" fill="#fff" /> */}
                         <Text style={styles.boxText}>Send</Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('Trade')}>
 
                     <View style={styles.box}>
-                        <SwapIcon width="15" height="15" fill="#fff" />
-                        <Text style={styles.boxText}>Trade</Text>
+                        {/* <SwapIcon width="15" height="15" fill="#fff" /> */}
+                        <Text style={styles.boxText}>Swap</Text>
                     </View>
                 </TouchableWithoutFeedback>
 
@@ -283,17 +265,7 @@ const WalletMain = ({ navigation }) => {
                     <Text>Loading</Text>
                 )}
             </ScrollView>
-            <View>
-                <Modal
-                    isVisible={isModalVisible}
-                    onBackdropPress={toggleModal}
-                    swipeDirection={['up', 'left', 'right', 'down']}
-                    style={styles.view}>
-                    <View style={styles.content}>
-                        <Text style={styles.contentTitle}>Hi 👋!</Text>
-                    </View>
-                </Modal>
-            </View>
+
         </View>
     );
 };
