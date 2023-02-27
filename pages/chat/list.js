@@ -4,33 +4,34 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'KangShuiYue',
+    name: 'Fox',
     content: 'Ok!',
-    header:'ks.jpg'
+    header:require('../../assets/fox.png')
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Doctor',
+    name: 'Ox',
     content: '....',
-    header:'https://cdn.cdnjson.com/wx1.sinaimg.cn/large/87c01ec7gy1fsnqqz23ikj21kw0w0dxd.jpg'
+    header:require('../../assets/ox.png')
+
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'John',
+    name: 'Send',
     content: 'no',
-    header:'https://cdn.cdnjson.com/wx1.sinaimg.cn/large/87c01ec7gy1fsnqr1d4ezj21kw0w0wwx.jpg'
+    header:require('../../assets/send.png')
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'HeeJu',
+    name: 'Keep',
     content: 'TouchableWithoutFeedback',
-    header:'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/87c01ec7gy1fsnqqtg5n9j21kw0w04et.jpg'
+    header:require('../../assets/keep.png')
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Mark',
+    name: 'Hayek',
     content: 'https://akveo.github.io/react-native-ui-kitten',
-    header:'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/0072Vf1pgy1fodqnpms36j31hc0u0b2a.jpg'
+    header:require('../../assets/hayek.png')
   },
 ];
 const Stack = createNativeStackNavigator();
@@ -48,7 +49,7 @@ const Item = ({ name, content, navigation,header }) => {
                 source={require('../../assets/ks.jpg')}
               />||<Image
               style={{ width: 50, height: 50, borderRadius: 100, }}
-              source={{uri:header}}
+              source={header}
             />}
           </View>
           <View>
