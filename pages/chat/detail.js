@@ -14,9 +14,19 @@ import {
     StyleSheet,
     TouchableOpacity
 } from 'react-native';
-import Drawer from 'react-native-drawer'
+import Drawer from 'react-native-drawer';
+import { queryMessage } from '../../database/message';
+
 function SettingsScreen() {
     const [value, onChangeText] = React.useState('33');
+
+    const [messages, changeMessages] = React.useState(undefined);
+
+    if (!messages) {
+        queryMessage((msgs) => {
+            changeMessages(msgs);
+        });
+    }
 
     return <View>
 
@@ -24,6 +34,24 @@ function SettingsScreen() {
             contentContainerStyle={{ minHeight: '85%' }}
             style={{ padding: 20 }}
         >
+
+            {messages && messages.map((msg) =>
+            (<View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+                <View>
+                    <Image
+                        style={{ width: 40, height: 40, borderRadius: 100, }}
+                        source={require('../../assets/ks.jpg')}
+                    />
+                </View>
+                <View>
+                    <View style={{ padding: 10, backgroundColor: 'rgba(255,255,255,0.1)', marginLeft: 20, borderRadius: 100, borderBottomLeftRadius: 0 }}>
+                        <Text style={{ color: '#fff' }}>{msg.content}</Text>
+
+                    </View>
+                    <Text style={{ padding: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12, textAlign: 'center', marginLeft: 20, }}>17:01</Text>
+                </View>
+            </View>)
+            )}
 
             <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
                 <View>
@@ -226,7 +254,7 @@ class Home extends Component {
         this.state = {
             drawerOpen: false,
             drawerDisabled: false,
-            active:false,
+            active: false,
         };
     }
 
@@ -265,7 +293,7 @@ class Home extends Component {
                         opacity: ratio / 2,
                     }
                 })}
-                onOpenStart={()=>{
+                onOpenStart={() => {
                     this.setState({ active: true });
 
                 }}
@@ -307,17 +335,17 @@ class Home extends Component {
                                 />
                                 <View style={{ marginLeft: 5 }}>
                                     <View>
-                                        <Text style={{ color: '#fff',fontSize:16 }}>BNB Official Group</Text>
+                                        <Text style={{ color: '#fff', fontSize: 16 }}>BNB Official Group</Text>
                                     </View>
-                                    <View style={{ flexDirection: 'row'}}>
-                                        <Text style={{ color: '#fff',fontSize:8, }}>$999 <Text style={{fontSize:8,}}>Treasury</Text></Text>
-                                        <Text style={{ marginLeft: 5, color: '#fff',fontSize:8, }}>34 <Text style={{fontSize:8,}}>Members</Text></Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={{ color: '#fff', fontSize: 8, }}>$999 <Text style={{ fontSize: 8, }}>Treasury</Text></Text>
+                                        <Text style={{ marginLeft: 5, color: '#fff', fontSize: 8, }}>34 <Text style={{ fontSize: 8, }}>Members</Text></Text>
                                     </View>
                                 </View>
                             </View>
                         </View>
                         <View style={{ justifyContent: 'center', flexDirection: 'row', position: 'absolute', bottom: -2.5, right: 0, left: 0 }}>
-                            <View style={{ height: 5, width: 100, borderRadius: 100, marginTop: 5, backgroundColor:this.state.active&&'#422ddd'||'#2D2D34' }}>
+                            <View style={{ height: 5, width: 100, borderRadius: 100, marginTop: 5, backgroundColor: this.state.active && '#422ddd' || '#2D2D34' }}>
 
                             </View>
                         </View>
