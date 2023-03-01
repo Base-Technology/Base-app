@@ -45,6 +45,22 @@ export default class SQLite {
             PRIMARY KEY ("id")
           )`;
         this.executeSql(sql);
+
+        // TODO: insert test data
+        this.executeSql(`select count(*) as count from "message"`, [], (tx, results) => {
+            if (results.rows.item(0).count == "0") {
+                this.insertTestData();
+            }
+        })
+    }
+
+    insertTestData() {
+        this.executeSql(`INSERT INTO "message" VALUES ('0', 0, 1677594062000, '0x123', 0, 'Hello?')`);
+        this.executeSql(`INSERT INTO "message" VALUES ('1', 0, 1677594062001, '0x123', 1, 'Hello!')`);
+        this.executeSql(`INSERT INTO "message" VALUES ('2', 0, 1677594062001, '0x123', 0, 'Metting?')`);
+        this.executeSql(`INSERT INTO "message" VALUES ('3', 0, 1677594062001, '0x123', 1, 'Metting!')`);
+        this.executeSql(`INSERT INTO "message" VALUES ('4', 0, 1677594062002, '0x123', 0, 'An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label?')`);
+        this.executeSql(`INSERT INTO "message" VALUES ('5', 0, 1677594062002, '0x123', 1, 'An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label!')`);
     }
 
     executeSql(sql, params, callback) {

@@ -15,10 +15,11 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Drawer from 'react-native-drawer';
-import { queryMessage } from '../../database/message';
+import { queryMessage, addMessage } from '../../database/message';
+import moment from 'moment';
 
 function SettingsScreen() {
-    const [value, onChangeText] = React.useState('33');
+    const [value, onChangeText] = React.useState('');
 
     const [messages, changeMessages] = React.useState(undefined);
 
@@ -35,25 +36,42 @@ function SettingsScreen() {
             style={{ padding: 20 }}
         >
 
-            {messages && messages.map((msg) =>
-            (<View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
-                <View>
-                    <Image
-                        style={{ width: 40, height: 40, borderRadius: 100, }}
-                        source={require('../../assets/ks.jpg')}
-                    />
-                </View>
-                <View>
-                    <View style={{ padding: 10, backgroundColor: 'rgba(255,255,255,0.1)', marginLeft: 20, borderRadius: 100, borderBottomLeftRadius: 0 }}>
-                        <Text style={{ color: '#fff' }}>{msg.content}</Text>
-
+            {messages && messages.map((msg) => {
+                return (
+                    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: msg.is_send == 0 ? 'flex-start' : 'flex-end', marginBottom: 20 }}>
+                        {msg.is_send == 0 && (
+                            <View>
+                                <Image
+                                    style={{ width: 40, height: 40, borderRadius: 100, }}
+                                    source={require('../../assets/ks.jpg')}
+                                />
+                            </View>)}
+                        <View>
+                            <View style={{
+                                padding: 10,
+                                backgroundColor: msg.is_send == 0 ? 'rgba(255,255,255,0.1)' : '#422DDD',
+                                marginLeft: msg.is_send == 0 ? 20 : 5,
+                                borderRadius: msg.content.length > 70 ? 10 : 100,
+                                borderBottomLeftRadius: msg.is_send == 0 ? 0 : undefined,
+                                borderBottomRightRadius: msg.is_send == 0 ? undefined : 0,
+                            }}>
+                                <Text style={{ color: '#fff' }}>{msg.content}</Text>
+                            </View>
+                            {msg.is_send == 0 && (<Text style={{ padding: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12, textAlign: 'center', marginLeft: 20, }}>{moment.unix(msg.timestamp / 1000).format('HH:mm')}</Text>)}
+                            {msg.is_send == 1 && (
+                                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
+                                    <View style={{ display: 'flex', flexDirection: 'row' }}>
+                                        <Text style={{ paddingLeft: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12 }}>{moment.unix(msg.timestamp / 1000).format('HH:mm')}</Text>
+                                        <DoneIcon width={20} height={20} fill="rgba(255,255,255,0.3)" />
+                                    </View>
+                                </View>)}
+                        </View>
                     </View>
-                    <Text style={{ padding: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12, textAlign: 'center', marginLeft: 20, }}>17:01</Text>
-                </View>
-            </View>)
+                )
+            }
             )}
 
-            <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+            {/* <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
                 <View>
                     <Image
                         style={{ width: 40, height: 40, borderRadius: 100, }}
@@ -69,12 +87,12 @@ function SettingsScreen() {
                 </View>
 
 
-                {/* <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-            <View>
-              <Text style={{ padding: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12 }}>17:01</Text>
-  
-            </View>
-          </View> */}
+                <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                    <View>
+                        <Text style={{ padding: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12 }}>17:01</Text>
+
+                    </View>
+                </View>
             </View>
             <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
                 <View>
@@ -92,12 +110,12 @@ function SettingsScreen() {
                 </View>
 
 
-                {/* <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-            <View>
-              <Text style={{ padding: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12 }}>17:01</Text>
-  
-            </View>
-          </View> */}
+                <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                    <View>
+                        <Text style={{ padding: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12 }}>17:01</Text>
+
+                    </View>
+                </View>
             </View>
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 20 }}>
                 <View>
@@ -134,12 +152,12 @@ function SettingsScreen() {
                 </View>
 
 
-                {/* <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-            <View>
-              <Text style={{ padding: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12 }}>17:01</Text>
-  
-            </View>
-          </View> */}
+                <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                    <View>
+                        <Text style={{ padding: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12 }}>17:01</Text>
+
+                    </View>
+                </View>
             </View>
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 20 }}>
                 <View>
@@ -173,47 +191,47 @@ function SettingsScreen() {
                 </View>
 
 
-                {/* <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-            <View>
-              <Text style={{ padding: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12 }}>17:01</Text>
-  
+                <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                    <View>
+                        <Text style={{ padding: 10, color: 'rgba(255,255,255,0.3)', fontSize: 12 }}>17:01</Text>
+
+                    </View>
+                </View>
             </View>
-          </View> */}
+            <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+                <View>
+                    <Image
+                        style={{ width: 40, height: 40, borderRadius: 100, }}
+                        source={require('./assets/ks.jpg')}
+                    />
+                </View>
+                <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 100 }}>
+                    <Text style={{ padding: 5 }}>Hello</Text>
+                </View>
             </View>
-            {/* <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
-          <View>
-            <Image
-              style={{ width: 40, height: 40, borderRadius: 100, }}
-              source={require('./assets/ks.jpg')}
-            />
-          </View>
-          <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 100 }}>
-            <Text style={{ padding: 5 }}>Hello</Text>
-          </View>
-        </View>
-        <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
-          <View>
-            <Image
-              style={{ width: 40, height: 40, borderRadius: 100, }}
-              source={require('./assets/ks.jpg')}
-            />
-          </View>
-          <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 100 }}>
-            <Text style={{ padding: 5 }}>Hello</Text>
-          </View>
-        </View>
-        <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
-  
-          <View style={{ backgroundColor: '#fff', flex: 1, marginRight: 10, borderRadius: 100 }}>
-            <Text style={{ padding: 5 }}>Hello</Text>
-          </View>
-          <View>
-            <Image
-              style={{ width: 40, height: 40, borderRadius: 100, }}
-              source={require('./assets/ks.jpg')}
-            />
-          </View>
-        </View> */}
+            <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+                <View>
+                    <Image
+                        style={{ width: 40, height: 40, borderRadius: 100, }}
+                        source={require('./assets/ks.jpg')}
+                    />
+                </View>
+                <View style={{ backgroundColor: '#fff', flex: 1, marginLeft: 10, borderRadius: 100 }}>
+                    <Text style={{ padding: 5 }}>Hello</Text>
+                </View>
+            </View>
+            <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+
+                <View style={{ backgroundColor: '#fff', flex: 1, marginRight: 10, borderRadius: 100 }}>
+                    <Text style={{ padding: 5 }}>Hello</Text>
+                </View>
+                <View>
+                    <Image
+                        style={{ width: 40, height: 40, borderRadius: 100, }}
+                        source={require('./assets/ks.jpg')}
+                    />
+                </View>
+            </View> */}
         </ScrollView>
         <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', borderTopColor: 'rgba(255,255,255,0.1)', paddingLeft: 10, paddingRight: 10 }}>
             <VoiceIcon width={30} height={30} fill="rgba(255,255,255,0.7)" />
@@ -233,6 +251,13 @@ function SettingsScreen() {
                 value != "" && <Button
                     title="Send"
                     color="#422DDD"
+                    onPress={() => {
+                        addMessage({ content: value }, (msg) => {
+                            messages.push(msg);
+                            changeMessages(messages);
+                            onChangeText('');
+                        });
+                    }}
                 /> ||
                 <MoreIcon width={30} height={30} fill="rgba(255,255,255,0.7)" />
 
