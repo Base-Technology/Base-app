@@ -15,7 +15,7 @@ const BaseVideo = (props) => {
         </TouchableOpacity>
         <Video
             ref={video}
-            source={require('../../assets/mp4.mp4')}
+            source={require('../../assets/MP4.mp4')}
             style={{ width: '100%', height: '100%' }}
             rete={1}
             volume={1}
