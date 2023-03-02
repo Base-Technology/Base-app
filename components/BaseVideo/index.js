@@ -6,7 +6,7 @@ import { BaseText } from "../Base";
 import Video from 'react-native-video';
 const BaseVideo = (props) => {
     const video = useRef();
-    const [paused, setPaused] = useState(false);
+    const [paused, setPaused] = useState(true);
     const onPress = () => setPaused(!paused);
 
     return <View>

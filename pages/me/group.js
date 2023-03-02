@@ -95,6 +95,6 @@ export default function Example() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        minHeight: 1900
+        minHeight: 1100
     },
 });

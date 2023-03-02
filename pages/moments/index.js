@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import ShareIcon from "../../assets/icon_share.svg";
 import StarIcon from "../../assets/icon_star.svg";
 import CloseIcon from "../../assets/icon_close.svg";
+import SearchIcon from "../../assets/icon_search.svg";
 import FavoriteIcon from "../../assets/icon_favorite.svg";
 import CommentIcon from "../../assets/icon_comment.svg";
 import { SafeAreaView, ScrollView, Alert, View, FlatList, StyleSheet, Image, Modal, TouchableWithoutFeedback, TextInput } from 'react-native';
@@ -130,6 +131,13 @@ const Momnet = () => {
   const [longText, setLongText] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
+      <View style={{ paddingHorizontal: 15,paddingVertical:10, flexDirection: 'row', justifyContent:'flex-end' }}>
+      
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Search')}>
+
+        <SearchIcon width={25} height={25} fill='#fff'/>
+      </TouchableWithoutFeedback>
+    </View>
       <FlatList
         data={DATA}
         renderItem={renderItem}

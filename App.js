@@ -13,7 +13,9 @@ import TradeScreen from './pages/me/trade';
 import DetailsScreen from './pages/home/details';
 import DetailsScreen2 from './pages/home/details2';
 import SettingsScreen from './pages/chat/detail';
-SettingsScreen
+import SettingsScreen2 from './pages/chat/detailp';
+import SearchScreen from './pages/home/search';
+import SearchDetailScreen from './pages/home/searchDetail';
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
@@ -79,9 +81,12 @@ export default function App() {
         >
           <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="Home" component={Frist} />
-            <Stack.Screen name="Doctor" component={SettingsScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="Doctor" component={SettingsScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="Yk" component={SettingsScreen2} />
             <Stack.Screen name="Trade" component={TradeScreen} />
             <Stack.Screen name="Send" component={SendScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="Search" component={SearchScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="SearchDetail" component={SearchDetailScreen} />
             <Stack.Screen options={{ headerShown: false }} name="Details" component={DetailsScreen} />
             <Stack.Screen options={{ headerShown: false }} name="Details2" component={DetailsScreen2} />
           </Stack.Navigator>
