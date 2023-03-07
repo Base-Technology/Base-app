@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ethersproject/shims": "^5.7.0",
     "@eva-design/eva": "^2.1.1",
     "@expo/vector-icons": "^13.0.0",
     "@react-native-community/blur": "^4.3.0",
@@ -22,12 +23,14 @@
     "@react-navigation/stack": "^6.3.11",
     "@ui-kitten/components": "^5.1.2",
     "@ui-kitten/eva-icons": "^5.1.2",
+    "ethers": "^5.7.2",
     "memoize-one": "^5.1.1",
     "moment": "^2.25.3",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-drawer": "^2.5.1",
     "react-native-gesture-handler": "^2.8.0",
+    "react-native-get-random-values": "^1.8.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-modal": "^13.0.1",
     "react-native-paper": "^5.1.1",
@@ -41,7 +44,8 @@
     "react-native-swiper": "^1.6.0",
     "react-native-uuid": "^2.0.1",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-video": "^5.2.1"
+    "react-native-video": "^5.2.1",
+    "way-im": "^1.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
