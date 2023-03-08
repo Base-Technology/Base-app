@@ -10,6 +10,7 @@ export default function Bg(props) {
         source={props.img}
         // source={{uri:'https://cdn.cdnjson.com/wx2.sinaimg.cn/large/87c01ec7gy1frmrr7y6u3j21hc0u0k0c.jpg'}}
         style={styles.absolute}
+        
       />
       {/* <Text style={styles.absolute}>Hi, I am some blurred text</Text> */}
       {/* in terms of positioning and zIndex-ing everything before the BlurView will be blurred */}

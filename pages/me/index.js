@@ -26,15 +26,15 @@ export default function Example() {
         const data = new Array(10).fill({});
         return (
             <View style={{position:'relative',backgroundColor:'red',overflow:'hidden'}} onLayout={headerOnLayout}>
-                <Bg img={require('../../assets/img/s4.png')} />
+                <Bg img={{uri:'https://bf.jdd001.top/s1.png'}} />
 
-                {/* <ImageBackground source={require('../../assets/img/s5.png')} blurRadius={10} style={styles.image}> */}
+                {/* <ImageBackground source={require('../../assets/img/s1.png')} blurRadius={10} style={styles.image}> */}
                 <View style={{ margin: 20, marginTop: 60, flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ width: 50, height: 50, borderRadius: 40, marginRight: 10 }}>
                             <Image
                                 style={{ width: 50, height: 50, borderRadius: 100, }}
-                                source={require('../../assets/img/s4.png')}
+                                source={require('../../assets/img/s1.png')}
                             />
                         </View>
                         <View style={{ marginLeft: 10 }}>
@@ -101,6 +101,5 @@ export default function Example() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        minHeight: 900
     },
 });

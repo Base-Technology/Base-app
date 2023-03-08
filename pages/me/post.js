@@ -59,7 +59,7 @@ const WalletMain = ({ navigation }) => {
                 <Image
                   resizeMode="cover"
                   style={{ borderRadius: 20, width: 20, height: 20, marginRight: 10 }}
-                  source={require('../../assets/img/s5.png')}
+                  source={require('../../assets/img/s1.png')}
                 />
                 <Text>Dodo</Text>
               </View>
@@ -76,20 +76,20 @@ const WalletMain = ({ navigation }) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.list}>
-        <Item header={require('../../assets/img/s5.png')} />
-        <Item header={require('../../assets/img/s4.png')} />
+        <Item header={{uri:'https://bf.jdd001.top/s3.png'}} />
+        <Item header={{uri:'https://bf.jdd001.top/s4.png'}} />
       </View>
       <View style={styles.list}>
+        <Item header={{uri:'https://bf.jdd001.top/s5.png'}} />
         <Item header={require('../../assets/img/s1.png')} />
-        <Item header={require('../../assets/img/s3.png')} />
       </View>
       <View style={styles.list}>
-        <Item header={require('../../assets/img/s5.png')} />
-        <Item header={require('../../assets/img/s4.png')} />
+        <Item header={{uri:'https://bf.jdd001.top/s3.png'}} />
+        <Item header={{uri:'https://bf.jdd001.top/s4.png'}} />
       </View>
       <View style={styles.list}>
+        <Item header={{uri:'https://bf.jdd001.top/s5.png'}} />
         <Item header={require('../../assets/img/s1.png')} />
-        <Item header={require('../../assets/img/s3.png')} />
       </View>
 
     </View>

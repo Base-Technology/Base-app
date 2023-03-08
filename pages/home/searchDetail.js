@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { View, TextInput, TouchableWithoutFeedback } from "react-native";
+import { View, TextInput, TouchableWithoutFeedback, ScrollView } from "react-native";
 import Text from "../../components/BaseText";
 import BackIcon from "../../assets/icon_arrow_back.svg";
 import SearchIcon from "../../assets/icon_search.svg";
@@ -7,9 +7,7 @@ import PostScreen from "../me/post";
 import MembersScreen from "../me/members";
 
 
-const Search = (props) => {
-  const [historyList, setHistory] = useState(['Base Wallet', 'Acy', 'Way Network', 'Fox']);
-  const [showAllHistory, setShowAllHistory] = useState(false);
+const Search = ({ navigation }) => {
   const [tabsData, setTabsData] = useState([
     {
       active: false,
@@ -36,16 +34,24 @@ const Search = (props) => {
         </View>
 
       </View>
-      {/* <View style={{ flexDirection: 'row', padding: 10 }}>
+      <View style={{ flexDirection: 'row', padding: 10 }}>
         <View style={{ flexDirection: 'row' }}>
           {
-            tabsData.map((item, index) => <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10, borderBottomWidth: 2, borderBottomColor: '#422DDD' }}>{item.name}</Text>)
+            tabsData.map((item, index) =>
+              <TouchableWithoutFeedback onPress={() => setSelectedIndex(index)}>
+
+                <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10, borderBottomWidth: 2, borderBottomColor: index == selectedIndex && '#422DDD' || 'rgba(0,0,0,0)' }}>{item.name}</Text></TouchableWithoutFeedback>)
           }
 
         </View>
-      </View> */}
-      <MembersScreen />
-      <PostScreen />
+      </View>
+      <ScrollView>
+        {
+          selectedIndex == 1 && <MembersScreen /> ||
+          <PostScreen />
+        }
+      </ScrollView>
+
     </View>
   )
 }

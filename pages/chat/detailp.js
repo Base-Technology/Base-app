@@ -247,7 +247,7 @@ class Home extends Component {
                 content={
                     <ScrollView style={{ ...styles.container }}>
                         {/* <Me /> */}
-
+                        <Text>22</Text>
                     </ScrollView>
                 }
                 // 响应区域双击可以打开抽屉

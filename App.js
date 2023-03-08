@@ -13,9 +13,12 @@ import TradeScreen from './pages/me/trade';
 import DetailsScreen from './pages/home/details';
 import DetailsScreen2 from './pages/home/details2';
 import SettingsScreen from './pages/chat/detail';
+import LoginScreen from './pages/login';
+import LoginOtherScreen from './pages/login/other';
 import SettingsScreen2 from './pages/chat/detailp';
 import SearchScreen from './pages/home/search';
 import SearchDetailScreen from './pages/home/searchDetail';
+import PublishScreen from './pages/publish';
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
@@ -80,6 +83,8 @@ export default function App() {
           theme={MyTheme}
         >
           <Stack.Navigator>
+            {/* <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="LoginOther" component={LoginOtherScreen} /> */}
             <Stack.Screen options={{ headerShown: false }} name="Home" component={Frist} />
             <Stack.Screen options={{ headerShown: false }} name="Doctor" component={SettingsScreen} />
             <Stack.Screen options={{ headerShown: false }} name="Yk" component={SettingsScreen2} />
@@ -89,6 +94,7 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false }} name="SearchDetail" component={SearchDetailScreen} />
             <Stack.Screen options={{ headerShown: false }} name="Details" component={DetailsScreen} />
             <Stack.Screen options={{ headerShown: false }} name="Details2" component={DetailsScreen2} />
+            <Stack.Screen options={{ headerShown: false }} name="Publish" component={PublishScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </ApplicationProvider>

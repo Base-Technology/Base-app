@@ -10,7 +10,8 @@ import {
   Image,
   ImageBackground,
   Button,
-  Dimensions
+  Dimensions,
+  RefreshControl
 } from 'react-native';
 import Bg from './Bg';
 import MoreIcon from '../../assets/icon_moredown.svg';
@@ -41,168 +42,16 @@ const InfoF = ({ headuri }) => (
 
   </View>
 )
-const ViewPagerSimpleUsageShowcase = ({ navigation }) => {
 
-
-  return (
-    <Swiper
-      autoplay
-      showsPagination={false}
-      loop
-    >
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Details2')}>
-
-        <Layout
-          level='1'
-          style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
-        >
-
-          <Bg img={require('../../assets/img/s1.png')} />
-
-          <View style={styles.container}>
-            <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
-              <Image resizeMode="contain" width={100} height={100}
-                // source={require('../../assets/img/s1.png')}
-                source={require('../../assets/img/s1.png')}
-
-              />
-            </View>
-            <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
-              <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: 'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/87c01ec7gy1fsnqquzufwj21kw0w0aqq.jpg' }} />
-            </View>
-            <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Text style={{ fontSize: 18 }}>Base Group</Text>
-
-                <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
-                  <Text style={{ fontSize: 14 }}>Join</Text>
-                </View>
-              </View>
-              <View style={{ marginTop: 0, flexDirection: 'row', alignItems: 'center' }}>
-                <View style={{ width: 5, height: 5, borderRadius: 50, backgroundColor: '#422DDD' }}>
-
-                </View>
-                <View style={{ marginLeft: 5 }}>
-                  <Text style={{ fontSize: 8 }}>100234  Online </Text>
-                </View>
-                <View style={{ marginLeft: 10, width: 5, height: 5, borderRadius: 50, backgroundColor: 'gray' }}>
-
-                </View>
-                <View style={{ marginLeft: 5 }}>
-                  <Text style={{ fontSize: 8 }}>
-                    98234 Members
-                  </Text>
-                </View>
-
-              </View>
-
-            </View>
-          </View>
-        </Layout>
-      </TouchableWithoutFeedback>
-      <Layout
-        level='1'
-        style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
-      >
-        <Bg img={require('../../assets/img/s3.png')} />
-
-        <View style={styles.container}>
-          <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
-            <Image resizeMode="contain" width={100} height={100}
-              // source={require('../../assets/img/s1.png')}
-              source={require('../../assets/img/s3.png')}
-
-            />
-          </View>
-          <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
-            <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: 'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/87c01ec7gy1fsnqquzufwj21kw0w0aqq.jpg' }} />
-          </View>
-          <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={{ fontSize: 18 }}>Base Group</Text>
-
-              <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
-                <Text style={{ fontSize: 14 }}>Join</Text>
-              </View>
-            </View>
-            <View style={{ marginTop: 0, flexDirection: 'row', alignItems: 'center' }}>
-              <View style={{ width: 5, height: 5, borderRadius: 50, backgroundColor: '#422DDD' }}>
-
-              </View>
-              <View style={{ marginLeft: 5 }}>
-                <Text style={{ fontSize: 8 }}>100234  Online </Text>
-              </View>
-              <View style={{ marginLeft: 10, width: 5, height: 5, borderRadius: 50, backgroundColor: 'gray' }}>
-
-              </View>
-              <View style={{ marginLeft: 5 }}>
-                <Text style={{ fontSize: 8 }}>
-                  98234 Members
-                </Text>
-              </View>
-
-            </View>
-
-          </View>
-        </View>
-      </Layout>
-      <Layout
-        level='1'
-        style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
-      >
-        <Bg img={require('../../assets/img/s4.png')} />
-
-        <View style={styles.container}>
-          <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
-            <Image resizeMode="contain" width={100} height={100}
-              // source={require('../../assets/img/s1.png')}
-              source={require('../../assets/img/s4.png')}
-
-            />
-          </View>
-          <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
-            <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: 'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/87c01ec7gy1fsnqquzufwj21kw0w0aqq.jpg' }} />
-          </View>
-          <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={{ fontSize: 18 }}>Base Group</Text>
-
-              <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
-                <Text style={{ fontSize: 14 }}>Join</Text>
-              </View>
-            </View>
-            <View style={{ marginTop: 0, flexDirection: 'row', alignItems: 'center' }}>
-              <View style={{ width: 5, height: 5, borderRadius: 50, backgroundColor: '#422DDD' }}>
-
-              </View>
-              <View style={{ marginLeft: 5 }}>
-                <Text style={{ fontSize: 8 }}>100234  Online </Text>
-              </View>
-              <View style={{ marginLeft: 10, width: 5, height: 5, borderRadius: 50, backgroundColor: 'gray' }}>
-
-              </View>
-              <View style={{ marginLeft: 5 }}>
-                <Text style={{ fontSize: 8 }}>
-                  98234 Members
-                </Text>
-              </View>
-
-            </View>
-
-          </View>
-        </View>
-      </Layout>
-    </Swiper>
-  );
-};
 const HomeScreen = ({ navigation }) => {
   const [date, setDate] = React.useState(new Date());
   const [value, onChangeText] = React.useState('Details');
+  const [followData,setFollowData]=useState([0]);
   const [selectedIndex, setSelectedIndex] = React.useState(2);
   const [tabsData, setTabsData] = useState([
     {
       active: false,
-      name: 'follow'
+      name: 'Follow'
     },
     {
       active: false,
@@ -213,6 +62,160 @@ const HomeScreen = ({ navigation }) => {
       name: 'Group'
     }
   ]);
+  const ViewPagerSimpleUsageShowcase = ({ navigation }) => {
+
+
+    return (
+      <Swiper
+        // autoplay
+        showsPagination={false}
+        loop
+      >
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Details2')}>
+  
+          <Layout
+            level='1'
+            style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
+          >
+  
+            <Bg img={{uri:'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/0060lm7Tly1ftg6omusg9j31hc0u010h.jpg'}} />
+  
+            <View style={styles.container}>
+              <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
+                <Image resizeMode="stretch"
+                  source={require('../../assets/img/s1.png')}
+                  // source={{uri:'https://bf.jdd001.top/s5.png'}}
+  
+                />
+              </View>
+              <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
+                <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: 'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/87c01ec7gy1fsnqquzufwj21kw0w0aqq.jpg' }} />
+              </View>
+              <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Text style={{ fontSize: 18 }}>Base Group</Text>
+  
+                  <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
+                    <Text style={{ fontSize: 14 }}>Join</Text>
+                  </View>
+                </View>
+                <View style={{ marginTop: 0, flexDirection: 'row', alignItems: 'center' }}>
+                  <View style={{ width: 5, height: 5, borderRadius: 50, backgroundColor: '#422DDD' }}>
+  
+                  </View>
+                  <View style={{ marginLeft: 5 }}>
+                    <Text style={{ fontSize: 8 }}>100234  Online </Text>
+                  </View>
+                  <View style={{ marginLeft: 10, width: 5, height: 5, borderRadius: 50, backgroundColor: 'gray' }}>
+  
+                  </View>
+                  <View style={{ marginLeft: 5 }}>
+                    <Text style={{ fontSize: 8 }}>
+                      98234 Members
+                    </Text>
+                  </View>
+  
+                </View>
+  
+              </View>
+            </View>
+          </Layout>
+        </TouchableWithoutFeedback>
+        <Layout
+          level='1'
+          style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
+        >
+            <Bg img={{uri:'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/0060lm7Tly1ftg6omusg9j31hc0u010h.jpg'}} />
+  
+          <View style={styles.container}>
+            <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
+              <Image resizeMode="contain" width={100} height={100}
+                // source={require('../../assets/img/s1.png')}
+                source={require('../../assets/img/s1.png')}
+  
+              />
+            </View>
+            <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
+              <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: 'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/87c01ec7gy1fsnqquzufwj21kw0w0aqq.jpg' }} />
+            </View>
+            <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Text style={{ fontSize: 18 }}>Base Group</Text>
+  
+                <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
+                  <Text style={{ fontSize: 14 }}>Join</Text>
+                </View>
+              </View>
+              <View style={{ marginTop: 0, flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ width: 5, height: 5, borderRadius: 50, backgroundColor: '#422DDD' }}>
+  
+                </View>
+                <View style={{ marginLeft: 5 }}>
+                  <Text style={{ fontSize: 8 }}>100234  Online </Text>
+                </View>
+                <View style={{ marginLeft: 10, width: 5, height: 5, borderRadius: 50, backgroundColor: 'gray' }}>
+  
+                </View>
+                <View style={{ marginLeft: 5 }}>
+                  <Text style={{ fontSize: 8 }}>
+                    98234 Members
+                  </Text>
+                </View>
+  
+              </View>
+  
+            </View>
+          </View>
+        </Layout>
+        <Layout
+          level='1'
+          style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
+        >
+            <Bg img={{uri:'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/0060lm7Tly1ftg6omusg9j31hc0u010h.jpg'}} />
+  
+          <View style={styles.container}>
+            <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
+              <Image resizeMode="contain" width={100} height={100}
+                // source={require('../../assets/img/s1.png')}
+                source={require('../../assets/img/s1.png')}
+  
+              />
+            </View>
+            <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
+              <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: 'https://cdn.cdnjson.com/wx4.sinaimg.cn/large/87c01ec7gy1fsnqquzufwj21kw0w0aqq.jpg' }} />
+            </View>
+            <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Text style={{ fontSize: 18 }}>Base Group</Text>
+  
+                <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
+                  <Text style={{ fontSize: 14 }}>Join</Text>
+                </View>
+              </View>
+              <View style={{ marginTop: 0, flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ width: 5, height: 5, borderRadius: 50, backgroundColor: '#422DDD' }}>
+  
+                </View>
+                <View style={{ marginLeft: 5 }}>
+                  <Text style={{ fontSize: 8 }}>100234  Online </Text>
+                </View>
+                <View style={{ marginLeft: 10, width: 5, height: 5, borderRadius: 50, backgroundColor: 'gray' }}>
+  
+                </View>
+                <View style={{ marginLeft: 5 }}>
+                  <Text style={{ fontSize: 8 }}>
+                    98234 Members
+                  </Text>
+                </View>
+  
+              </View>
+  
+            </View>
+          </View>
+        </Layout>
+      </Swiper>
+    );
+  };
   const Info = ({ headuri }) => (
 
     <View style={{ marginTop: 10 }}>
@@ -231,6 +234,7 @@ const HomeScreen = ({ navigation }) => {
 
     </View >
   )
+ 
   return (<View>
     <View style={{ margin: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
       {/* <TextInput
@@ -241,7 +245,12 @@ const HomeScreen = ({ navigation }) => {
       <View style={{ width: 20 }}></View>
       <View style={{ flexDirection: 'row' }}>
         {
-          tabsData.map((item, index) => <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10, borderBottomWidth: 2, borderBottomColor: index == selectedIndex && '#422DDD' || 'rgba(0,0,0,0)' }}>{item.name}</Text>)
+          tabsData.map((item, index) => 
+      <TouchableWithoutFeedback onPress={() => setSelectedIndex(index)}>
+          
+          <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10, borderBottomWidth: 2, borderBottomColor: index == selectedIndex && '#422DDD' || 'rgba(0,0,0,0)' }}>{item.name}</Text>
+          </TouchableWithoutFeedback>
+          )
         }
 
       </View>
@@ -266,13 +275,7 @@ const HomeScreen = ({ navigation }) => {
       <Layout
         style={styles.tab}
         level='2'>
-        <ScrollView
-          contentContainerStyle={{ minHeight: '85%' }}
-        >
           <Explore />
-        </ScrollView>
-
-
       </Layout>
       <Layout
         style={styles.tab}
@@ -330,7 +333,10 @@ const HomeScreen = ({ navigation }) => {
 
               </View>
 
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/xrp.png?v=023" />
+              <TouchableWithoutFeedback onPress={() => navigation.navigate('Publish')}>
+                <InfoF headuri="https://cryptologos.cc/logos/thumbs/xrp.png?v=023" />
+              </TouchableWithoutFeedback>
+
               <InfoF headuri="https://cryptologos.cc/logos/thumbs/cardano.png?v=023" />
               <InfoF headuri="https://cryptologos.cc/logos/thumbs/solana.png?v=023" />
               <InfoF headuri="https://cryptologos.cc/logos/thumbs/dogecoin.png?v=023" />
@@ -338,7 +344,7 @@ const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ margin: 20, padding: 10, marginTop: 10 }}>
             <View>
-              <Text style={{ color: '#ffffff', fontSize: 16, marginBottom: 10 }}>Guessg You Like</Text>
+              <Text style={{ color: '#ffffff', fontSize: 16, marginBottom: 10 }}>Guess You Like</Text>
             </View>
             <InfoF headuri="https://cryptologos.cc/logos/thumbs/xrp.png?v=023" />
             <InfoF headuri="https://cryptologos.cc/logos/thumbs/polkadot-new.png?v=023" />

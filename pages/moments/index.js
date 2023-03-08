@@ -23,7 +23,7 @@ const DATA = [
     title: '154 Bored Ape Yacht Club NFTs Were Deposited ToThe BendDAO Collateral',
     header: require('../../assets/img/s2.png'),
     video: true
-    // poster: require('../../assets/img/s3.png')
+    // poster: require('../../assets/img/s1.png')
   }
 ];
 
@@ -234,7 +234,7 @@ const Momnet = () => {
                   <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
                     <Image
                       style={{ width: 40, height: 40, borderRadius: 100, }}
-                      source={require('../../assets/img/s5.png')}
+                      source={require('../../assets/img/s1.png')}
                     />
                   </View>
                   <View style={{ flex: 1, flexDirection: 'column' }}>
