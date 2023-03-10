@@ -59,7 +59,7 @@ const WalletMain = ({ navigation }) => {
                 <Image
                   resizeMode="cover"
                   style={{ borderRadius: 20, width: 20, height: 20, marginRight: 10 }}
-                  source={require('../../assets/img/s1.png')}
+                  source={{uri:'https://bf.jdd001.top/s1.png'}}
                 />
                 <Text>Dodo</Text>
               </View>
@@ -81,7 +81,7 @@ const WalletMain = ({ navigation }) => {
       </View>
       <View style={styles.list}>
         <Item header={{uri:'https://bf.jdd001.top/s5.png'}} />
-        <Item header={require('../../assets/img/s1.png')} />
+        <Item header={{uri:'https://bf.jdd001.top/s1.png'}} />
       </View>
       <View style={styles.list}>
         <Item header={{uri:'https://bf.jdd001.top/s3.png'}} />
@@ -89,7 +89,7 @@ const WalletMain = ({ navigation }) => {
       </View>
       <View style={styles.list}>
         <Item header={{uri:'https://bf.jdd001.top/s5.png'}} />
-        <Item header={require('../../assets/img/s1.png')} />
+        <Item header={{uri:'https://bf.jdd001.top/s1.png'}} />
       </View>
 
     </View>

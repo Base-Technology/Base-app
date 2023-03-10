@@ -70,7 +70,7 @@ export const DetailsScreen = ({ navigation }) => {
             <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
               <Image
                 style={{ width: 40, height: 40, borderRadius: 100, }}
-                source={require('../../assets/img/s1.png')}
+                source={{uri:'https://bf.jdd001.top/s1.png'}}
               />
             </View>
             <Text style={{ marginRight: 20 }}>KangShuiYue</Text>

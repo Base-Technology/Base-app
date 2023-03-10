@@ -292,14 +292,68 @@ class Home extends Component {
 
     render() {
         return (
-            <ScrollView style={{ ...styles.container, backgroundColor: '#1e1e1e' }}>
+            <Drawer
+                ref={(ref) => this._drawer = ref}
+                // type: 一共是3种（displace,overlay,static）, 用static就好啦，static让人感觉更舒适一些
+                type="static"
+                // Drawer 展开区域组件
+                content={
+                    <ScrollView style={{ ...styles.container }}>
+                        <Me />
+                        <Text>me</Text>
+                    </ScrollView>
+                }
+                // 响应区域双击可以打开抽屉
+                acceptDoubleTap={true}
+                closedDrawerOffset={0}
+                // styles 和 tweenHandler是设置向左拉后主内容区的颜色，相当于给主内容区加了一个遮罩
+                styles={{
+                    mainOverlay: {
+                        backgroundColor: 'black',
+                        opacity: 0,
+                    },
+                }}
+                tweenHandler={(ratio) => ({
+                    mainOverlay: {
+                        opacity: ratio / 2,
+                    }
+                })}
+                onOpenStart={() => {
+                    this.setState({ active: true });
+
+                }}
+                // drawer打开后调用的函数
+                onOpen={() => {
+                    this.setState({ drawerOpen: true });
+                }}
+                // drawer关闭后调用的函数
+                onClose={() => {
+                    this.setState({ drawerOpen: false });
+                }}
+
+                captureGestures={false}
+                // 打开/关闭 Drawer所需要的时间
+                tweenDuration={100}
+                // 触发抽屉打开/关闭必须经过的屏幕宽度比例
+                panThreshold={0.08}
+                disabled={this.state.drawerDisabled}
+                // Drawer打开后有边界距离屏幕右边界的距离
+
+                // 拉开抽屉的响应区域
+                panOpenMask={0.2}
+                // 如果为true, 则尝试仅处理水平滑动
+                negotiatePan
+                side="top"
+            >
+                {/*主内容区*/}
+                <ScrollView style={{ ...styles.container, backgroundColor: '#1e1e1e' }}>
                     <View style={{ position: 'relative' }}>
                         <View style={{ height: 60, padding: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                             <View>
                                 <BackIcon width={25} height={25} fill="#fff" />
 
                             </View>
-                            {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Image
                                     style={{ width: 40, height: 40, borderRadius: 100, }}
                                     source={{ uri: 'https://cryptologos.cc/logos/thumbs/bnb.png?v=023' }}
@@ -313,7 +367,7 @@ class Home extends Component {
                                         <Text style={{ marginLeft: 5, color: '#fff', fontSize: 8, }}>34 <Text style={{ fontSize: 8, }}>Members</Text></Text>
                                     </View>
                                 </View>
-                            </View> */}
+                            </View>
                         </View>
                         <View style={{ justifyContent: 'center', flexDirection: 'row', position: 'absolute', bottom: -2.5, right: 0, left: 0 }}>
                             <View style={{ height: 5, width: 100, borderRadius: 100, marginTop: 5, backgroundColor: this.state.active && '#422ddd' || '#2D2D34' }}>
@@ -324,8 +378,9 @@ class Home extends Component {
 
 
 
-                    {/* <SettingsScreen /> */}
+                    <SettingsScreen />
                 </ScrollView>
+            </Drawer>
 
         );
     }

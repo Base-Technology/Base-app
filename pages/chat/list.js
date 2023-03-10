@@ -5,56 +5,56 @@ import SearchIcon from "../../assets/icon_search.svg";
 
 const DATA = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba1',
     name: 'Fox',
     content: 'Ok!',
     header: require('../../assets/fox.png')
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba2',
     name: 'Ox',
     content: '....',
     header: require('../../assets/ox.png')
 
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba3',
     name: 'Send',
     content: 'no',
     header: require('../../assets/send.png')
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba4',
     name: 'Keep',
     content: 'TouchableWithoutFeedback',
     header: require('../../assets/keep.png')
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba5',
     name: 'Hayek',
     content: 'https://akveo.github.io/react-native-ui-kitten',
     header: require('../../assets/hayek.png')
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba6',
     name: 'KangShuiYue',
     content: 'https://akveo.github.io/react-native-ui-kitten',
     header: require('../../assets/ks.jpg')
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba7',
     name: 'Yk',
     content: 'https://akveo.github.io/react-native-ui-kitten',
     header: require('../../assets/yk.jpg')
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba8',
     name: 'Mark',
     content: 'https://akveo.github.io/react-native-ui-kitten',
     header: require('../../assets/mark.jpg')
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba9',
     name: 'Gary',
     content: 'https://akveo.github.io/react-native-ui-kitten',
     header: require('../../assets/gary.jpg')
@@ -65,7 +65,7 @@ const Item = ({ name, content, navigation, header }) => {
   return (
     <TouchableWithoutFeedback
       underlayColor="rgba(255, 255, 255, 0.08)"
-      onPress={() => navigation.navigate(name == 'Yk' && 'Yk' || 'Doctor')}
+      onPress={() => navigation.navigate('Doctor')}
     >
       <View style={styles.item}>
         <View style={styles.itemc}>
@@ -96,7 +96,7 @@ const Item = ({ name, content, navigation, header }) => {
 
 const Chat = ({ navigation }) => {
   const renderItem = ({ item }) => (
-    <Item navigation={navigation} {...item} />
+    <Item key={item.id} navigation={navigation} {...item} />
   );
 
   return (

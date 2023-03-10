@@ -16,14 +16,14 @@ const DATA = [
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     title: '154 Bored Ape Yacht Club NFTs Were Deposited ToThe BendDAO Collateral',
     header: require('../../assets/ks.jpg'),
-    poster: require('../../assets/img/s1.png')
+    poster: {uri:'https://bf.jdd001.top/s1.png'}
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     title: '154 Bored Ape Yacht Club NFTs Were Deposited ToThe BendDAO Collateral',
     header: require('../../assets/img/s2.png'),
     video: true
-    // poster: require('../../assets/img/s1.png')
+    // poster: {uri:'https://bf.jdd001.top/s1.png'}
   }
 ];
 
@@ -213,7 +213,7 @@ const Momnet = () => {
                       <View style={{ width: 30, height: 30, borderRadius: 40, marginRight: 5 }}>
                         <Image
                           style={{ width: 30, height: 30, borderRadius: 100, }}
-                          source={require('../../assets/img/s1.png')}
+                          source={{uri:'https://bf.jdd001.top/s1.png'}}
                         />
                       </View>
                       <View style={{ flex: 1 }}>
@@ -234,7 +234,7 @@ const Momnet = () => {
                   <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
                     <Image
                       style={{ width: 40, height: 40, borderRadius: 100, }}
-                      source={require('../../assets/img/s1.png')}
+                      source={{uri:'https://bf.jdd001.top/s1.png'}}
                     />
                   </View>
                   <View style={{ flex: 1, flexDirection: 'column' }}>

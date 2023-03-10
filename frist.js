@@ -72,10 +72,10 @@ function MyTabs() {
               else
                 return <MomentIcon width="24" height="24" fill={color} />;
             default:
-              if(focused)
-              return <MeFullIcon width="24" height="24" fill={color} />;
+              if (focused)
+                return <MeFullIcon width="24" height="24" fill={color} />;
               else
-              return <MeIcon width="24" height="24" fill={color} />;
+                return <MeIcon width="24" height="24" fill={color} />;
 
           }
         },
@@ -85,12 +85,16 @@ function MyTabs() {
         },
       })}
     >
-      <Tab.Screen options={{ headerShown: false,tabBarShowLabel:false }} name="Home" component={HomeScreen} />
-      <Tab.Screen options={{ headerShown: false,tabBarShowLabel:false }} name="Chats" component={Chat} />
-      <Tab.Screen options={{ headerShown: false,tabBarShowLabel:false,tabBarVisible:true}} name="Create" component={PublishScreen} />
-      <Tab.Screen options={{ headerShown: false,tabBarShowLabel:false }} name="Moments" component={Moment} />
-      <Tab.Screen options={{ headerShown: false,tabBarShowLabel:false }} name="Wallet" component={WalletMain} />
-   
+      <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false }} name="Home" component={HomeScreen} />
+
+      <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false }} name="Chats" component={Chat} />
+
+
+
+      <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false, tabBarVisible: true }} name="Create" component={PublishScreen} />
+      <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false }} name="Moments" component={Moment} />
+      <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false }} name="Wallet" component={WalletMain} />
+
     </Tab.Navigator>
   );
 }

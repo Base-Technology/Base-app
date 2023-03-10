@@ -83,7 +83,7 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.container}>
               <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
                 <Image resizeMode="stretch"
-                  source={require('../../assets/img/s1.png')}
+                  source={{uri:'https://bf.jdd001.top/s1.png'}}
                   // source={{uri:'https://bf.jdd001.top/s5.png'}}
   
                 />
@@ -130,8 +130,8 @@ const HomeScreen = ({ navigation }) => {
           <View style={styles.container}>
             <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
               <Image resizeMode="contain" width={100} height={100}
-                // source={require('../../assets/img/s1.png')}
-                source={require('../../assets/img/s1.png')}
+                // source={{uri:'https://bf.jdd001.top/s1.png'}}
+                source={{uri:'https://bf.jdd001.top/s1.png'}}
   
               />
             </View>
@@ -176,8 +176,8 @@ const HomeScreen = ({ navigation }) => {
           <View style={styles.container}>
             <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
               <Image resizeMode="contain" width={100} height={100}
-                // source={require('../../assets/img/s1.png')}
-                source={require('../../assets/img/s1.png')}
+                // source={{uri:'https://bf.jdd001.top/s1.png'}}
+                source={{uri:'https://bf.jdd001.top/s1.png'}}
   
               />
             </View>
@@ -275,7 +275,7 @@ const HomeScreen = ({ navigation }) => {
       <Layout
         style={styles.tab}
         level='2'>
-          <Explore />
+          <Explore key='tab2'/>
       </Layout>
       <Layout
         style={styles.tab}
@@ -283,7 +283,7 @@ const HomeScreen = ({ navigation }) => {
         <ScrollView
           contentContainerStyle={{ minHeight: '85%' }}
         >
-          <Explore />
+          <Explore key='tab1'/>
         </ScrollView>
 
 

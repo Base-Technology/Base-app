@@ -256,9 +256,9 @@ const WalletMain = ({ navigation }) => {
                 contentContainerStyle={{ minHeight: '85%' }}
                 style={backgroundStyle}>
                 {TokenList ? (
-                    TokenList.map(tokens => {
+                    TokenList.map((tokens,index) => {
                         return (
-                            <AssetBox logoSrc={tokens.logoURI} tokenName={tokens.symbol} />
+                            <AssetBox key={index} logoSrc={tokens.logoURI} tokenName={tokens.symbol} />
                         );
                     })
                 ) : (

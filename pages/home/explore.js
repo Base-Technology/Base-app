@@ -85,7 +85,7 @@ const WalletMain = ({ navigation }) => {
                 <Image
                   resizeMode="cover"
                   style={{ borderRadius: 20, width: 20, height: 20, marginRight: 10 }}
-                  source={require('../../assets/img/s1.png')}
+                  source={{uri:'https://bf.jdd001.top/s1.png'}}
                 />
                 <Text>Dodo</Text>
               </View>
@@ -111,14 +111,14 @@ const WalletMain = ({ navigation }) => {
           <View style={styles.left}>
             {
               data.map((item,index)=>{
-                return index%2==0&& <Item header={{uri:item.header}}/>
+                return index%2==0&& <Item key={1+index} header={{uri:item.header}}/>
               })
             }
           </View>
           <View style={styles.right}>
           {
               data.map((item,index)=>{
-                return index%2!=0&& <Item header={{uri:item.header}}/>||<></>
+                return index%2!=0&& <Item key={2+index} header={{uri:item.header}}/>||<></>
               })
             }
           </View>
