@@ -75,22 +75,22 @@ const WalletMain = ({ navigation }) => {
   }
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.list}>
-        <Item header={{uri:'https://bf.jdd001.top/s3.png'}} />
-        <Item header={{uri:'https://bf.jdd001.top/s4.png'}} />
+      {/* <View style={styles.list}>
+        <Item key="aa1" header={{uri:'https://bf.jdd001.top/s3.png'}} />
+        <Item key="aa2" header={{uri:'https://bf.jdd001.top/s4.png'}} />
       </View>
       <View style={styles.list}>
-        <Item header={{uri:'https://bf.jdd001.top/s5.png'}} />
-        <Item header={{uri:'https://bf.jdd001.top/s1.png'}} />
+        <Item key="aa3" header={{uri:'https://bf.jdd001.top/s5.png'}} />
+        <Item key="aa4" header={{uri:'https://bf.jdd001.top/s1.png'}} />
       </View>
       <View style={styles.list}>
-        <Item header={{uri:'https://bf.jdd001.top/s3.png'}} />
-        <Item header={{uri:'https://bf.jdd001.top/s4.png'}} />
+        <Item key="aa5" header={{uri:'https://bf.jdd001.top/s3.png'}} />
+        <Item key="aa6" header={{uri:'https://bf.jdd001.top/s4.png'}} />
       </View>
       <View style={styles.list}>
-        <Item header={{uri:'https://bf.jdd001.top/s5.png'}} />
-        <Item header={{uri:'https://bf.jdd001.top/s1.png'}} />
-      </View>
+        <Item key="aa7" header={{uri:'https://bf.jdd001.top/s5.png'}} />
+        <Item key="aa8" header={{uri:'https://bf.jdd001.top/s1.png'}} />
+      </View> */}
 
     </View>
   );

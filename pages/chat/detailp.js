@@ -325,7 +325,7 @@ class Home extends Component {
 
 
 
-                    <SettingsScreen />
+                    <SettingsScreen key="s2" />
                 </ScrollView>
             </Drawer>
 

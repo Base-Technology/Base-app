@@ -81,13 +81,13 @@ export default function Example() {
                 {/* <TabView1 tabLabel="Wallet" /> */}
                 <TabView2 tabLabel="Wallet" />
                 <ScrollView tabLabel="Posts" >
-                    <PostView />
+                    <PostView key="p1" />
                 </ScrollView>
                 <ScrollView tabLabel="Collects" >
-                    <PostView />
+                    <PostView key="p2" />
                 </ScrollView>
                 <ScrollView tabLabel="Likes" >
-                    <PostView />
+                    <PostView key="p3" />
                 </ScrollView>
 
                 {/* <TabView1 tabLabel="Posts" />

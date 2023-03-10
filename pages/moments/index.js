@@ -13,13 +13,13 @@ import { Dimensions } from 'react-native'
 const { width, height } = Dimensions.get("window");
 const DATA = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba11',
     title: '154 Bored Ape Yacht Club NFTs Were Deposited ToThe BendDAO Collateral',
     header: require('../../assets/ks.jpg'),
     poster: {uri:'https://bf.jdd001.top/s1.png'}
   },
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba12',
     title: '154 Bored Ape Yacht Club NFTs Were Deposited ToThe BendDAO Collateral',
     header: require('../../assets/img/s2.png'),
     video: true

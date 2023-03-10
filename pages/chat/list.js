@@ -6,81 +6,53 @@ import SearchIcon from "../../assets/icon_search.svg";
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba1',
-    name: 'Fox',
+    name: '1ich',
     content: 'Ok!',
-    header: require('../../assets/fox.png')
+    header: 'https://bf.jdd001.top/cryptologos/1inch.png'
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba2',
-    name: 'Ox',
+    name: 'Pancakeswap',
     content: '....',
-    header: require('../../assets/ox.png')
-
+    header: 'https://bf.jdd001.top/cryptologos/pancakeswap.png'
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba3',
-    name: 'Send',
+    name: 'Polkadot',
     content: 'no',
-    header: require('../../assets/send.png')
+    header: 'https://bf.jdd001.top/cryptologos/polkadot.png'
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba4',
-    name: 'Keep',
+    name: 'Solana',
     content: 'TouchableWithoutFeedback',
-    header: require('../../assets/keep.png')
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba5',
-    name: 'Hayek',
-    content: 'https://akveo.github.io/react-native-ui-kitten',
-    header: require('../../assets/hayek.png')
+    header: 'https://bf.jdd001.top/cryptologos/solana.png'
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba6',
-    name: 'KangShuiYue',
+    name: 'Only',
     content: 'https://akveo.github.io/react-native-ui-kitten',
-    header: require('../../assets/ks.jpg')
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba7',
-    name: 'Yk',
-    content: 'https://akveo.github.io/react-native-ui-kitten',
-    header: require('../../assets/yk.jpg')
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba8',
-    name: 'Mark',
-    content: 'https://akveo.github.io/react-native-ui-kitten',
-    header: require('../../assets/mark.jpg')
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba9',
-    name: 'Gary',
-    content: 'https://akveo.github.io/react-native-ui-kitten',
-    header: require('../../assets/gary.jpg')
-  },
+    header: 'https://bf.jdd001.top/cryptologos/only.png'
+  }
 ];
 const Stack = createNativeStackNavigator();
 const Item = ({ name, content, navigation, header }) => {
   return (
     <TouchableWithoutFeedback
       underlayColor="rgba(255, 255, 255, 0.08)"
-      onPress={() => navigation.navigate('Doctor')}
+      onPress={() => navigation.navigate('Doctor', { name, header })}
     >
       <View style={styles.item}>
         <View style={styles.itemc}>
           <View style={{ width: 50, height: 50, borderRadius: 40, backgroundColor: 'gray', marginRight: 10 }}>
-            {name == "KangShuiYue" && <Image
+            <Image
               style={{ width: 50, height: 50, borderRadius: 100, }}
-              source={require('../../assets/ks.jpg')}
-            /> || <Image
-                style={{ width: 50, height: 50, borderRadius: 100, }}
-                source={header}
-              />}
+              source={{ uri: header }}
+            />
           </View>
-          <View>
+          <View style={{ flex: 1 }}>
             <Text style={styles.title}>{name}</Text>
-            <Text style={styles.content}>{content}</Text>
+            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.content}>{content}</Text>
           </View>
         </View>
         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
@@ -96,7 +68,7 @@ const Item = ({ name, content, navigation, header }) => {
 
 const Chat = ({ navigation }) => {
   const renderItem = ({ item }) => (
-    <Item key={item.id} navigation={navigation} {...item} />
+    <Item key={item.id + 1} navigation={navigation} {...item} />
   );
 
   return (
@@ -107,12 +79,12 @@ const Chat = ({ navigation }) => {
 
           <SearchIcon width={25} height={25} fill='#fff' />
         </TouchableWithoutFeedback>
-        </View>
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
+      </View>
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
     </SafeAreaView>
   );
 }
@@ -129,13 +101,15 @@ const styles = StyleSheet.create({
   },
   itemc: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flex: 1
   },
   title: {
     fontSize: 16,
     color: '#fff'
   },
   content: {
+    flex: 1,
     color: 'rgba(255,255,255,0.6)'
   },
   time: {
