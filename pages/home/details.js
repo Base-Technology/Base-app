@@ -74,7 +74,7 @@ export const DetailsScreen = ({ navigation }) => {
                 source={{uri:'https://bf.jdd001.top/s1.png'}}
               />
             </View>
-            <Text style={{ marginRight: 20 }}>KangShuiYue</Text>
+            <Text style={{ marginRight: 20 }}>Elon Musk</Text>
             <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
               <Text>Follow</Text>
             </View>

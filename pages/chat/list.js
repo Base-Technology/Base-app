@@ -38,17 +38,39 @@ const DATA = [
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba6',
-    name: 'Only',
+    name: 'Tom',
+    type:2,
     content: 'https://akveo.github.io/react-native-ui-kitten',
     header: 'https://bf.jdd001.top/cryptologos/only.png'
+  },
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba6',
+    name: 'Austin',
+    type:2,
+    content: 'https://akveo.github.io/react-native-ui-kitten',
+    header: 'https://bf.jdd001.top/cryptologos/Austin.jpg'
+  },
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba6',
+    name: 'HeeJu',
+    type:2,
+    content: 'https://akveo.github.io/react-native-ui-kitten',
+    header: 'https://bf.jdd001.top/cryptologos/HeeJu.jpg'
+  },
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba6',
+    name: 'JoyJY',
+    type:2,
+    content: 'https://akveo.github.io/react-native-ui-kitten',
+    header: 'https://bf.jdd001.top/cryptologos/JoyJY.jpg'
   }
 ];
 const Stack = createNativeStackNavigator();
-const Item = ({ name, content, navigation, header }) => {
+const Item = ({ name, content, navigation, header,type }) => {
   return (
     <TouchableWithoutFeedback
       underlayColor="rgba(255, 255, 255, 0.08)"
-      onPress={() => navigation.navigate('Doctor', { name, header })}
+      onPress={() => navigation.navigate('Elon Musk', { name, header,type })}
     >
       <View style={styles.item}>
         <View style={styles.itemc}>

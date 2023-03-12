@@ -216,7 +216,7 @@ const Search = ({ navigation }) => {
       </View>
       {
             response && 
-               <Image width={100} height={100} resizeMode="cover" source={{ uri: response.assets[0].uri }} />
+               <Image width={100} height={100} resizeMode="cover" source={{ uri: response?.assets&&response?.assets[0]?.uri }} />
            
           }
       <View style={{ paddingHorizontal: 20, borderBottomColor: '#707070', borderBottomWidth: 0.5 }}>

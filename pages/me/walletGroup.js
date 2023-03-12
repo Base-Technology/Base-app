@@ -45,6 +45,7 @@ const WalletMain = ({ navigation }) => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
+            marginTop:10
         },
         balanceShow: {
             display: 'flex',
@@ -202,27 +203,23 @@ const WalletMain = ({ navigation }) => {
         <View style={styles.mainContainer}>
 
             <View style={styles.boxSection}>
-                <TouchableWithoutFeedback onPress={() => navigation.navigate('Send')}>
-                    <View style={styles.box}  >
-                        <Text style={styles.boxText}>Claim</Text>
-                    </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={() => navigation.navigate('Trade')}>
+                <View style={styles.box}  >
+                    <Text style={styles.boxText}>Claim</Text>
+                </View>
 
-                    <View style={styles.box}>
-                        {/* <SwapIcon width="15" height="15" fill="#fff" /> */}
-                        <Text style={styles.boxText}>Redeem</Text>
-                    </View>
-                </TouchableWithoutFeedback>
+                <View style={styles.box}>
+                    {/* <SwapIcon width="15" height="15" fill="#fff" /> */}
+                    <Text style={styles.boxText}>Redeem</Text>
+                </View>
 
             </View>
             <ScrollView
                 contentContainerStyle={{ minHeight: '85%' }}
                 style={backgroundStyle}>
-                <Text style={{ fontSize: 14,marginTop:15 }}>Vault</Text>
+                <Text style={{ fontSize: 14, marginTop: 15 }}>Vault</Text>
 
                 {TokenList ? (
-                    TokenList.slice(0, 3).map((tokens,index) => {
+                    TokenList.slice(0, 3).map((tokens, index) => {
                         return (
                             <AssetBox key={index} logoSrc={tokens.logoURI} tokenName={tokens.symbol} />
                         );
@@ -230,11 +227,11 @@ const WalletMain = ({ navigation }) => {
                 ) : (
                     <Text>Loading</Text>
                 )}
-                <Text style={{ marginTop:  20, fontSize: 14 }}>Activity</Text>
+                <Text style={{ marginTop: 20, fontSize: 14 }}>Activity</Text>
 
                 {/* <View style={{ borderBottomWidth: 1, borderColor: 'rgba(255,255,255,0.05)' }}></View> */}
                 <View style={{ marginTop: 25 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between'}}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
                                 <Image
@@ -243,12 +240,12 @@ const WalletMain = ({ navigation }) => {
                                 />
                             </View>
                             <View>
-                                <Text style={{color:'#fff'}}>Doctor</Text>
+                                <Text style={{ color: '#fff' }}>Elon Musk</Text>
 
                                 <View style={{ flexDirection: 'row' }}>
 
                                     <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5, padding: 0 }}>
-                                        <Text style={{ textAlign: 'center', padding: 0,fontSize:10 }}>
+                                        <Text style={{ textAlign: 'center', padding: 0, fontSize: 10 }}>
                                             @dodo.base
                                         </Text>
                                     </View>
@@ -261,13 +258,13 @@ const WalletMain = ({ navigation }) => {
                             <Text>20.09 USDT</Text>
                         </View>
                         <View>
-                            <Text style={{ fontSize: 8,lineHeight:8 }}>19:02:00</Text>
+                            <Text style={{ fontSize: 8, lineHeight: 8 }}>19:02:00</Text>
                             <Text style={{ fontSize: 8 }}>2023-02-26</Text>
                         </View>
                     </View>
                 </View>
                 <View style={{ marginTop: 25 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between'}}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
                                 <Image
@@ -276,12 +273,12 @@ const WalletMain = ({ navigation }) => {
                                 />
                             </View>
                             <View>
-                                <Text style={{color:'#fff'}}>Mark</Text>
+                                <Text style={{ color: '#fff' }}>Mark</Text>
 
                                 <View style={{ flexDirection: 'row' }}>
 
                                     <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5, padding: 0 }}>
-                                        <Text style={{ textAlign: 'center', padding: 0,fontSize:10 }}>
+                                        <Text style={{ textAlign: 'center', padding: 0, fontSize: 10 }}>
                                             @dodo.base
                                         </Text>
                                     </View>
@@ -294,13 +291,13 @@ const WalletMain = ({ navigation }) => {
                             <Text>20.09 DOGE</Text>
                         </View>
                         <View>
-                            <Text style={{ fontSize: 8,lineHeight:8 }}>19:02:00</Text>
+                            <Text style={{ fontSize: 8, lineHeight: 8 }}>19:02:00</Text>
                             <Text style={{ fontSize: 8 }}>2023-02-26</Text>
                         </View>
                     </View>
                 </View>
                 <View style={{ marginTop: 25 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between'}}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
                                 <Image
@@ -309,12 +306,12 @@ const WalletMain = ({ navigation }) => {
                                 />
                             </View>
                             <View>
-                                <Text style={{color:'#fff'}}>Yk</Text>
+                                <Text style={{ color: '#fff' }}>Yk</Text>
 
                                 <View style={{ flexDirection: 'row' }}>
 
                                     <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5, padding: 0 }}>
-                                        <Text style={{ textAlign: 'center', padding: 0,fontSize:10 }}>
+                                        <Text style={{ textAlign: 'center', padding: 0, fontSize: 10 }}>
                                             @dodo.base
                                         </Text>
                                     </View>
@@ -327,13 +324,13 @@ const WalletMain = ({ navigation }) => {
                             <Text>22.90 ETH</Text>
                         </View>
                         <View>
-                            <Text style={{ fontSize: 8,lineHeight:8 }}>19:02:00</Text>
+                            <Text style={{ fontSize: 8, lineHeight: 8 }}>19:02:00</Text>
                             <Text style={{ fontSize: 8 }}>2023-02-26</Text>
                         </View>
                     </View>
                 </View>
                 <View style={{ marginTop: 25 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between'}}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
                                 <Image
@@ -342,12 +339,12 @@ const WalletMain = ({ navigation }) => {
                                 />
                             </View>
                             <View>
-                                <Text style={{color:'#fff'}}>Mark</Text>
+                                <Text style={{ color: '#fff' }}>Mark</Text>
 
                                 <View style={{ flexDirection: 'row' }}>
 
                                     <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5, padding: 0 }}>
-                                        <Text style={{ textAlign: 'center', padding: 0,fontSize:10 }}>
+                                        <Text style={{ textAlign: 'center', padding: 0, fontSize: 10 }}>
                                             @dodo.base
                                         </Text>
                                     </View>
@@ -360,7 +357,7 @@ const WalletMain = ({ navigation }) => {
                             <Text>20.09 DOGE</Text>
                         </View>
                         <View>
-                            <Text style={{ fontSize: 8,lineHeight:8 }}>19:02:00</Text>
+                            <Text style={{ fontSize: 8, lineHeight: 8 }}>19:02:00</Text>
                             <Text style={{ fontSize: 8 }}>2023-02-26</Text>
                         </View>
                     </View>

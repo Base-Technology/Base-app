@@ -19,7 +19,7 @@ import CreateIcon from '../../assets/icon_create.svg';
 function TabView2(props) {
     return (
         <ScrollView {...props}>
-            <TabView1 />
+            <TabView1 {...props}/>
         </ScrollView>
     );
 }
@@ -43,11 +43,11 @@ export default function Example({ navigation }) {
                         <View style={{ width: 50, height: 50, borderRadius: 40, marginRight: 10 }}>
                             <Image
                                 style={{ width: 50, height: 50, borderRadius: 100, }}
-                                source={{ uri: 'https://bf.jdd001.top/s1.png' }}
+                                source={require('../../assets/ks.jpg')}
                             />
                         </View>
                         <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: 18 }}>KangShuiYue</Text>
+                            <Text style={{ fontSize: 18 }}>Elon Musk</Text>
 
                             <View style={{ flexDirection: 'row', marginTop: 5 }}>
                                 <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5 }}>
@@ -88,7 +88,7 @@ export default function Example({ navigation }) {
         <View style={styles.container}>
             <ScrollTabView headerHeight={headerHeight} renderScrollHeader={_renderScrollHeader}>
                 {/* <TabView1 tabLabel="Wallet" /> */}
-                <TabView2 tabLabel="Wallet" />
+                <TabView2 navigation={navigation} tabLabel="Wallet" />
                 <ScrollView tabLabel="Posts" >
                     <PostView key="p1" />
                 </ScrollView>

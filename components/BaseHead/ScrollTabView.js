@@ -290,7 +290,7 @@ export default class ScrollableTabView extends Component {
             return (
                 <AnimatedViewPagerAndroid
                     key={this._children().length}
-                    style={styles.container}
+                    style={{...styles.container}}
                     initialPage={this.props.initialPage}
                     onPageSelected={this._updateSelectedPage}
                     keyboardDismissMode="on-drag"

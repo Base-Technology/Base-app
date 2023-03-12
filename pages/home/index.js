@@ -21,7 +21,7 @@ import { Layout, ViewPager, Icon } from '@ui-kitten/components';
 import Swiper from 'react-native-swiper'
 import Text from "./BaseText";
 import Explore from "./explore";
-import Follow from "../moments";
+import Follow from "../moments/members";
 import HomeIcon from '../../assets/icon_home';
 import HomeFullIcon from '../../assets/icon_homefull';
 import ChatIcon from '../../assets/icon_chat.svg';
@@ -57,7 +57,7 @@ const HomeScreen = ({ navigation }) => {
   const [date, setDate] = React.useState(new Date());
   const [value, onChangeText] = React.useState('Details');
   const [followData, setFollowData] = useState([0]);
-  const [selectedIndex, setSelectedIndex] = React.useState(2);
+  const [selectedIndex, setSelectedIndex] = React.useState(3);
   const [tabsData, setTabsData] = useState([
     {
       active: false,
@@ -290,7 +290,10 @@ const HomeScreen = ({ navigation }) => {
         <Layout
           style={styles.tab}
           level='2'>
-          <Follow key='tab2' />
+          <ScrollView>
+            <Follow key='tab1' />
+          </ScrollView>
+
         </Layout>
         <Layout
           style={styles.tab}
@@ -306,7 +309,9 @@ const HomeScreen = ({ navigation }) => {
         <Layout
           style={styles.tab}
           level='2'>
-          <Follow key='tab2' />
+           <ScrollView>
+            <Follow key='tab2' />
+          </ScrollView>
         </Layout>
         <Layout
           style={styles.tab}
@@ -339,7 +344,7 @@ const HomeScreen = ({ navigation }) => {
               </View>
 
             </View>
-            <View style={{ }}>
+            <View style={{}}>
               <View style={{ padding: 10, borderRadius: 50 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                   <View>

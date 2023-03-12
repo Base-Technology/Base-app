@@ -17,7 +17,7 @@ import {
 import { queryMessage, addMessage } from '../../database/message';
 import moment from 'moment';
 
-function MessageList() {
+function MessageList(props) {
   const [value, onChangeText] = React.useState('');
 
   const [messages, changeMessages] = React.useState(undefined);
@@ -31,27 +31,27 @@ function MessageList() {
   return <View style={{ flex: 1 }}>
     <View style={{ flex: 1 }}>
       <ScrollView
-        style={{ padding: 20 }}
+        style={{ padding: 10 }}
       >
         {messages && messages.map((msg, index) => {
           return (
             <View key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: msg.is_send == 0 ? 'flex-start' : 'flex-end', marginBottom: 10 }}>
-              {msg.is_send == 0 && (
+              {props.route.params.type!=2&&msg.is_send == 0 && (
                 <View>
                   <Image
                     style={{ width: 40, height: 40, borderRadius: 100, }}
-                    source={require('../../assets/yk.jpg')}
+                    source={Math.random()>0.5&&require('../../assets/yk.jpg')||require('../../assets/mark.jpg')}
                   />
                 </View>) ||
-                <View style={{ width: 40, height: 40 }}>
-                </View>
+                (props.route.params.type!=2&&<View style={{ width: 40, height: 40 }}>
+                </View>)
               }
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: msg.is_send == 0 && 'flex-start' || 'flex-end' }}>
                 <View>
                   <View style={{
                     padding: 10,
                     backgroundColor: msg.is_send == 0 ? 'rgba(255,255,255,0.1)' : '#422DDD',
-                    marginLeft: msg.is_send == 0 ? 20 : 20,
+                    marginLeft: props.route.params.type!=2 ? 20 : 0,
                     borderRadius: msg.content.length > 70 ? 10 : 100,
                     borderBottomLeftRadius: msg.is_send == 0 ? 0 : undefined,
                     borderBottomRightRadius: msg.is_send == 0 ? undefined : 0,
@@ -128,7 +128,7 @@ class ChatDetail extends Component {
     return (
       <View style={{ ...styles.container, backgroundColor: '#1e1e1e' }}>
         <View style={{ position: 'relative' }}>
-          <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('DetailGroup', this.props.route.params)}>
+          <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate(this.props.route.params.type!=2&&'DetailGroup'||'Personal', this.props.route.params)}>
 
             <View style={{ height: 60, padding: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
               <View>
@@ -145,7 +145,7 @@ class ChatDetail extends Component {
                 />
                 <View style={{ marginLeft: 5 }}>
                   <View>
-                    <Text style={{ color: '#fff', fontSize: 16 }}>{this.props.route.params.name} Official Group</Text>
+                    <Text style={{ color: '#fff', fontSize: 16 }}>{this.props.route.params.name} {this.props.route.params.type!=2&&'Official Group'}</Text>
                   </View>
                   <View style={{ flexDirection: 'row' }}>
                     <Text style={{ color: '#fff', fontSize: 8, }}>$999 <Text style={{ fontSize: 8, }}>Treasury</Text></Text>
@@ -163,7 +163,7 @@ class ChatDetail extends Component {
                         </View> */}
         </View>
         <View style={{ flex: 1 }}>
-          <MessageList key="s1" />
+          <MessageList {...this.props} key="s1" />
         </View>
 
 

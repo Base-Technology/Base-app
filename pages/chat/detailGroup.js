@@ -31,9 +31,14 @@ class ChatDetail extends Component {
 
     render() {
         return (
-                <View style={{ ...styles.container, backgroundColor: '#1e1e1e' }}>
-                    <Me key="s2" />
-                </View>
+            <View style={{ ...styles.container, backgroundColor: '#1e1e1e' }}>
+                <TouchableWithoutFeedback
+                    onPress={() => this.props.navigation.goBack()}
+                >
+                    <BackIcon style={{position:'absolute',zIndex:1,margin:10}} width={25} height={25} fill="#fff" />
+                </TouchableWithoutFeedback>
+                <Me key="s2" {...this.props} />
+            </View>
 
         );
     }
