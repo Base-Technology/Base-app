@@ -220,7 +220,7 @@ function SettingsScreen() {
 
 // Drawer组件
 
-class Home extends Component {
+class ChatDetailP extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -341,4 +341,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Home;
+export default ChatDetailP;

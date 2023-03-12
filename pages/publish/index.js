@@ -16,11 +16,11 @@ import VideoScreen from "../../components/BaseVideo";
 import MembersScreen from "../me/members";
 import { useWindowDimensions } from 'react-native';
 import { BaseHeadInfo } from "../../components/Base";
-
-const InfoF = ({ headuri }) => (
+import * as ImagePicker from 'react-native-image-picker';
+const InfoF = ({ headuri, name }) => (
   <View style={{ marginTop: 10, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <BaseHeadInfo headuri={headuri} name="Enjin" />
+      <BaseHeadInfo headuri={headuri} name={name} />
     </View>
   </View>
 )
@@ -40,21 +40,24 @@ const TempScreen = () => {
     </View>);
   }
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-          <RichEditor
-            ref={richText}
-            onChange={descriptionText => {
-              console.log("descriptionText:", descriptionText);
-            }}
-            placeholder={'Add content'}
-            editorStyle={{ backgroundColor: 'rgba(0,0,0,0)', color: '#fff' }}
-            initialHeight={150}
-          />
-        </KeyboardAvoidingView>
-      </ScrollView>
-      <View style={{ flexDirection: 'row' }}>
+    <View style={{ flex: 1 }}>
+      <View style={{ height: 180, paddingVertical: 10 }}>
+        <ScrollView>
+          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <RichEditor
+              ref={richText}
+              onChange={descriptionText => {
+                console.log("descriptionText:", descriptionText);
+              }}
+              placeholder={'Add content'}
+              editorStyle={{ backgroundColor: 'rgba(0,0,0,0)', color: '#fff' }}
+              initialHeight={150}
+            />
+          </KeyboardAvoidingView>
+        </ScrollView>
+      </View>
+
+      <View style={{ flexDirection: 'row', }}>
         <TouchableWithoutFeedback onPress={() => {
           setInd(1);
         }}>
@@ -82,46 +85,74 @@ const TempScreen = () => {
           </View>
         </TouchableWithoutFeedback>
       </View>
-      {ind == 0 && <RichToolbar
-        style={{ backgroundColor: 'rgba(255,255,255,0)' }}
-        editor={richText}
-        actions={[actions.insertLink, actions.setBold, actions.insertBulletsList, actions.insertOrderedList, actions.setTextColor, actions.heading2, actions.heading3, actions.insertImage,]}
-        iconMap={{
-          [actions.setBold]: () => (<ToolIcon icon={<BoldIcon width={20} height={20} fill="#fff" />} title='Bold' desc='Make text bold' />),
-          [actions.insertBulletsList]: () => (<ToolIcon icon={<ListIcon width={20} height={20} fill="#fff" />} title='Bulleted List' desc='Create a simple list' />),
-          [actions.insertOrderedList]: () => (<ToolIcon icon={<ListOrderIcon width={20} height={20} fill="#fff" />} title='Ordered List' desc='Create a number list' />),
-          [actions.setTextColor]: () => (<ToolIcon icon={<ColorIcon width={20} height={20} fill="#fff" />} title='Color' desc='Choose a text color' />),
-          [actions.heading2]: () => (<ToolIcon icon={<Text>H2</Text>} title='Heading 2' desc='Large section heading' />),
-          [actions.heading3]: () => (<ToolIcon icon={<Text>H3</Text>} title='Heading 3' desc='Medium section heading' />),
-          [actions.insertImage]: () => (<ToolIcon icon={<ImageIcon width={20} height={20} fill="#fff" />} title='Image' desc='Embed an image' />),
-        }}
-      />}
-      {ind == 1 && <View style={{ marginTop: 10 }}>
-        <TouchableWithoutFeedback onPress={() => richText.current.insertHTML("<a href=''>#Base</a>")}>
+      <ScrollView style={{ flex: 1 }}>
+        {ind == 0 && <RichToolbar
+          style={{ backgroundColor: 'rgba(255,255,255,0)' }}
+          editor={richText}
+          actions={[actions.insertImage, actions.insertLink, actions.setBold, actions.insertBulletsList, actions.insertOrderedList, actions.setTextColor, actions.heading2, actions.heading3,]}
+          iconMap={{
+            [actions.setBold]: () => (<ToolIcon icon={<BoldIcon width={20} height={20} fill="#fff" />} title='Bold' desc='Make text bold' />),
+            [actions.insertBulletsList]: () => (<ToolIcon icon={<ListIcon width={20} height={20} fill="#fff" />} title='Bulleted List' desc='Create a simple list' />),
+            [actions.insertOrderedList]: () => (<ToolIcon icon={<ListOrderIcon width={20} height={20} fill="#fff" />} title='Ordered List' desc='Create a number list' />),
+            [actions.setTextColor]: () => (<ToolIcon icon={<ColorIcon width={20} height={20} fill="#fff" />} title='Color' desc='Choose a text color' />),
+            [actions.heading2]: () => (<ToolIcon icon={<Text>H2</Text>} title='Heading 2' desc='Large section heading' />),
+            [actions.heading3]: () => (<ToolIcon icon={<Text>H3</Text>} title='Heading 3' desc='Medium section heading' />),
+            [actions.insertImage]: () => (<ToolIcon icon={<ImageIcon width={20} height={20} fill="#fff" />} title='Image' desc='Embed an image' />),
+          }}
+        />}
+        {ind == 1 && <View style={{ marginTop: 10 }}>
+          <TouchableWithoutFeedback onPress={() => richText.current.insertHTML("<a href='' style='color:#422ddd'>#Base</a>")}>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
-            <Text>#Base</Text>
-            <Text style={{ fontSize: 10 }}>29.1 views</Text>
-          </View>
-        </TouchableWithoutFeedback>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
-          <Text>#Acy</Text>
-          <Text style={{ fontSize: 10 }}>2 views</Text>
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
-          <Text>#Keep</Text>
-          <Text style={{ fontSize: 10 }}>1 views</Text>
-        </View>
-      </View>}
-      {ind == 2 && <View style={{ marginTop: 10 }}>
-        <InfoF headuri="https://i.seadn.io/gcs/files/801294076e0c9ed08eb2aafd911869d1.png?auto=format&w=384" />
-        <InfoF headuri="https://i.seadn.io/gcs/files/c5ecd0af8815131eafbb6c07224e04b2.png?auto=format&w=384" />
-        <InfoF headuri="https://i.seadn.io/gcs/files/8ba131731c9ce532329d824e3183b9fd.png?auto=format&w=384" />
-        <InfoF headuri="https://i.seadn.io/gcs/files/505425aaa4475f8d3cc6ef9ac121357e.png?auto=format&w=384" />
-        <InfoF headuri="https://i.seadn.io/gcs/files/0a9959a54470aa801d961eee52f53cb4.png?auto=format&w=384" />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
+              <Text style={{ fontSize: 14 }}>#Base</Text>
+              <Text style={{ fontSize: 10 }}>29.1 views</Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => richText.current.insertHTML("<a href='' style='color:#422ddd'>#Acy</a>")}>
 
-      </View>}
-    </SafeAreaView>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
+              <Text style={{ fontSize: 14 }}>#Acy</Text>
+              <Text style={{ fontSize: 10 }}>29.1 views</Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => richText.current.insertHTML("<a href='' style='color:#422ddd'>#Keep</a>")}>
+
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
+              <Text style={{ fontSize: 14 }}>#Keep</Text>
+              <Text style={{ fontSize: 10 }}>29.1 views</Text>
+            </View>
+          </TouchableWithoutFeedback>
+        </View>}
+        {ind == 2 && <View style={{ marginTop: 10 }}>
+          <TouchableWithoutFeedback onPress={() => richText.current.insertHTML("<a href='' style='color:#422ddd'>@Eson</a>")}>
+            <View>
+              <InfoF name="Eson" headuri="https://i.seadn.io/gcs/files/801294076e0c9ed08eb2aafd911869d1.png?auto=format&w=384" />
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => richText.current.insertHTML("<a href='' style='color:#422ddd'>@Ali</a>")}>
+            <View>
+              <InfoF name="Ali" headuri="https://i.seadn.io/gcs/files/c5ecd0af8815131eafbb6c07224e04b2.png?auto=format&w=384" />
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => richText.current.insertHTML("<a href='' style='color:#422ddd'>@Will</a>")}>
+            <View>
+              <InfoF name="Will" headuri="https://i.seadn.io/gcs/files/8ba131731c9ce532329d824e3183b9fd.png?auto=format&w=384" />
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => richText.current.insertHTML("<a href='' style='color:#422ddd'>@Jack</a>")}>
+            <View>
+              <InfoF name="Jack" headuri="https://i.seadn.io/gcs/files/505425aaa4475f8d3cc6ef9ac121357e.png?auto=format&w=384" />
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => richText.current.insertHTML("<a href='' style='color:#422ddd'>@Rose</a>")}>
+            <View>
+              <InfoF name="Rose" headuri="https://i.seadn.io/gcs/files/0a9959a54470aa801d961eee52f53cb4.png?auto=format&w=384" />
+            </View>
+          </TouchableWithoutFeedback>
+
+        </View>}
+      </ScrollView>
+    </View>
   );
 };
 const Search = ({ navigation }) => {
@@ -137,17 +168,32 @@ const Search = ({ navigation }) => {
     }
   ]);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [response, setResponse] = React.useState(null);
 
+  const onButtonPress = React.useCallback((type, options) => {
+    type = 'capture';
+    options = {
+      saveToPhotos: true,
+      mediaType: 'photo',
+      includeBase64: false,
+      includeExtra: true,
+    };
+    if (type === 'capture') {
+      ImagePicker.launchCamera(options, setResponse);
+    } else {
+      ImagePicker.launchImageLibrary(options, setResponse);
+    }
+  }, []);
   return (
-    <View style={{ height: 760 }}>
+    <View style={{ flex: 1 }}>
       {/* Search */}
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 15, paddingVertical: 10 }}>
         <View>
-          <BackIcon width={20} height={20} fill={"#fff"} />
-        </View>
-        <View>
-          <InfoIcon width={20} height={20} fill={"#8c8c8c"} />
-
+          <TouchableWithoutFeedback onPress={() => {
+            navigation.goBack()
+          }}>
+            <BackIcon width={20} height={20} fill={"#fff"} />
+          </TouchableWithoutFeedback>
         </View>
       </View>
       <View style={{ padding: 20, flexDirection: 'row' }}>
@@ -158,29 +204,38 @@ const Search = ({ navigation }) => {
           <View style={{ width: 150, height: 150, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.05)', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', marginRight: 10 }}>
             <Image width={150} height={150} resizeMode="cover" source={{uri:'https://bf.jdd001.top/s1.png'}} />
           </View> */}
-          <View style={{ width: 150, height: 150, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.05)', justifyContent: 'center', alignItems: 'center' }}>
-            <AddIcon width={40} height={40} fill="#8c8c8c" />
-          </View>
+         
+
+          <TouchableWithoutFeedback onPress={onButtonPress}>
+            <View style={{ width: 100, height: 100, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.05)', justifyContent: 'center', alignItems: 'center' }}>
+              <AddIcon width={40} height={40} fill="#8c8c8c" />
+            </View>
+          </TouchableWithoutFeedback>
         </ScrollView>
 
       </View>
+      {
+            response && 
+               <Image width={100} height={100} resizeMode="cover" source={{ uri: response.assets[0].uri }} />
+           
+          }
       <View style={{ paddingHorizontal: 20, borderBottomColor: '#707070', borderBottomWidth: 0.5 }}>
         <TextInput placeholderTextColor="#8c8c8c" style={{ fontSize: 16, color: '#ffffff' }} placeholder="Add a title" />
       </View>
-      <View style={{ paddingHorizontal: 25 }}>
+      <View style={{ paddingHorizontal: 25, flex: 1, overflow: 'hidden' }}>
+        <TempScreen />
         {/* <TextInput style={{ color: '#8c8c8c' }} value="Add text" /> */}
         {/* <RenderHtml
           contentWidth={width}
           source={source}
         /> */}
-        <TempScreen />
       </View>
-      <View style={{ position: 'absolute', bottom: 20, justifyContent: 'center', right: 0, left: 0, flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'center', paddingVertical: 10, backgroundColor: 'rgba(255,255,255,0)' }}>
         <View style={{ backgroundColor: '#422ddd', padding: 15, borderRadius: 100, width: 300 }}>
           <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Post</Text>
         </View>
       </View>
-    </View>
+    </View >
   )
 }
 const styles = {

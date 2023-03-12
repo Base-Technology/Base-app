@@ -12,10 +12,11 @@ import MomentIcon from './assets/icon_moment.svg';
 import MomentFullIcon from './assets/icon_momentfull.svg';
 import CreateIcon from './assets/icon_create.svg';
 import WalletMain from './pages/me/index';
-import HomeScreen from './pages/home';
+// import HomeScreen from './pages/home';
 import PublishScreen from "./pages/publish";
 import Chat from './pages/chat/list';
 import Moment from './pages/moments';
+import HomeScreen from './pages/home';
 
 const MyTheme = {
   ...DarkTheme,
@@ -85,7 +86,7 @@ function MyTabs() {
         },
       })}
     >
-      <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false }} name="Home" component={Chat} />
+      <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false }} name="Home" component={HomeScreen} />
 
       <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false }} name="Chats" component={Chat} />
 
@@ -93,7 +94,7 @@ function MyTabs() {
 
       <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false, tabBarVisible: true }} name="Create" component={PublishScreen} />
       <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false }} name="Moments" component={Moment} />
-      <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false }} name="Wallet" component={Chat} />
+      <Tab.Screen options={{ headerShown: false, tabBarShowLabel: false }} name="Wallet" component={WalletMain} />
 
     </Tab.Navigator>
   );

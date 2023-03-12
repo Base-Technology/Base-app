@@ -75,7 +75,7 @@ const WalletMain = ({ navigation }) => {
   }
   return (
     <View style={styles.mainContainer}>
-      {/* <View style={styles.list}>
+      <View style={styles.list}>
         <Item key="aa1" header={{uri:'https://bf.jdd001.top/s3.png'}} />
         <Item key="aa2" header={{uri:'https://bf.jdd001.top/s4.png'}} />
       </View>
@@ -90,7 +90,7 @@ const WalletMain = ({ navigation }) => {
       <View style={styles.list}>
         <Item key="aa7" header={{uri:'https://bf.jdd001.top/s5.png'}} />
         <Item key="aa8" header={{uri:'https://bf.jdd001.top/s1.png'}} />
-      </View> */}
+      </View>
 
     </View>
   );

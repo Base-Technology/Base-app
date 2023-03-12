@@ -21,6 +21,16 @@ import { Layout, ViewPager, Icon } from '@ui-kitten/components';
 import Swiper from 'react-native-swiper'
 import Text from "./BaseText";
 import Explore from "./explore";
+import Follow from "../moments";
+import HomeIcon from '../../assets/icon_home';
+import HomeFullIcon from '../../assets/icon_homefull';
+import ChatIcon from '../../assets/icon_chat.svg';
+import ChatFullIcon from '../../assets/icon_chatfull.svg';
+import MeIcon from '../../assets/icon_me.svg';
+import MeFullIcon from '../../assets/icon_mefull.svg';
+import MomentIcon from '../../assets/icon_moment.svg';
+import MomentFullIcon from '../../assets/icon_momentfull.svg';
+import CreateIcon from '../../assets/icon_create.svg';
 const CalendarIcon = (props) => (
   <Icon {...props} name='calendar' />
 );
@@ -46,7 +56,7 @@ const InfoF = ({ headuri }) => (
 const HomeScreen = ({ navigation }) => {
   const [date, setDate] = React.useState(new Date());
   const [value, onChangeText] = React.useState('Details');
-  const [followData,setFollowData]=useState([0]);
+  const [followData, setFollowData] = useState([0]);
   const [selectedIndex, setSelectedIndex] = React.useState(2);
   const [tabsData, setTabsData] = useState([
     {
@@ -56,6 +66,10 @@ const HomeScreen = ({ navigation }) => {
     {
       active: false,
       name: 'Explore'
+    },
+    {
+      active: true,
+      name: 'Member'
     },
     {
       active: true,
@@ -72,20 +86,20 @@ const HomeScreen = ({ navigation }) => {
         loop
       >
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Details2')}>
-  
+
           <Layout
             level='1'
             style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
           >
-  
-            <Bg img={{uri:'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/0060lm7Tly1ftg6omusg9j31hc0u010h.jpg'}} />
-  
+
+            <Bg img={{ uri: 'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/0060lm7Tly1ftg6omusg9j31hc0u010h.jpg' }} />
+
             <View style={styles.container}>
               <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
                 <Image resizeMode="stretch"
-                  source={{uri:'https://bf.jdd001.top/s1.png'}}
-                  // source={{uri:'https://bf.jdd001.top/s5.png'}}
-  
+                  source={{ uri: 'https://bf.jdd001.top/s1.png' }}
+                // source={{uri:'https://bf.jdd001.top/s5.png'}}
+
                 />
               </View>
               <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
@@ -94,29 +108,29 @@ const HomeScreen = ({ navigation }) => {
               <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Text style={{ fontSize: 18 }}>Base Group</Text>
-  
+
                   <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
                     <Text style={{ fontSize: 14 }}>Join</Text>
                   </View>
                 </View>
                 <View style={{ marginTop: 0, flexDirection: 'row', alignItems: 'center' }}>
                   <View style={{ width: 5, height: 5, borderRadius: 50, backgroundColor: '#422DDD' }}>
-  
+
                   </View>
                   <View style={{ marginLeft: 5 }}>
                     <Text style={{ fontSize: 8 }}>100234  Online </Text>
                   </View>
                   <View style={{ marginLeft: 10, width: 5, height: 5, borderRadius: 50, backgroundColor: 'gray' }}>
-  
+
                   </View>
                   <View style={{ marginLeft: 5 }}>
                     <Text style={{ fontSize: 8 }}>
                       98234 Members
                     </Text>
                   </View>
-  
+
                 </View>
-  
+
               </View>
             </View>
           </Layout>
@@ -125,14 +139,14 @@ const HomeScreen = ({ navigation }) => {
           level='1'
           style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
         >
-            <Bg img={{uri:'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/0060lm7Tly1ftg6omusg9j31hc0u010h.jpg'}} />
-  
+          <Bg img={{ uri: 'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/0060lm7Tly1ftg6omusg9j31hc0u010h.jpg' }} />
+
           <View style={styles.container}>
             <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
               <Image resizeMode="contain" width={100} height={100}
                 // source={{uri:'https://bf.jdd001.top/s1.png'}}
-                source={{uri:'https://bf.jdd001.top/s1.png'}}
-  
+                source={{ uri: 'https://bf.jdd001.top/s1.png' }}
+
               />
             </View>
             <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
@@ -141,29 +155,29 @@ const HomeScreen = ({ navigation }) => {
             <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Text style={{ fontSize: 18 }}>Base Group</Text>
-  
+
                 <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
                   <Text style={{ fontSize: 14 }}>Join</Text>
                 </View>
               </View>
               <View style={{ marginTop: 0, flexDirection: 'row', alignItems: 'center' }}>
                 <View style={{ width: 5, height: 5, borderRadius: 50, backgroundColor: '#422DDD' }}>
-  
+
                 </View>
                 <View style={{ marginLeft: 5 }}>
                   <Text style={{ fontSize: 8 }}>100234  Online </Text>
                 </View>
                 <View style={{ marginLeft: 10, width: 5, height: 5, borderRadius: 50, backgroundColor: 'gray' }}>
-  
+
                 </View>
                 <View style={{ marginLeft: 5 }}>
                   <Text style={{ fontSize: 8 }}>
                     98234 Members
                   </Text>
                 </View>
-  
+
               </View>
-  
+
             </View>
           </View>
         </Layout>
@@ -171,14 +185,14 @@ const HomeScreen = ({ navigation }) => {
           level='1'
           style={{ backgroundColor: '#rgba(0,0,0,0)', overflow: 'hidden' }}
         >
-            <Bg img={{uri:'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/0060lm7Tly1ftg6omusg9j31hc0u010h.jpg'}} />
-  
+          <Bg img={{ uri: 'https://cdn.cdnjson.com/wx3.sinaimg.cn/large/0060lm7Tly1ftg6omusg9j31hc0u010h.jpg' }} />
+
           <View style={styles.container}>
             <View style={{ height: 110, position: 'relative', overflow: 'hidden' }}>
               <Image resizeMode="contain" width={100} height={100}
                 // source={{uri:'https://bf.jdd001.top/s1.png'}}
-                source={{uri:'https://bf.jdd001.top/s1.png'}}
-  
+                source={{ uri: 'https://bf.jdd001.top/s1.png' }}
+
               />
             </View>
             <View style={{ marginTop: -30, marginLeft: 15, backgroundColor: '#1e1e1e', width: 60, borderRadius: 100, padding: 5 }}>
@@ -187,29 +201,29 @@ const HomeScreen = ({ navigation }) => {
             <View style={{ margin: 15, marginTop: -5, marginBottom: 5 }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Text style={{ fontSize: 18 }}>Base Group</Text>
-  
+
                 <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
                   <Text style={{ fontSize: 14 }}>Join</Text>
                 </View>
               </View>
               <View style={{ marginTop: 0, flexDirection: 'row', alignItems: 'center' }}>
                 <View style={{ width: 5, height: 5, borderRadius: 50, backgroundColor: '#422DDD' }}>
-  
+
                 </View>
                 <View style={{ marginLeft: 5 }}>
                   <Text style={{ fontSize: 8 }}>100234  Online </Text>
                 </View>
                 <View style={{ marginLeft: 10, width: 5, height: 5, borderRadius: 50, backgroundColor: 'gray' }}>
-  
+
                 </View>
                 <View style={{ marginLeft: 5 }}>
                   <Text style={{ fontSize: 8 }}>
                     98234 Members
                   </Text>
                 </View>
-  
+
               </View>
-  
+
             </View>
           </View>
         </Layout>
@@ -234,8 +248,8 @@ const HomeScreen = ({ navigation }) => {
 
     </View >
   )
- 
-  return (<View>
+
+  return (<View style={{ flex: 1 }}>
     <View style={{ margin: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
       {/* <TextInput
           style={{ height: 40, borderColor: 'gray', borderWidth: 1, color: '#ffffff', borderRadius: 50 }}
@@ -245,11 +259,11 @@ const HomeScreen = ({ navigation }) => {
       <View style={{ width: 20 }}></View>
       <View style={{ flexDirection: 'row' }}>
         {
-          tabsData.map((item, index) => 
-      <TouchableWithoutFeedback onPress={() => setSelectedIndex(index)}>
-          
-          <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10, borderBottomWidth: 2, borderBottomColor: index == selectedIndex && '#422DDD' || 'rgba(0,0,0,0)' }}>{item.name}</Text>
-          </TouchableWithoutFeedback>
+          tabsData.map((item, index) =>
+            <TouchableWithoutFeedback onPress={() => setSelectedIndex(index)}>
+
+              <Text style={{ color: 'rgba(255,255,255,0.6)', marginRight: 10, borderBottomWidth: 2, borderBottomColor: index == selectedIndex && '#422DDD' || 'rgba(0,0,0,0)' }}>{item.name}</Text>
+            </TouchableWithoutFeedback>
           )
         }
 
@@ -263,113 +277,135 @@ const HomeScreen = ({ navigation }) => {
         />
       </TouchableWithoutFeedback>
     </View>
-    <ViewPager
-      selectedIndex={selectedIndex}
-      onSelect={index => {
+    <View style={{ flex: 1 }}>
+      <ViewPager
+        selectedIndex={selectedIndex}
+        onSelect={index => {
 
-        setSelectedIndex(index);
+          setSelectedIndex(index);
 
-      }}
-    >
+        }}
+      >
 
-      <Layout
-        style={styles.tab}
-        level='2'>
-          <Explore key='tab2'/>
-      </Layout>
-      <Layout
-        style={styles.tab}
-        level='2'>
-        <ScrollView
-          contentContainerStyle={{ minHeight: '85%' }}
-        >
-          <Explore key='tab1'/>
-        </ScrollView>
+        <Layout
+          style={styles.tab}
+          level='2'>
+          <Follow key='tab2' />
+        </Layout>
+        <Layout
+          style={styles.tab}
+          level='2'>
+          <ScrollView
+            contentContainerStyle={{ minHeight: '85%' }}
+          >
+            <Explore key='tab1' />
+          </ScrollView>
 
 
-      </Layout>
-      <Layout
-        style={styles.tab}
-        level='2'>
-        <ScrollView
-          contentContainerStyle={{ minHeight: '85%' }}
-        >
-          <View style={{ margin: 20, overflow: 'hidden', borderRadius: 5, marginTop: 10, height: 180 }}>
-            <ViewPagerSimpleUsageShowcase navigation={navigation} />
-          </View>
-          <View style={{ margin: 20, marginTop: 0, marginBottom: 0 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 10, paddingRight: 10 }}>
-              <Text style={{ color: '#ffffff', fontSize: 16 }}>Active</Text>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <RefreshIcon width={20} height={20} fill="#fff" />
-
-              </View>
-
+        </Layout>
+        <Layout
+          style={styles.tab}
+          level='2'>
+          <Follow key='tab2' />
+        </Layout>
+        <Layout
+          style={styles.tab}
+          level='2'>
+          <ScrollView
+            contentContainerStyle={{ minHeight: '85%' }}
+          >
+            <View style={{ marginVertical: 20, overflow: 'hidden', borderRadius: 5, marginTop: 10, height: 180 }}>
+              <ViewPagerSimpleUsageShowcase navigation={navigation} />
             </View>
-            <View style={{ flexDirection: 'row', padding: 10 }}>
-              <View style={{ flex: 1 }}>
-                <Info headuri="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=024" />
-                <Info headuri="https://cryptologos.cc/logos/thumbs/binance-usd.png?v=023" />
-                <Info headuri="https://cryptologos.cc/logos/thumbs/tether.png?v=023" />
-              </View>
-              <View style={{ flex: 1 }}>
-                <Info headuri="https://cryptologos.cc/logos/thumbs/usd-coin.png?v=023" />
-                <Info headuri="https://cryptologos.cc/logos/thumbs/bnb.png?v=023" />
-              </View>
-            </View>
-
-          </View>
-          <View style={{ margin: 20 }}>
-            <View style={{ padding: 10, borderRadius: 50 }}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <View>
-                  <Text style={{ color: '#ffffff', fontSize: 16 }}>New</Text>
-
-                </View>
+            <View style={{ marginTop: 0, marginBottom: 0 }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 10, paddingRight: 10 }}>
+                <Text style={{ color: '#ffffff', fontSize: 16 }}>Active</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  {/* <MoreIcon width={20} height={20} fill="#fff" /> */}
+                  <RefreshIcon width={20} height={20} fill="#fff" />
 
                 </View>
 
               </View>
+              <View style={{ flexDirection: 'row', padding: 10 }}>
+                <View style={{ flex: 1 }}>
+                  <Info headuri="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=024" />
+                  <Info headuri="https://cryptologos.cc/logos/thumbs/binance-usd.png?v=023" />
+                  <Info headuri="https://cryptologos.cc/logos/thumbs/tether.png?v=023" />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Info headuri="https://cryptologos.cc/logos/thumbs/usd-coin.png?v=023" />
+                  <Info headuri="https://cryptologos.cc/logos/thumbs/bnb.png?v=023" />
+                </View>
+              </View>
 
-              <TouchableWithoutFeedback onPress={() => navigation.navigate('Publish')}>
-                <InfoF headuri="https://cryptologos.cc/logos/thumbs/xrp.png?v=023" />
-              </TouchableWithoutFeedback>
-
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/cardano.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/solana.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/dogecoin.png?v=023" />
             </View>
-          </View>
-          <View style={{ margin: 20, padding: 10, marginTop: 10 }}>
-            <View>
-              <Text style={{ color: '#ffffff', fontSize: 16, marginBottom: 10 }}>Guess You Like</Text>
+            <View style={{ }}>
+              <View style={{ padding: 10, borderRadius: 50 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <View>
+                    <Text style={{ color: '#ffffff', fontSize: 16 }}>New</Text>
+
+                  </View>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    {/* <MoreIcon width={20} height={20} fill="#fff" /> */}
+
+                  </View>
+
+                </View>
+
+                <TouchableWithoutFeedback onPress={() => navigation.navigate('Publish')}>
+                  <InfoF headuri="https://cryptologos.cc/logos/thumbs/xrp.png?v=023" />
+                </TouchableWithoutFeedback>
+
+                <InfoF headuri="https://cryptologos.cc/logos/thumbs/cardano.png?v=023" />
+                <InfoF headuri="https://cryptologos.cc/logos/thumbs/solana.png?v=023" />
+                <InfoF headuri="https://cryptologos.cc/logos/thumbs/dogecoin.png?v=023" />
+              </View>
             </View>
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/xrp.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/polkadot-new.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/polygon.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/avalanche.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/tron.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/wrapped-bitcoin.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/uniswap.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/unus-sed-leo.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/litecoin.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/ftx-token.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/ethereum-classic.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/cronos.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/chainlink.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/near-protocol.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/stellar.png?v=023" />
-            <InfoF headuri="https://cryptologos.cc/logos/thumbs/monero.png?v=023" />
-          </View>
-          <View style={{ height: 100 }}></View>
+            <View style={{ padding: 10, marginTop: 10 }}>
+              <View>
+                <Text style={{ color: '#ffffff', fontSize: 16, marginBottom: 10 }}>Guess You Like</Text>
+              </View>
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/xrp.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/polkadot-new.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/polygon.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/avalanche.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/tron.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/wrapped-bitcoin.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/uniswap.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/unus-sed-leo.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/litecoin.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/ftx-token.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/ethereum-classic.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/cronos.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/chainlink.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/near-protocol.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/stellar.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/monero.png?v=023" />
+            </View>
+          </ScrollView>
+        </Layout>
 
-        </ScrollView>
-      </Layout>
+      </ViewPager>
+    </View>
 
-    </ViewPager>
+    <View style={{ flexDirection: 'row', height: 20, alignItems: 'center', justifyContent: 'space-around', paddingVertical: 20 }}>
+      <HomeFullIcon width={25} height={25} fill={"#fff"} />
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Chat')}>
 
+        <ChatIcon width={25} height={25} fill={"#fff"} />
+      </TouchableWithoutFeedback>
+
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Publish')}>
+        <CreateIcon width={25} height={25} fill={"#fff"} />
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Moment')}>
+        <MomentIcon width={25} height={25} fill={"#fff"} />
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Me')}>
+        <MeIcon width={25} height={25} fill={"#fff"} />
+      </TouchableWithoutFeedback>
+    </View>
   </View>
   );
 }

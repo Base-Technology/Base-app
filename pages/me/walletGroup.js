@@ -200,46 +200,10 @@ const WalletMain = ({ navigation }) => {
     }, []);
     return (
         <View style={styles.mainContainer}>
-            {/* <ScrollTabView headerHeight={headerHeight} renderScrollHeader={_renderScrollHeader}>
-                <TabView1 tabLabel="tab1" />
-                <TabView1 tabLabel="tab2" />
-                <TabView1 tabLabel="tab3" />
-            </ScrollTabView> */}
-            {/* <AppBar
-        title="Wallet"
-      /> */}
-
-            <View style={styles.balanceShow}>
-                {/* {!isShow ? (
-                    <View style={styles.balanceSection}>
-                        <Ionicon name="ellipsis-horizontal" size={36} color="#ffffff" />
-                        <Ionicon name="ellipsis-horizontal" size={36} color="#ffffff" />
-                    </View>
-                ) : (
-                    <Text style={styles.balanceText}>$ 0.00</Text>
-                )} */}
-
-
-                {/* <View style={styles.balanceSection}>
-                    <IconButton
-                        icon={props => (
-                            <Ionicon
-                                name={isShow ? 'eye' : 'eye-off'}
-                                color="#ffffff"
-                                {...props}
-                            />
-                        )}
-                        iconColor="#ffffff"
-                        size={16}
-                        onPress={() => setisShow(!isShow)}
-                    />
-                </View> */}
-            </View>
 
             <View style={styles.boxSection}>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('Send')}>
                     <View style={styles.box}  >
-                        {/* <SendIcon width="15" height="15" fill="#fff" /> */}
                         <Text style={styles.boxText}>Claim</Text>
                     </View>
                 </TouchableWithoutFeedback>
@@ -258,9 +222,9 @@ const WalletMain = ({ navigation }) => {
                 <Text style={{ fontSize: 14,marginTop:15 }}>Vault</Text>
 
                 {TokenList ? (
-                    TokenList.slice(0, 3).map(tokens => {
+                    TokenList.slice(0, 3).map((tokens,index) => {
                         return (
-                            <AssetBox logoSrc={tokens.logoURI} tokenName={tokens.symbol} />
+                            <AssetBox key={index} logoSrc={tokens.logoURI} tokenName={tokens.symbol} />
                         );
                     })
                 ) : (

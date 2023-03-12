@@ -13,7 +13,7 @@ import { DrawerMenu } from "../../components/BaseDrawer";
 // Drawer组件
 import ControlPanel from './ControlPanel';
 
-class Home extends Component {
+class Moments1 extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Home;
+export default Moments1;

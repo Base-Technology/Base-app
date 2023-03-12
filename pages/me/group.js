@@ -5,16 +5,16 @@ import { ScrollTabView, ScrollView, FlatList } from '../../components/BaseHead';
 import EditIcon from "../../assets/icon_edit.svg";
 import Text from "../../components/BaseText";
 import Bg from "../home/Bg";
-// import TabView1 from "./walletGroup";
-// import PostView from "./post";
-// import MembersView from "./members";
-// function TabView2(props) {
-//     return (
-//         <ScrollView {...props}>
-//             <TabView1 />
-//         </ScrollView>
-//     );
-// }
+import TabView1 from "./walletGroup";
+import PostView from "./post";
+import MembersView from "./members";
+function TabView2(props) {
+    return (
+        <ScrollView {...props}>
+            <TabView1 />
+        </ScrollView>
+    );
+}
 
 export default function Example() {
     const [headerHeight, setHeaderHeight] = useState(200);
@@ -26,8 +26,8 @@ export default function Example() {
     const _renderScrollHeader = useCallback(() => {
         const data = new Array(10).fill({});
         return (
-            <View style={{position:'relative',backgroundColor:'red',overflow:'hidden'}} onLayout={headerOnLayout}>
-                <Bg img={{uri:'https://bf.jdd001.top/s1.png'}} />
+            <View style={{ position: 'relative', overflow: 'hidden' }} onLayout={headerOnLayout}>
+                <Bg img={{ uri: 'https://bf.jdd001.top/s1.png' }} />
 
                 {/* <ImageBackground source={{uri:'https://bf.jdd001.top/s1.png'}} blurRadius={10} style={styles.image}> */}
                 <View style={{ margin: 20, marginTop: 60, flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
@@ -35,7 +35,7 @@ export default function Example() {
                         <View style={{ width: 50, height: 50, borderRadius: 40, marginRight: 10 }}>
                             <Image
                                 style={{ width: 50, height: 50, borderRadius: 100, }}
-                                source={{uri:'https://bf.jdd001.top/s1.png'}}
+                                source={{ uri: 'https://bf.jdd001.top/s1.png' }}
                             />
                         </View>
                         <View style={{ marginLeft: 10 }}>
@@ -67,8 +67,8 @@ export default function Example() {
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row', margin: 20, marginTop: 0 }}>
-                    <Text style={{ marginLeft: 5,marginRight: 15,  fontSize: 16, color: '#fff' }}>$999 <Text>Treasury</Text></Text>
-                    <Text style={{ marginLeft: 5,fontSize: 16, color: '#fff' }}>34 <Text>Members</Text></Text>
+                    <Text style={{ marginLeft: 5, marginRight: 15, fontSize: 16, color: '#fff' }}>$999 <Text>Treasury</Text></Text>
+                    <Text style={{ marginLeft: 5, fontSize: 16, color: '#fff' }}>34 <Text>Members</Text></Text>
                 </View>
                 {/* </ImageBackground> */}
 
@@ -79,20 +79,13 @@ export default function Example() {
     return (
         <View style={styles.container}>
             <ScrollTabView headerHeight={headerHeight} renderScrollHeader={_renderScrollHeader}>
-                {/* <TabView1 tabLabel="Wallet" /> */}
-                {/* <TabView2 tabLabel="Treasury" /> */}
-
-                <ScrollView tabLabel="Posts2" >
-                    {/* <PostView /> */}
-                    <Text>s</Text>
-                </ScrollView>
+                <TabView2 tabLabel="Treasury" />
                 <ScrollView tabLabel="Posts" >
-                    {/* <PostView /> */}
-                    <Text>s</Text>
+                    <PostView />
                 </ScrollView>
-                {/* <ScrollView tabLabel="Members" >
+                <ScrollView tabLabel="Members" >
                     <MembersView />
-                </ScrollView> */}
+                </ScrollView>
             </ScrollTabView>
         </View>
     );

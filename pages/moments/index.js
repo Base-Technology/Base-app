@@ -9,14 +9,23 @@ import { SafeAreaView, ScrollView, Alert, View, FlatList, StyleSheet, Image, Mod
 import Text from '../home/BaseText'
 import { Tooltip, Button } from '@ui-kitten/components';
 import { BaseSwiper, BaseVideo, BaseText } from '../../components/Base';
-import { Dimensions } from 'react-native'
+import { Dimensions } from 'react-native';
+import HomeIcon from '../../assets/icon_home';
+import HomeFullIcon from '../../assets/icon_homefull';
+import ChatIcon from '../../assets/icon_chat.svg';
+import ChatFullIcon from '../../assets/icon_chatfull.svg';
+import MeIcon from '../../assets/icon_me.svg';
+import MeFullIcon from '../../assets/icon_mefull.svg';
+import MomentIcon from '../../assets/icon_moment.svg';
+import MomentFullIcon from '../../assets/icon_momentfull.svg';
+import CreateIcon from '../../assets/icon_create.svg';
 const { width, height } = Dimensions.get("window");
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba11',
     title: '154 Bored Ape Yacht Club NFTs Were Deposited ToThe BendDAO Collateral',
     header: require('../../assets/ks.jpg'),
-    poster: {uri:'https://bf.jdd001.top/s1.png'}
+    poster: { uri: 'https://bf.jdd001.top/s1.png' }
   },
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba12',
@@ -29,7 +38,7 @@ const DATA = [
 
 
 
-const Momnet = () => {
+const Momnet = ({navigation}) => {
   const renderItem = ({ item }) => (
     <Item {...item} />
   );
@@ -131,18 +140,33 @@ const Momnet = () => {
   const [longText, setLongText] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ paddingHorizontal: 15,paddingVertical:10, flexDirection: 'row', justifyContent:'flex-end' }}>
-      
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Search')}>
+      <View style={{ paddingHorizontal: 15, paddingVertical: 10, flexDirection: 'row', justifyContent: 'flex-end' }}>
 
-        <SearchIcon width={25} height={25} fill='#fff'/>
-      </TouchableWithoutFeedback>
-    </View>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Search')}>
+
+          <SearchIcon width={25} height={25} fill='#fff' />
+        </TouchableWithoutFeedback>
+      </View>
       <FlatList
         data={DATA}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
+      <View style={{ flexDirection: 'row', height: 20, alignItems: 'center', justifyContent: 'space-around', paddingVertical: 20 }}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Home')}>
+          <HomeIcon width={25} height={25} fill={"#fff"} />
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Chat')}>
+          <ChatIcon width={25} height={25} fill={"#fff"} />
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Publish')}>
+          <CreateIcon width={25} height={25} fill={"#fff"} />
+        </TouchableWithoutFeedback>
+        <MomentFullIcon width={25} height={25} fill={"#fff"} />
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Me')}>
+          <MeIcon width={25} height={25} fill={"#fff"} />
+        </TouchableWithoutFeedback>
+      </View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -213,7 +237,7 @@ const Momnet = () => {
                       <View style={{ width: 30, height: 30, borderRadius: 40, marginRight: 5 }}>
                         <Image
                           style={{ width: 30, height: 30, borderRadius: 100, }}
-                          source={{uri:'https://bf.jdd001.top/s1.png'}}
+                          source={{ uri: 'https://bf.jdd001.top/s1.png' }}
                         />
                       </View>
                       <View style={{ flex: 1 }}>
@@ -234,7 +258,7 @@ const Momnet = () => {
                   <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
                     <Image
                       style={{ width: 40, height: 40, borderRadius: 100, }}
-                      source={{uri:'https://bf.jdd001.top/s1.png'}}
+                      source={{ uri: 'https://bf.jdd001.top/s1.png' }}
                     />
                   </View>
                   <View style={{ flex: 1, flexDirection: 'column' }}>

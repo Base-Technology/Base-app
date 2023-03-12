@@ -19,7 +19,7 @@ const InfoF = ({headuri}) => (
 
   </View>
 )
-const HomeScreen = ({ navigation }) => {
+const MeScreen = ({ navigation }) => {
  
   return (<View>
     <ScrollView
@@ -92,4 +92,4 @@ const styles = StyleSheet.create({
     padding: 0
   }
 });
-export default HomeScreen;
+export default MeScreen;

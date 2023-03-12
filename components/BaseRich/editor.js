@@ -519,7 +519,7 @@ function createHTML(options = {}) {
                     enterStatus = 1; // set enter true
                     var box;
                     var block = queryCommandValue(formatBlock);
-                    window.alert(anchorNode.innerHTML)
+                    // window.alert(anchorNode.innerHTML)
                     if (anchorNode.innerHTML === '<br>' && anchorNode.parentNode !== editor.content){
                         // setCollapse(editor.content);
                     } else if (queryCommandState('insertOrderedList') && !!(box = checkboxNode(anchorNode))){

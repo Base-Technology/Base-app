@@ -9,7 +9,7 @@ import Drawer from 'react-native-drawer'
 // Drawer组件
 import ControlPanel from './ControlPanel';
 
-class Home extends Component {
+class Moments extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Home;
+export default Moments;
