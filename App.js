@@ -93,7 +93,7 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false }} name="LoginOther" component={LoginOtherScreen} /> */}
             <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Home" component={HomeScreen} />
             <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Chat" component={Chat} />
-            <Stack.Screen options={{ headerShown: false }} name="Elon Musk" component={SettingsScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="Doctor" component={SettingsScreen} />
             <Stack.Screen options={{ headerShown: false }} name="Personal" component={Personal} />
             
             <Stack.Screen options={{ headerShown: false }} name="DetailGroup" component={DetailGroupScreen} />

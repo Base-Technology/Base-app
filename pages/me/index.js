@@ -19,7 +19,7 @@ import CreateIcon from '../../assets/icon_create.svg';
 function TabView2(props) {
     return (
         <ScrollView {...props}>
-            <TabView1 {...props}/>
+            <TabView1 {...props} />
         </ScrollView>
     );
 }
@@ -71,7 +71,7 @@ export default function Example({ navigation }) {
                 </View>
                 <View style={{ margin: 20, marginTop: 0 }}>
                     <Text style={{ fontSize: 14 }}>
-                        Fox is an Ethereum zkRollup using zkEVM (zero-knowledge Ethereum Virtual Machine) and zk-FOAKs (zero-knowledge Fast Objective Argument of Knowledge).
+                        Elon Musk is an Ethereum zkRollup using zkEVM (zero-knowledge Ethereum Virtual Machine) and zk-FOAKs (zero-knowledge Fast Objective Argument of Knowledge).
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row', margin: 20, marginTop: 0 }}>

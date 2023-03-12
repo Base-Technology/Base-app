@@ -101,7 +101,6 @@ const WalletMain = ({ navigation }) => {
   }
   return (
     <ScrollView
-      // contentContainerStyle={{ minHeight: '55%' }}a
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={["#422ddd"]} />
       }

@@ -44,9 +44,9 @@ export default VideoPlay = ({ item, onBackRef, onSetPlayStatus }) => {
   useEffect(() => {
     onBackRef(videoRef)
   }, [])
-  useEffect(()=>{
+  useEffect(() => {
 
-    let time=setTimeout(() => {
+    let time = setTimeout(() => {
       setFollow(true);
     }, 3000);
   })
@@ -84,6 +84,16 @@ export default VideoPlay = ({ item, onBackRef, onSetPlayStatus }) => {
         </TouchableOpacity> */}
       </View>
       <View style={styles.controlView}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10,}}>
+          <View>
+            <Text
+              numberOfLines={1} ellipsizeMode="tail"
+            >
+              #base  @YK  @Hayek
+            </Text>
+          </View>
+          <Text>More</Text>
+        </View>
         <View style={{ padding: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <View style={{ marginRight: 10, flexDirection: 'row', alignItems: 'center' }}>
             <Image

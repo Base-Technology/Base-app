@@ -70,7 +70,7 @@ const Item = ({ name, content, navigation, header,type }) => {
   return (
     <TouchableWithoutFeedback
       underlayColor="rgba(255, 255, 255, 0.08)"
-      onPress={() => navigation.navigate('Elon Musk', { name, header,type })}
+      onPress={() => navigation.navigate('Doctor', { name, header,type })}
     >
       <View style={styles.item}>
         <View style={styles.itemc}>

@@ -30,19 +30,19 @@ import MeIcon from '../../assets/icon_me.svg';
 import MeFullIcon from '../../assets/icon_mefull.svg';
 import MomentIcon from '../../assets/icon_moment.svg';
 import MomentFullIcon from '../../assets/icon_momentfull.svg';
-import CreateIcon from '../../assets/icon_create.svg';
+import CreateIcon from '../../assets/icon_create_full.svg';
 const CalendarIcon = (props) => (
   <Icon {...props} name='calendar' />
 );
 
-const InfoF = ({ headuri }) => (
+const InfoF = ({ headuri, name }) => (
   <View style={{ marginTop: 10, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <View>
         <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: headuri }} />
       </View>
       <View style={{ marginLeft: 10 }}>
-        <Text style={{}}>Our song</Text>
+        <Text style={{}}>{name}</Text>
         <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 8 }}>20w member</Text>
       </View>
     </View>
@@ -57,7 +57,7 @@ const HomeScreen = ({ navigation }) => {
   const [date, setDate] = React.useState(new Date());
   const [value, onChangeText] = React.useState('Details');
   const [followData, setFollowData] = useState([0]);
-  const [selectedIndex, setSelectedIndex] = React.useState(3);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [tabsData, setTabsData] = useState([
     {
       active: false,
@@ -230,21 +230,19 @@ const HomeScreen = ({ navigation }) => {
       </Swiper>
     );
   };
-  const Info = ({ headuri }) => (
+  const Info = ({ headuri, name }) => (
 
     <View style={{ marginTop: 10 }}>
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Details')}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <View>
-            <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: headuri }} resizeMode="cover" />
-          </View>
-          <View style={{ marginLeft: 10 }}>
-            <Text style={{}}>Our song</Text>
-            <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 8 }}>20w members</Text>
-          </View>
-
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View>
+          <Image style={{ width: 50, height: 50, borderRadius: 500 }} source={{ uri: headuri }} resizeMode="cover" />
         </View>
-      </TouchableWithoutFeedback>
+        <View style={{ marginLeft: 10 }}>
+          <Text style={{}}>{name}</Text>
+          <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 8 }}>20w members</Text>
+        </View>
+
+      </View>
 
     </View >
   )
@@ -298,18 +296,12 @@ const HomeScreen = ({ navigation }) => {
         <Layout
           style={styles.tab}
           level='2'>
-          <ScrollView
-            contentContainerStyle={{ minHeight: '85%' }}
-          >
-            <Explore key='tab1' />
-          </ScrollView>
-
-
+          <Explore key='tab1' />
         </Layout>
         <Layout
           style={styles.tab}
           level='2'>
-           <ScrollView>
+          <ScrollView>
             <Follow key='tab2' />
           </ScrollView>
         </Layout>
@@ -333,13 +325,18 @@ const HomeScreen = ({ navigation }) => {
               </View>
               <View style={{ flexDirection: 'row', padding: 10 }}>
                 <View style={{ flex: 1 }}>
-                  <Info headuri="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=024" />
-                  <Info headuri="https://cryptologos.cc/logos/thumbs/binance-usd.png?v=023" />
-                  <Info headuri="https://cryptologos.cc/logos/thumbs/tether.png?v=023" />
+                  <Info headuri="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=024" name="Bitcoin" />
+                  <Info headuri="https://cryptologos.cc/logos/thumbs/binance-usd.png?v=023" name="Busd" />
+                  <Info headuri="https://cryptologos.cc/logos/thumbs/tether.png?v=023" name="Usdt" />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Info headuri="https://cryptologos.cc/logos/thumbs/usd-coin.png?v=023" />
-                  <Info headuri="https://cryptologos.cc/logos/thumbs/bnb.png?v=023" />
+                  <Info headuri="https://cryptologos.cc/logos/thumbs/usd-coin.png?v=023" name="Usdc" />
+                  <Info headuri="https://cryptologos.cc/logos/thumbs/bnb.png?v=023" name="Bnb" />
+                  <TouchableWithoutFeedback onPress={() => navigation.navigate('Doctor',{header:'https://bf.jdd001.top/cryptologos/pancakeswap.png',name:'Pancakeswap'})}>
+                    <View>
+                      <Info headuri="https://bf.jdd001.top/cryptologos/pancakeswap.png" name="Pancakeswap" />
+                    </View>
+                  </TouchableWithoutFeedback>
                 </View>
               </View>
 
@@ -359,34 +356,32 @@ const HomeScreen = ({ navigation }) => {
                 </View>
 
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('Publish')}>
-                  <InfoF headuri="https://cryptologos.cc/logos/thumbs/xrp.png?v=023" />
+                  <InfoF headuri="https://cryptologos.cc/logos/thumbs/xrp.png?v=023" name="Xrp" />
                 </TouchableWithoutFeedback>
 
-                <InfoF headuri="https://cryptologos.cc/logos/thumbs/cardano.png?v=023" />
-                <InfoF headuri="https://cryptologos.cc/logos/thumbs/solana.png?v=023" />
-                <InfoF headuri="https://cryptologos.cc/logos/thumbs/dogecoin.png?v=023" />
+                <InfoF headuri="https://cryptologos.cc/logos/thumbs/cardano.png?v=023" name="Cardano" />
+                <InfoF headuri="https://cryptologos.cc/logos/thumbs/solana.png?v=023" name="Solana" />
+                <InfoF headuri="https://cryptologos.cc/logos/thumbs/dogecoin.png?v=023" name="Doge" />
               </View>
             </View>
             <View style={{ padding: 10, marginTop: 10 }}>
               <View>
                 <Text style={{ color: '#ffffff', fontSize: 16, marginBottom: 10 }}>Guess You Like</Text>
               </View>
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/xrp.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/polkadot-new.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/polygon.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/avalanche.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/tron.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/wrapped-bitcoin.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/uniswap.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/unus-sed-leo.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/litecoin.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/ftx-token.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/ethereum-classic.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/cronos.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/chainlink.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/near-protocol.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/stellar.png?v=023" />
-              <InfoF headuri="https://cryptologos.cc/logos/thumbs/monero.png?v=023" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/polkadot-new.png?v=023" name="Polkadot" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/polygon.png?v=023" name="Polygon" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/avalanche.png?v=023" name="Avalanche" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/tron.png?v=023" name="Tron" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/wrapped-bitcoin.png?v=023" name="Wrapped" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/uniswap.png?v=023" name="Uniswap" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/unus-sed-leo.png?v=023" name="Unus" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/litecoin.png?v=023" name="Lite" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/ftx-token.png?v=023" name="Ftx" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/cronos.png?v=023" name="Cronos" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/chainlink.png?v=023" name="Chainlink" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/near-protocol.png?v=023" name="Near" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/stellar.png?v=023" name="Stellar" />
+              <InfoF headuri="https://cryptologos.cc/logos/thumbs/monero.png?v=023" name="Monero" />
             </View>
           </ScrollView>
         </Layout>

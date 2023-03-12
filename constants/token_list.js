@@ -1,5 +1,15 @@
 export const TokenList = [
   {
+    name: 'Pancake',
+    symbol: 'CAKE',
+    address: '0x55d398326f99059ff775485246999027b3197955',
+    isStable: false,
+    decimals: 18,
+    logoURI:
+      'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_cake.svg',
+    idOnCoingecko: 'tether',
+  },
+  {
     name: 'Doge Coin',
     symbol: 'DOGE',
     address: '0x55d398326f99059ff775485246999027b3197955',
@@ -90,16 +100,7 @@ export const TokenList = [
       'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_fil.svg',
     idOnCoingecko: 'tether',
   },
-  {
-    name: 'Pancake',
-    symbol: 'CAKE',
-    address: '0x55d398326f99059ff775485246999027b3197955',
-    isStable: false,
-    decimals: 18,
-    logoURI:
-      'https://storageapi.fleek.one/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_cake.svg',
-    idOnCoingecko: 'tether',
-  },
+  
   {
     name: 'Binance Coin',
     symbol: 'BNB',

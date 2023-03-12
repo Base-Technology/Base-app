@@ -131,7 +131,13 @@ export default VideoPage = ({ navigation, route }) => {
     },
   });
 
-  const [videoList, setVideoList] = useState([])
+  const [videoList, setVideoList] = useState([{
+    img: 'https://bf.jdd001.top/poster.png',
+    url: 'https://bf.jdd001.top/m1.mp4'
+  },{
+    img: 'https://bf.jdd001.top/poster.png',
+    url: 'https://bf.jdd001.top/m2.mp4'
+  }])
   const [isHas, setIsHas] = useState(true)
   const videoRef = useRef([])
   const flatListRef = useRef()
@@ -157,6 +163,7 @@ export default VideoPage = ({ navigation, route }) => {
 
 
   async function loadVodeoData(add) {
+    return;
     const result = {
       img: 'https://bf.jdd001.top/poster.png',
       url: 'https://bf.jdd001.top/m2.mp4'

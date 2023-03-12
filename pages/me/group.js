@@ -63,7 +63,7 @@ export default function Example(props) {
                 </View>
                 <View style={{ margin: 20, marginTop: 0 }}>
                     <Text style={{ fontSize: 14 }}>
-                        Fox is an Ethereum zkRollup using zkEVM (zero-knowledge Ethereum Virtual Machine) and zk-FOAKs (zero-knowledge Fast Objective Argument of Knowledge).
+                        {props.route.params.name} is an Ethereum zkRollup using zkEVM (zero-knowledge Ethereum Virtual Machine) and zk-FOAKs (zero-knowledge Fast Objective Argument of Knowledge).
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row', margin: 20, marginTop: 0 }}>
