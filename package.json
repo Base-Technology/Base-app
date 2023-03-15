@@ -24,6 +24,7 @@
     "@react-navigation/stack": "^6.3.11",
     "@ui-kitten/components": "^5.1.2",
     "@ui-kitten/eva-icons": "^5.1.2",
+    "@way-network/way-im": "^1.0.9",
     "ethers": "^5.7.2",
     "memoize-one": "^5.1.1",
     "moment": "^2.25.3",
@@ -50,8 +51,7 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.2.1",
     "react-native-webview": "^11.26.1",
-    "tween-functions": "^1.0.1",
-    "way-im": "^1.0.7"
+    "tween-functions": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

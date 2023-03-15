@@ -16,6 +16,7 @@ import {
 // import Drawer from '../../components/BaseDrawer';
 import { queryMessage, addMessage } from '../../database/message';
 import moment from 'moment';
+import IMTP from '../../imtp/service';
 
 function MessageList(props) {
   const [value, onChangeText] = React.useState('');
@@ -27,6 +28,7 @@ function MessageList(props) {
       changeMessages(msgs);
     });
   }
+  IMTP.getInstance().connect();
 
   return <View style={{ flex: 1 }}>
     <View style={{ flex: 1 }}>
