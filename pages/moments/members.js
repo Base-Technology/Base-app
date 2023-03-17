@@ -29,7 +29,7 @@ const DATA = [
 
 
 
-const Momnet = ({navigation}) => {
+const Momnet = ({ navigation }) => {
   const renderItem = ({ item }) => (
     <Item {...item} />
   );
@@ -160,7 +160,12 @@ const Momnet = ({navigation}) => {
             <View style={{ flex: 1, flexDirection: 'column', borderTopColor: 'rgba(255,255,255,0.1)', paddingLeft: 10, paddingRight: 10 }}>
               <View style={{ position: 'relative', minHeight: 40 }}>
                 <BaseText style={{ textAlign: 'left', fontSize: 14 }}>{longText && 'zkEVM Overview' || "What is Fox Tech?"}</BaseText>
-                <CloseIcon style={{ position: 'absolute', right: 0 }} width={20} height={20} fill="rgba(255,255,255,0.8)" />
+                <TouchableWithoutFeedback
+                  onPress={() => {
+                    setModalVisible(false);
+                  }}>
+                  <CloseIcon style={{ position: 'absolute', right: 0 }} width={20} height={20} fill="rgba(255,255,255,0.8)" />
+                </TouchableWithoutFeedback>
               </View>
               <ScrollView
                 style={{ flex: 1 }}
@@ -349,4 +354,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Momnet;
+export default  React.memo(Momnet);

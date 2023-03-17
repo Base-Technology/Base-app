@@ -7,7 +7,8 @@ import {
   TouchableWithoutFeedback,
   useColorScheme,
   View,
-  TextInput
+  TextInput,
+  Image
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { AppBar } from '@react-native-material/core';

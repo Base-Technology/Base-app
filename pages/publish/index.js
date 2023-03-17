@@ -1,9 +1,11 @@
 import React, { Component, useState } from "react";
-import { View, TextInput, TouchableWithoutFeedback, ScrollView, Image } from "react-native";
+import { View, TextInput, TouchableWithoutFeedback, ScrollView, Image, Modal } from "react-native";
 import { Platform, KeyboardAvoidingView, SafeAreaView } from "react-native";
 import { actions, RichEditor, RichToolbar } from "../../components/BaseRich";
 import Text from "../../components/BaseText";
 import BackIcon from "../../assets/icon_arrow_back.svg";
+import CloseIcon from "../../assets/icon_close.svg";
+
 import AddIcon from "../../assets/icon_add_big.svg";
 import InfoIcon from "../../assets/icon_info.svg";
 import FormatIcon from "../../assets/icon_format_list.svg";
@@ -169,9 +171,11 @@ const Search = ({ navigation }) => {
   ]);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [response, setResponse] = React.useState(null);
-
+  const [modalVisible, setModalVisible] = useState(false);
   const onButtonPress = React.useCallback((type, options) => {
-    type = 'capture';
+    // setModalVisible(true);
+    // return;
+    type = 'capture2';
     options = {
       saveToPhotos: true,
       mediaType: 'photo',
@@ -198,14 +202,13 @@ const Search = ({ navigation }) => {
       </View>
       <View style={{ padding: 20, flexDirection: 'row' }}>
         <ScrollView horizontal={true}>
-          {/* <View style={{ width: 150, height: 150, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.05)', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', marginRight: 10 }}>
-            <Image width={150} height={150} resizeMode="cover" source={{uri:'https://bf.jdd001.top/s1.png'}} />
-          </View>
-          <View style={{ width: 150, height: 150, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.05)', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', marginRight: 10 }}>
-            <Image width={150} height={150} resizeMode="cover" source={{uri:'https://bf.jdd001.top/s1.png'}} />
-          </View> */}
-         
+          {
+            response &&
+            <View style={{ width: 100, height: 100, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.05)', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', marginRight: 10 }}>
 
+              <Image style={{ width: 100, height: 100 }} resizeMode="cover" source={{ uri: response?.assets && response?.assets[0]?.uri }} />
+            </View>
+          }
           <TouchableWithoutFeedback onPress={onButtonPress}>
             <View style={{ width: 100, height: 100, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.05)', justifyContent: 'center', alignItems: 'center' }}>
               <AddIcon width={40} height={40} fill="#8c8c8c" />
@@ -214,11 +217,7 @@ const Search = ({ navigation }) => {
         </ScrollView>
 
       </View>
-      {
-            response && 
-               <Image width={100} height={100} resizeMode="cover" source={{ uri: response?.assets&&response?.assets[0]?.uri }} />
-           
-          }
+
       <View style={{ paddingHorizontal: 20, borderBottomColor: '#707070', borderBottomWidth: 0.5 }}>
         <TextInput placeholderTextColor="#8c8c8c" style={{ fontSize: 16, color: '#ffffff' }} placeholder="Add a title" />
       </View>
@@ -235,6 +234,46 @@ const Search = ({ navigation }) => {
           <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Post</Text>
         </View>
       </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+        presentationStyle="fullScreen"
+      >
+        <View style={styles.centeredView}>
+          <View style={{ padding: 10 }}>
+            <TouchableWithoutFeedback onPress={() => {
+              setModalVisible(false);
+            }}>
+              <CloseIcon width={25} height={25} fill={'#fff'} />
+            </TouchableWithoutFeedback>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 20 }}>
+            <View><Text>All</Text></View>
+            <View style={{ marginHorizontal: 20 }}><Text>Video</Text></View>
+            <View><Text>Photo</Text></View>
+          </View>
+
+          <ScrollView>
+            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
+              <View style={{ width: width / 3, height: width / 3 }}>
+                <View style={{ margin: 2, flex: 1, backgroundColor: 'yellow', overflow: 'hidden' }}>
+                  <Image style={{ width: width / 3, height: width / 3 }} resizeMode="cover" source={{ uri: 'https://bf.jdd001.top/s5.png' }} />
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', marginVertical: 20 }}>
+            <View><Text>Shoot</Text></View>
+            <View style={{ marginHorizontal: 20 }}><Text>Video</Text></View>
+            <View><Text>Album</Text></View>
+          </View>
+        </View>
+      </Modal>
     </View >
   )
 }
@@ -247,7 +286,11 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
-  }
+  },
+  centeredView: {
+    flex: 1,
+    backgroundColor: '#1e1e1e'
+  },
 }
 export default Search;
 

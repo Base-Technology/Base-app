@@ -8,13 +8,13 @@ import Bg from "../home/Bg";
 import TabView1 from "./walletGroup";
 import PostView from "./post";
 import MembersView from "./members";
-function TabView2(props) {
-    return (
-        <ScrollView {...props}>
-            <TabView1 />
-        </ScrollView>
-    );
-}
+// function TabView2(props) {
+//     return (
+//         <ScrollView {...props}>
+//             <TabView1 />
+//         </ScrollView>
+//     );
+// }
 
 export default function Example(props) {
     const [headerHeight, setHeaderHeight] = useState(200);
@@ -35,7 +35,7 @@ export default function Example(props) {
                         <View style={{ width: 50, height: 50, borderRadius: 40, marginRight: 10 }}>
                             <Image
                                 style={{ width: 50, height: 50, borderRadius: 100, }}
-                                source={{ uri:props.route.params.header }}
+                                source={{ uri: props.route.params.header }}
                             />
                         </View>
                         <View style={{ marginLeft: 10 }}>
@@ -79,7 +79,9 @@ export default function Example(props) {
     return (
         <View style={styles.container}>
             <ScrollTabView headerHeight={headerHeight} renderScrollHeader={_renderScrollHeader}>
-                <TabView2 tabLabel="Treasury" />
+                <ScrollView tabLabel="Treasury" >
+                    <TabView1 />
+                </ScrollView>
                 <ScrollView tabLabel="Posts" >
                     <PostView />
                 </ScrollView>
@@ -93,7 +95,6 @@ export default function Example(props) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        minHeight: 1100
+        flex: 1
     },
 });

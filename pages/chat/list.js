@@ -1,6 +1,7 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableWithoutFeedback, Button, Image } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableWithoutFeedback, Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Tooltip,Button } from '@ui-kitten/components';
 import SearchIcon from "../../assets/icon_search.svg";
 import HomeIcon from '../../assets/icon_home';
 import HomeFullIcon from '../../assets/icon_homefull';
@@ -67,18 +68,22 @@ const DATA = [
 ];
 const Stack = createNativeStackNavigator();
 const Item = ({ name, content, navigation, header,type }) => {
+  
   return (
     <TouchableWithoutFeedback
       underlayColor="rgba(255, 255, 255, 0.08)"
       onPress={() => navigation.navigate('Doctor', { name, header,type })}
     >
       <View style={styles.item}>
+        
+
         <View style={styles.itemc}>
           <View style={{ width: 50, height: 50, borderRadius: 40, backgroundColor: 'gray', marginRight: 10 }}>
             <Image
               style={{ width: 50, height: 50, borderRadius: 100, }}
               source={{ uri: header }}
             />
+
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.title}>{name}</Text>
