@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ethersproject/providers": "^5.7.2",
     "@eva-design/eva": "^2.1.1",
     "@expo/vector-icons": "^13.0.0",
     "@react-native-community/blur": "^4.3.0",
@@ -22,6 +23,8 @@
     "@react-navigation/stack": "^6.3.11",
     "@ui-kitten/components": "^5.1.2",
     "@ui-kitten/eva-icons": "^5.1.2",
+    "eth-revert-reason": "^1.0.3",
+    "ethers": "^5.5.1",
     "memoize-one": "^5.1.1",
     "moment": "^2.25.3",
     "react": "18.1.0",
