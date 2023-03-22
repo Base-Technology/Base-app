@@ -64,3 +64,5 @@ buck-out/
 /vendor/bundle/
 
 .vscode
+
+/constants/test_account.js
