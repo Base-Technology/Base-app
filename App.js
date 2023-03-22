@@ -3,7 +3,6 @@ import { View, Button, ScrollView, Text, Image, TextInput } from 'react-native';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Frist from './frist';
 import MoreIcon from './assets/icon_more.svg';
 import SmileIcon from './assets/icon_smile.svg';
 import VoiceIcon from './assets/icon_voice.svg';
@@ -13,9 +12,19 @@ import TradeScreen from './pages/me/trade';
 import DetailsScreen from './pages/home/details';
 import DetailsScreen2 from './pages/home/details2';
 import SettingsScreen from './pages/chat/detail';
+import DetailGroupScreen from './pages/chat/detailGroup';
+import LoginScreen from './pages/login';
+import LoginOtherScreen from './pages/login/other';
 import SettingsScreen2 from './pages/chat/detailp';
 import SearchScreen from './pages/home/search';
 import SearchDetailScreen from './pages/home/searchDetail';
+import PublishScreen from './pages/publish';
+import WalletMain from './pages/me/index';
+import Personal from './pages/me/personal';
+
+import Chat from './pages/chat/list';
+import Moment from './pages/moments/index';
+import HomeScreen from './pages/home';
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
@@ -24,7 +33,7 @@ function FeedScreen({ navigation }) {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button
         title="Go to Settings"
-        onPress={() => navigation.navigate('Doctor')}
+        onPress={() => navigation.navigate('Elon Musk')}
       />
     </View>
   );
@@ -79,16 +88,25 @@ export default function App() {
         <NavigationContainer
           theme={MyTheme}
         >
-          <Stack.Navigator>
-            <Stack.Screen options={{ headerShown: false }} name="Home" component={Frist} />
-            <Stack.Screen options={{ headerShown: false }} name="Doctor" component={SettingsScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="Yk" component={SettingsScreen2} />
+          <Stack.Navigator >
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Login" component={LoginScreen} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="LoginOther" component={LoginOtherScreen} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Home" component={HomeScreen} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Chat" component={Chat} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Doctor" component={SettingsScreen} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Personal" component={Personal} />
+            
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="DetailGroup" component={DetailGroupScreen} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Yk" component={SettingsScreen2} />
             <Stack.Screen name="Trade" component={TradeScreen} />
             <Stack.Screen name="Send" component={SendScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="Search" component={SearchScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="SearchDetail" component={SearchDetailScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="Details" component={DetailsScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="Details2" component={DetailsScreen2} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Search" component={SearchScreen} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="SearchDetail" component={SearchDetailScreen} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Details" component={DetailsScreen} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Details2" component={DetailsScreen2} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Publish" component={PublishScreen} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Me" component={WalletMain} />
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Moment" component={Moment} />
           </Stack.Navigator>
         </NavigationContainer>
       </ApplicationProvider>

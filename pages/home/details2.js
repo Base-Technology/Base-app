@@ -70,10 +70,10 @@ export const DetailsScreen = ({ navigation }) => {
             <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
               <Image
                 style={{ width: 40, height: 40, borderRadius: 100, }}
-                source={require('../../assets/img/s5.png')}
+                source={{uri:'https://bf.jdd001.top/s1.png'}}
               />
             </View>
-            <Text style={{ marginRight: 20 }}>KangShuiYue</Text>
+            <Text style={{ marginRight: 20 }}>Elon Musk</Text>
             <View style={{ backgroundColor: '#422DDD', padding: 2, paddingLeft: 10, paddingRight: 10, borderRadius: 50 }}>
               <Text>Follow</Text>
             </View>

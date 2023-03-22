@@ -75,7 +75,10 @@ export default class extends Component {
             current: 0
         }
     }
+    onIndexChanged = (index) => {
+        this.setState({ current: index })
 
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -86,39 +89,37 @@ export default class extends Component {
                     //   this.setState({ current: 1 })
                     // }
                     // autoplay
-                    onIndexChanged={(index) => {
-                        this.setState({ current: index })
-                    }}
+                    // onIndexChanged={this.onIndexChanged}
                     paginationStyle={{
-                        bottom:10
-                      }}
+                        bottom: 10
+                    }}
                     dot={
-                      <View
-                        style={{
-                          backgroundColor: '#fff',
-                          width: 5,
-                          height: 5,
-                          borderRadius: 10,
-                          marginLeft: 3,
-                          marginRight: 3,
-                          marginTop: 3,
-                          marginBottom: 3
-                        }}
-                      ></View>
+                        <View
+                            style={{
+                                backgroundColor: '#fff',
+                                width: 5,
+                                height: 5,
+                                borderRadius: 10,
+                                marginLeft: 3,
+                                marginRight: 3,
+                                marginTop: 3,
+                                marginBottom: 3
+                            }}
+                        ></View>
                     }
                     activeDot={
-                      <View
-                        style={{
-                          backgroundColor: '#422DDD',
-                          width: 8,
-                          height: 8,
-                          borderRadius: 10,
-                          marginLeft: 3,
-                          marginRight: 3,
-                          marginTop: 3,
-                          marginBottom: 3
-                        }}
-                      />
+                        <View
+                            style={{
+                                backgroundColor: '#422DDD',
+                                width: 8,
+                                height: 8,
+                                borderRadius: 10,
+                                marginLeft: 3,
+                                marginRight: 3,
+                                marginTop: 3,
+                                marginBottom: 3
+                            }}
+                        />
                     }
                     // showsPagination={false}
                     loop
@@ -160,8 +161,8 @@ export default class extends Component {
                         />
                     </View>
                 </Swiper>
-                <View style={{position:'absolute',top:10,right:5}}>
-                    <BaseText  style={{borderRadius:100,backgroundColor:'rgba(0,0,0,0.5)',padding:5,paddingLeft:10,paddingRight:10}}>{this.state.current+1}/4</BaseText>
+                <View style={{ position: 'absolute', top: 10, right: 5 }}>
+                    <BaseText style={{ borderRadius: 100, backgroundColor: 'rgba(0,0,0,0.5)', padding: 5, paddingLeft: 10, paddingRight: 10 }}>{this.state.current + 1}/4</BaseText>
                 </View>
                 {/* <View style={{height:30}}></View> */}
             </View>

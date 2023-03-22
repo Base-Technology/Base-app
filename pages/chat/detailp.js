@@ -220,7 +220,7 @@ function SettingsScreen() {
 
 // Drawer组件
 
-class Home extends Component {
+class ChatDetailP extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -247,7 +247,7 @@ class Home extends Component {
                 content={
                     <ScrollView style={{ ...styles.container }}>
                         {/* <Me /> */}
-
+                        <Text>22</Text>
                     </ScrollView>
                 }
                 // 响应区域双击可以打开抽屉
@@ -325,7 +325,7 @@ class Home extends Component {
 
 
 
-                    <SettingsScreen />
+                    <SettingsScreen key="s2" />
                 </ScrollView>
             </Drawer>
 
@@ -341,4 +341,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Home;
+export default ChatDetailP;

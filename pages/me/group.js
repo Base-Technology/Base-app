@@ -8,15 +8,15 @@ import Bg from "../home/Bg";
 import TabView1 from "./walletGroup";
 import PostView from "./post";
 import MembersView from "./members";
-function TabView2(props) {
-    return (
-        <ScrollView {...props}>
-            <TabView1 />
-        </ScrollView>
-    );
-}
+// function TabView2(props) {
+//     return (
+//         <ScrollView {...props}>
+//             <TabView1 />
+//         </ScrollView>
+//     );
+// }
 
-export default function Example() {
+export default function Example(props) {
     const [headerHeight, setHeaderHeight] = useState(200);
     const headerOnLayout = useCallback((event: any) => {
         const { height } = event.nativeEvent.layout;
@@ -26,20 +26,20 @@ export default function Example() {
     const _renderScrollHeader = useCallback(() => {
         const data = new Array(10).fill({});
         return (
-            <View style={{position:'relative',backgroundColor:'red',overflow:'hidden'}} onLayout={headerOnLayout}>
-                <Bg img={require('../../assets/img/s4.png')} />
+            <View style={{ position: 'relative', overflow: 'hidden' }} onLayout={headerOnLayout}>
+                <Bg img={{ uri: 'https://bf.jdd001.top/s1.png' }} />
 
-                {/* <ImageBackground source={require('../../assets/img/s5.png')} blurRadius={10} style={styles.image}> */}
+                {/* <ImageBackground source={{uri:'https://bf.jdd001.top/s1.png'}} blurRadius={10} style={styles.image}> */}
                 <View style={{ margin: 20, marginTop: 60, flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ width: 50, height: 50, borderRadius: 40, marginRight: 10 }}>
                             <Image
                                 style={{ width: 50, height: 50, borderRadius: 100, }}
-                                source={require('../../assets/img/s4.png')}
+                                source={{ uri: props.route.params.header }}
                             />
                         </View>
                         <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: 18 }}>KangShuiYue</Text>
+                            <Text style={{ fontSize: 18 }}>{props.route.params.name}</Text>
 
                             <View style={{ flexDirection: 'row', marginTop: 5 }}>
                                 <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5 }}>
@@ -63,12 +63,12 @@ export default function Example() {
                 </View>
                 <View style={{ margin: 20, marginTop: 0 }}>
                     <Text style={{ fontSize: 14 }}>
-                        Fox is an Ethereum zkRollup using zkEVM (zero-knowledge Ethereum Virtual Machine) and zk-FOAKs (zero-knowledge Fast Objective Argument of Knowledge).
+                        {props.route.params.name} is an Ethereum zkRollup using zkEVM (zero-knowledge Ethereum Virtual Machine) and zk-FOAKs (zero-knowledge Fast Objective Argument of Knowledge).
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row', margin: 20, marginTop: 0 }}>
-                    <Text style={{ marginLeft: 5,marginRight: 15,  fontSize: 16, color: '#fff' }}>$999 <Text>Treasury</Text></Text>
-                    <Text style={{ marginLeft: 5,fontSize: 16, color: '#fff' }}>34 <Text>Members</Text></Text>
+                    <Text style={{ marginLeft: 5, marginRight: 15, fontSize: 16, color: '#fff' }}>$999 <Text>Treasury</Text></Text>
+                    <Text style={{ marginLeft: 5, fontSize: 16, color: '#fff' }}>34 <Text>Members</Text></Text>
                 </View>
                 {/* </ImageBackground> */}
 
@@ -79,8 +79,9 @@ export default function Example() {
     return (
         <View style={styles.container}>
             <ScrollTabView headerHeight={headerHeight} renderScrollHeader={_renderScrollHeader}>
-                {/* <TabView1 tabLabel="Wallet" /> */}
-                <TabView2 tabLabel="Treasury" />
+                <ScrollView tabLabel="Treasury" >
+                    <TabView1 />
+                </ScrollView>
                 <ScrollView tabLabel="Posts" >
                     <PostView />
                 </ScrollView>
@@ -94,7 +95,6 @@ export default function Example() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        minHeight: 1100
+        flex: 1
     },
 });
