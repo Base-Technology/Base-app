@@ -66,9 +66,12 @@ export default function Example(props) {
                         {props.route.params.name} is an Ethereum zkRollup using zkEVM (zero-knowledge Ethereum Virtual Machine) and zk-FOAKs (zero-knowledge Fast Objective Argument of Knowledge).
                     </Text>
                 </View>
-                <View style={{ flexDirection: 'row', margin: 20, marginTop: 0 }}>
+                <View style={{ flexDirection: 'row',alignItems:'center', margin: 20, marginTop: 0 }}>
                     <Text style={{ marginLeft: 5, marginRight: 15, fontSize: 16, color: '#fff' }}>$999 <Text>Treasury</Text></Text>
                     <Text style={{ marginLeft: 5, fontSize: 16, color: '#fff' }}>34 <Text>Members</Text></Text>
+                    <View style={styles.box}  >
+                        <Text style={styles.boxText}>Claim Airdrop</Text>
+                    </View>
                 </View>
                 {/* </ImageBackground> */}
 
@@ -96,5 +99,20 @@ export default function Example(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    box: {
+        marginLeft:20,
+        backgroundColor: '#422DDD',
+        height: 25,
+        paddingHorizontal:10,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        borderRadius: 100,
+    },
+    boxText: {
+        color: 'white',
+        fontSize: 14,
     },
 });

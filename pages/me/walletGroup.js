@@ -45,7 +45,7 @@ const WalletMain = ({ navigation }) => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
-            marginTop:10
+            marginTop: 10
         },
         balanceShow: {
             display: 'flex',
@@ -79,7 +79,7 @@ const WalletMain = ({ navigation }) => {
             // paddingVertical: 5.5,
             backgroundColor: '#422DDD',
             height: 35,
-            width: 100,
+            width: 120,
             margin: 8,
             display: 'flex',
             alignItems: 'center',
@@ -203,14 +203,17 @@ const WalletMain = ({ navigation }) => {
         <View style={styles.mainContainer}>
 
             <View style={styles.boxSection}>
-                <View style={styles.box}  >
-                    <Text style={styles.boxText}>Claim</Text>
+                {/* <View style={styles.box}>
+                    <Text style={styles.boxText}>Buy</Text>
                 </View>
-
                 <View style={styles.box}>
-                    {/* <SwapIcon width="15" height="15" fill="#fff" /> */}
                     <Text style={styles.boxText}>Redeem</Text>
-                </View>
+                </View> */}
+                {/* <View style={styles.box}  >
+                    <Text style={styles.boxText}>Claim Airdrop</Text>
+                </View> */}
+
+
 
             </View>
             <ScrollView

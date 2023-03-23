@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { View, ScrollView, Image, TextInput, TouchableWithoutFeedback } from 'react-native';
+import { Dimensions, View, ScrollView, Image, TextInput, TouchableWithoutFeedback, Button, Animated, PanResponder } from 'react-native';
 import { ScrollTabView, ScrollView as NewScrollView, FlatList } from '../../components/BaseHead';
 import BackIcon from "../../assets/icon_arrow_back.svg";
-import { Popover, Button, MenuItem, Tooltip } from '@ui-kitten/components';
+import { Popover, MenuItem, Tooltip } from '@ui-kitten/components';
 
 import { BaseText as Text } from "../../components/Base";
 import MoreIcon from '../../assets/icon_more.svg';
@@ -23,6 +23,11 @@ import CopyIcon from '../../assets/icon_copy.svg';
 import ForwardIcon from '../../assets/icon_forward.svg';
 import DeleteIcon from '../../assets/icon_delete.svg';
 import SelectIcon from '../../assets/icon_select.svg';
+import GroupIcon from '../../assets/icon_group.svg';
+import ArrowRightIcon from '../../assets/icon_arrow_right.svg';
+import GroupTypeIcon from '../../assets/icon_group_type.svg';
+
+import Bg from "../home/Bg";
 
 
 import { Component } from 'react';
@@ -33,6 +38,8 @@ import {
 // import Drawer from '../../components/BaseDrawer';
 import { queryMessage, addMessage } from '../../database/message';
 import moment from 'moment';
+const dw = Dimensions.get('window').width;
+const dh = Dimensions.get('window').height;
 
 function MessageItem(props) {
   const { msg, index } = props;
@@ -118,8 +125,8 @@ function MessageItem(props) {
             <Text>Select</Text>
           </View>
         </View>
-        <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
-          <View style={{marginLeft:10, width: 0, height: 0, borderColor: 'rgba(0,0,0,0)', borderWidth: 10, borderLeftColor: 'rgba(0,0,0,0)', borderRightColor: 'rgba(0,0,0,0)', borderBottomColor: 'rgba(0,0,0,0)', borderTopColor: 'rgba(255,255,255,0.1)' }}></View>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+          <View style={{ marginLeft: 10, width: 0, height: 0, borderColor: 'rgba(0,0,0,0)', borderWidth: 10, borderLeftColor: 'rgba(0,0,0,0)', borderRightColor: 'rgba(0,0,0,0)', borderBottomColor: 'rgba(0,0,0,0)', borderTopColor: 'rgba(255,255,255,0.1)' }}></View>
         </View>
       </View>
 
@@ -192,8 +199,7 @@ function MessageList(props) {
 }
 
 
-// Drawer组件
-
+let offSetY=0,offSetDy=0;
 const ChatDetail = (props) => {
 
   const [state, setState] = React.useState({
@@ -203,23 +209,98 @@ const ChatDetail = (props) => {
   });
   const [selectedIndex, setSelectedIndex] = React.useState(null);
   const [visible, setVisible] = React.useState(false);
-
+  const [panJson, setPanJson] = React.useState('');
+  
   const onItemSelect = (index) => {
     setSelectedIndex(index);
     setVisible(false);
   };
+  const finishHand=()=>{
+    console.log(111111111111111111111111111,offSetY,dh)
+    if(offSetY>(dh/2)||offSetDy>200){
+    console.log(22222222222222222222222222)
 
-  // const renderToggleButton = () => (
-  //   
+      Animated.spring(
+        pan, // Auto-multiplexed
+        { toValue: { x: 0, y: dh+20 } } // Back to zero
+      ).start();
+      setVisible(false);
+    }
+  }
+  // const fadeAnim = React.useRef(new Animated.ValueXY()).current;
 
-  // );
+  // const fadeIn = () => {
+  //   // Will change fadeAnim value to 1 in 5 seconds
+  //   Animated.timing(fadeAnim, {
+  //     toValue: 100,
+  //     duration: 200
+  //   }).start();
+  // };
+  // const panResponder = PanResponder.create({
+  //   onStartShouldSetPanResponder: () => true,
+  //   onPanResponderMove: Animated.event([
+  //     null,
+  //     {
+  //       dy: fadeAnim,
+  //     },
+  //   ]),
+  //   onPanResponderRelease: () => {
+  //     Animated.spring(
+  //       fadeAnim, // Auto-multiplexed
+  //       { toValue: { x: 0, y: 0 } } // Back to zero
+  //     ).start();
+  //   },
+  // });
+  const pan = React.useRef(new Animated.ValueXY({ x: 0, y: dh })).current;
+  const panResponder = React.useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderGrant: () => {
+        pan.setOffset({
+          x: pan.x._value,
+          y: pan.y._value
+        });
+      },
+      onPanResponderMove: Animated.event(
+        [
+          null,
+          { dx: pan.x, dy: pan.y },
+        ],
+        {listener: (event, gestureState) => {
+          offSetY= gestureState.moveY;
+          offSetDy=gestureState.dy;
+        }}, // 可选的异步监听函数
+      ),
+      onPanResponderRelease: () => {
+        finishHand();
+        pan.flattenOffset();
+      },
+
+    })
+  ).current;
   const renderToggleButton = () => <TouchableWithoutFeedback
     onPress={() => setVisible(true)}>
     <View><MoreVerIcon width={25} height={25} fill='#fff' /></View>
   </TouchableWithoutFeedback>;
-  const MenuItemCustom = ({ title, children }) => <View style={{ padding: 5, flexDirection: 'row', alignItems: 'center' }}>
-    {children}
-    <Text>{title}</Text>
+  const MenuItemCustom = ({ title, children }) => <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'rgba(255,255,255,0.03)', paddingVertical: 10, paddingHorizontal: 20, marginBottom: 10 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View style={{ alignItems: 'center', justifyContent: 'flex-end', flexDirection: 'row' }}>
+        {children}
+      </View>
+      <Text style={{ fontSize: 14 }}>{title}</Text>
+    </View>
+    <View>
+      <ArrowRightIcon width={25} height={25} fill="#fff" />
+    </View>
+  </View>
+  const MenuItemCustomFrist = ({ title, children }) => <View style={{ padding: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 3, paddingHorizontal: 10, paddingVertical: 5, justifyContent: 'center', }}>
+      <View style={{ alignItems: 'center', justifyContent: 'flex-end', flexDirection: 'row' }}>
+        {children}
+      </View>
+      <Text style={{ fontSize: 14 }}>{title}</Text>
+    </View>
+
   </View>
   return (
     <View style={{ ...styles.container, backgroundColor: '#1e1e1e' }}>
@@ -251,34 +332,55 @@ const ChatDetail = (props) => {
               </View>
             </View>
             <View style={{ flexDirection: 'row', paddingRight: 10 }}>
-              <TouchableWithoutFeedback onPress={() => function () { }}>
-                <SearchIcon width={25} height={25} fill='#fff' style={{ marginRight: 10 }} />
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  Animated.spring(
+                    pan, // Auto-multiplexed
+                    { toValue: { x: 0, y: 100 } } // Back to zero
+                  ).start();
+                  setVisible(true);
+                }}>
+                <View><MoreVerIcon width={25} height={25} fill='#fff' /></View>
               </TouchableWithoutFeedback>
-              <Popover
+              {/* <Popover
                 anchor={renderToggleButton}
                 visible={visible}
                 selectedIndex={selectedIndex}
                 onSelect={onItemSelect}
                 onBackdropPress={() => setVisible(false)}
-                style={{ backgroundColor: '#1e1e1e', width: 150 }}
+                style={{ backgroundColor: '#1e1e1e', width: 180 }}
               >
-                {/* Manage Group (群主/管理员可见)
-                  Create Token  (群主/管理员可见)
-                  Create Airdrop  (群主/管理员)
-                  Mute Notification/ Unmute (普通用户可见)
-                  Leave Group (普通用户可见) */}
+               
                 <View style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 5 }}>
-                  <MenuItemCustom title="Invite">
-                    <InviteIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
-                  </MenuItemCustom>
-                  <MenuItemCustom title="Manage Group">
-                    <ManageIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+                  <TouchableWithoutFeedback 
+                  onPress={()=> Animated.spring(
+                    pan, // Auto-multiplexed
+                    { toValue: { x: 0, y:200 } } // Back to zero
+                  ).start()}
+                  >
+
+                    <View>
+                      <MenuItemCustomFrist title="Invite">
+                        <InviteIcon width={25} height={25} fill="#fff" style={{ marginRight: 5 }} />
+                      </MenuItemCustomFrist>
+                    </View>
+
+                  </TouchableWithoutFeedback>
+
+                  <MenuItemCustom title="Search">
+                    <SearchIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
                   </MenuItemCustom>
                   <MenuItemCustom title="Create Token">
                     <TokenIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
                   </MenuItemCustom>
                   <MenuItemCustom title="Create Airdrop">
                     <AirdropIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+                  </MenuItemCustom>
+                  <MenuItemCustom title="Administrators">
+                    <ManageIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+                  </MenuItemCustom>
+                  <MenuItemCustom title="Members">
+                    <GroupIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
                   </MenuItemCustom>
                   <MenuItemCustom title="Mute Notification">
                     <NotificationsIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
@@ -287,12 +389,7 @@ const ChatDetail = (props) => {
                     <LeaveIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
                   </MenuItemCustom>
                 </View>
-                {/* <MenuItem style={{backgroundColor:'rgba(255,255,255,0.1)'}} title='Manage Group' />
-                <MenuItem title='Create Token' />
-                <MenuItem title='Create Airdrop' />
-                <MenuItem title='Mute Notification/ Unmute' />
-                <MenuItem title='Leave Group' /> */}
-              </Popover>
+              </Popover> */}
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -304,9 +401,113 @@ const ChatDetail = (props) => {
                         </View> */}
       </View>
       <View style={{ flex: 1 }}>
+        <Text>
+          {panJson}
+        </Text>
         <MessageList {...props} key="s1" />
       </View>
 
+      <Animated.View
+        style={{
+          transform: [{ translateY: pan.y }],
+          ...styles.fadingContainer
+        }}
+        {...panResponder.panHandlers}
+      >
+        <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'absolute', width: dw, top: -10 }}>
+          <View style={{ width: 70, height: 3, backgroundColor: '#fff', borderRadius: 10 }}>
+
+          </View>
+        </View>
+        <View style={{ position: 'relative', overflow: 'hidden' }}>
+          {/* <Bg img={{ uri: 'https://bf.jdd001.top/s1.png' }} /> */}
+
+          {/* <ImageBackground source={{uri:'https://bf.jdd001.top/s1.png'}} blurRadius={10} style={styles.image}> */}
+          <View style={{ margin: 20, marginTop: 30, flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ width: 50, height: 50, borderRadius: 40, marginRight: 10 }}>
+                <Image
+                  style={{ width: 50, height: 50, borderRadius: 100, }}
+                  source={{ uri: props.route.params.header }}
+                />
+              </View>
+              <View style={{ marginLeft: 10 }}>
+                <Text style={{ fontSize: 18 }}>{props.route.params.name}</Text>
+
+                <View style={{ flexDirection: 'row', marginTop: 5 }}>
+                  <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5 }}>
+                    <Text style={{ textAlign: 'center' }}>
+                      @dodo.base
+                    </Text>
+                  </View>
+                  <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, marginLeft: 10, paddingLeft: 5, paddingRight: 5, padding: 0 }}>
+                    <Text style={{ textAlign: 'center', padding: 0 }}>
+                      0xebaD...89e1
+                    </Text>
+                  </View>
+                </View>
+
+              </View>
+            </View>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: 20, marginTop: 0 }}>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={{ marginLeft: 5, marginRight: 15, fontSize: 16, color: '#fff' }}>$999 <Text>Treasury</Text></Text>
+              <Text style={{ marginLeft: 5, fontSize: 16, color: '#fff' }}>34 <Text>Members</Text></Text>
+            </View>
+
+
+            <MenuItemCustomFrist title="Invite">
+              <InviteIcon width={25} height={25} fill="#fff" style={{ marginRight: 5 }} />
+            </MenuItemCustomFrist>
+
+          </View>
+          {/* </ImageBackground> */}
+
+        </View>
+
+
+
+        <MenuItemCustom title="Search">
+          <SearchIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+        </MenuItemCustom>
+        <MenuItemCustom title="Create Token">
+          <TokenIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+        </MenuItemCustom>
+        <MenuItemCustom title="Create Airdrop">
+          <AirdropIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+        </MenuItemCustom>
+        <MenuItemCustom title="Administrators">
+          <ManageIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+        </MenuItemCustom>
+        <MenuItemCustom title="Members">
+          <GroupIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+        </MenuItemCustom>
+        <MenuItemCustom title="Mute Notification">
+          <NotificationsIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+        </MenuItemCustom>
+        <MenuItemCustom title="Group Type">
+          <GroupTypeIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+        </MenuItemCustom>
+        <MenuItemCustom title="Leave Group">
+          <LeaveIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+        </MenuItemCustom>
+
+      </Animated.View>
+      {
+        visible &&
+        <TouchableWithoutFeedback
+          onPress={() => {
+            Animated.spring(
+              pan, // Auto-multiplexed
+              { toValue: { x: 0, y: dh } } // Back to zero
+            ).start(); setVisible(false);
+          }}>
+          <View style={{ width: dw, height: dh, opacity: 0.8, backgroundColor: '#000', zIndex: 2, position: 'absolute' }}>
+
+          </View>
+        </TouchableWithoutFeedback>
+      }
 
     </View>
 
@@ -318,31 +519,15 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#1e1e1e',
     flex: 1,
+
   },
+  fadingContainer: {
+    position: 'absolute',
+    zIndex: 3,
+    backgroundColor: '#1e1e1e',
+    width: dw,
+    height: dh
+  }
 });
 
 export default ChatDetail;
-
-
-// import React from 'react';
-// import { StyleSheet, View, Text } from 'react-native';
-// import PagerView from 'react-native-pager-view';
-
-// const MyPager = () => {
-//   return (
-//     <PagerView style={styles.pagerView} initialPage={0}>
-//       <View key="1">
-//         <Text>First page</Text>
-//       </View>
-//       <View key="2">
-//         <Text>Second page</Text>
-//       </View>
-//     </PagerView>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   pagerView: {
-//     flex: 1,
-//   },
-// });

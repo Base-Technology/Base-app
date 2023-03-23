@@ -21,6 +21,7 @@ import SearchDetailScreen from './pages/home/searchDetail';
 import PublishScreen from './pages/publish';
 import WalletMain from './pages/me/index';
 import Personal from './pages/me/personal';
+import Invite from './pages/chat/invite';
 
 import Chat from './pages/chat/list';
 import Moment from './pages/moments/index';
@@ -95,7 +96,7 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Chat" component={Chat} />
             <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Doctor" component={SettingsScreen} />
             <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Personal" component={Personal} />
-            
+            <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Invite" component={Invite} />
             <Stack.Screen options={{ headerShown: false,animation:'none' }} name="DetailGroup" component={DetailGroupScreen} />
             <Stack.Screen options={{ headerShown: false,animation:'none' }} name="Yk" component={SettingsScreen2} />
             <Stack.Screen name="Trade" component={TradeScreen} />
