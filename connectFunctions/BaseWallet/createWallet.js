@@ -2,109 +2,115 @@
 // 设置modules
 // 生成私钥
 // 可以和login合并
+// contract address
+import { FactoryAddress } from "../../constants/contract_address";
+// test import
+import { testBSCprovider } from "../../constants/test-provider";
+import { ownerAddress, ownerPrivateKey, accPrivateKey, accountAddress, testModules } from "../../constants/test_account";
 
-const ethers = require('ethers')
-const Provider = require('@ethersproject/providers')
-const getRevertReason = require('eth-revert-reason')
-
-const FactoryABI = require('../../abis/Factory.json')
-
-const owner = "0x3a790b0D5F04B13970E1CA37F8da2249dd9f5974";
-const account = "0x624b8A9dCFEbdC65DF072eD2d17db4b5dDCd0F7f";
-const modules = ["0xb993087909e2Da66191c307b3A01B6889890CF00"];
-const ownerPrivateKey =
-    "377e9f7384cf3063b37ec202b5a367df811d01ca36bad75824e0d0bfcbc257df";
-const accPrivateKey =
-    "e7135257b1b0061097560b5770edfaa22fdf43e552027f875334dcf6a6807957";
-
-const ownerAccount = await web3.eth.accounts.privateKeyToAccount(
-    "0x" + ownerPrivateKey
-);
+const FactoryABI = require('../../abis/Factory.json');
+const ethers = require("ethers");
+const Web3 = require("web3");
+const web3 = new Web3("https://bsc-testnet.public.blastapi.io");
+const ETH_TOKEN = ethers.constants.AddressZero;
+const ZERO_BYTES = "0x";
 
 let FactoryContract;
 let FactoryContractWithSigner;
 
-const providerBSC = new JsonRpcProvider(
-    "https://bsc-testnet.public.blastapi.io",
-    97
+function getSignerContract(_provider, _privateKey, _contractAddress, _contractABI) {
+  let Contract = getContract(
+    _contractAddress,
+    _contractABI,
+    _provider
   );
+  const signer = new ethers.Wallet(_privateKey, _provider);
+  // let signer = provider.getSigner()
+  console.log(_privateKey.length);
+  console.log(signer);
+  ContractWithSigner = Contract.connect(signer);
+  return ContractWithSigner, Contract;
+};
 
-async function signMessage(message, signer) {
-    console.log(`Message: ${message} annnnd signer: ${signer}`);
-    const sig = await web3.eth.sign(message, signer);
-    let v = parseInt(sig.substring(130, 132), 16);
-    if (v < 27) v += 27;
-    const normalizedSig = `${sig.substring(0, 130)}${v.toString(16)}`;
-    console.log("normalizedSig: " + normalizedSig);
-    return normalizedSig;
+async function signRefund(_wallet, _amount, _token, _signer) {
+  const message = `0x${[
+    _wallet,
+    ethers.utils.hexZeroPad(ethers.utils.hexlify(_amount), 32),
+    _token,
+  ]
+    .map((hex) => hex.slice(2))
+    .join("")}`;
+  const sig = await signMessage(ethers.utils.keccak256(message), _signer);
+  return sig;
 }
 
-const getSignerContract = () => { // useEffect
-    FactoryContract = getContract(
-      "0x3a9A86Ff94Cd9cDdE7268F3199938aDBA4990ab6",
-      FactoryABI,
-      providerBSC
-    );
-    const signer = new ethers.Wallet(ownerPrivateKey, providerBSC);
-    // let signer = provider.getSigner()
-    console.log(ownerPrivateKey.length);
-    console.log(signer);
-    FactoryContractWithSigner = FactoryContract.connect(signer);
-  };
+async function signMessage(_message, _signer) {
+  console.log(`Message: ${_message} annnnd signer: ${_signer}`);
+  const sig = await web3.eth.sign(_message, _signer);
+  let v = parseInt(sig.substring(130, 132), 16);
+  if (v < 27) v += 27;
+  const normalizedSig = `${sig.substring(0, 130)}${v.toString(16)}`;
+  console.log("normalizedSig: " + normalizedSig);
+  return normalizedSig;
+}
 
-  async function createWallet(_ownerPrivateKey,_accPrivateKey, _FactoryContractWithSigner){
-    console.log("testttttt");
-    let futureAddr;
-    const salt = ethers.utils.hexZeroPad(
-      ethers.BigNumber.from(ethers.utils.randomBytes(20)).toHexString(),
-      20
+
+export async function createWallet_test() {
+  let newUserAddress;
+  const salt = ethers.utils.hexZeroPad(
+    ethers.BigNumber.from(ethers.utils.randomBytes(20)).toHexString(),
+    20
+  );
+  (FactoryContractWithSigner, FactoryContract) = getSignerContract(testBSCprovider, ownerPrivateKey, FactoryAddress, FactoryABI);
+
+  await web3.eth.accounts.wallet.add(ownerPrivateKey);
+  await web3.eth.accounts.wallet.add(accPrivateKey);
+  await FactoryContractWithSigner.addManager(accountAddress);
+
+  try {
+    newUserAddress = await FactoryContract.getAddressForCounterfactualWallet(
+      ownerAddress,
+      testModules,
+      salt,
+      { from: ownerAddress, gasLimit: 8000000, gasPrice: 1000000000 }
     );
-    await web3.eth.accounts.wallet.add(_ownerPrivateKey);
-    await web3.eth.accounts.wallet.add(_accPrivateKey);
-    await _FactoryContractWithSigner.addManager(account);
-    try {
-      futureAddr = await FactoryContract.getAddressForCounterfactualWallet(
-        owner,
-        modules,
-        salt,
-        { from: owner, gasLimit: 8000000, gasPrice: 1000000000 }
-      );
-      setAddressStored(futureAddr);
-      console.log("Future address: " + futureAddr);
-    } catch (e) {
-      console.log(e);
-    }
-    const ownerSig = await signRefund(
-      futureAddr,
-      refundAmount,
+    console.log("newUserAddress address: " + newUserAddress);
+  } catch (e) {
+    console.log(e);
+  }
+
+  const ownerSig = await signRefund(
+    newUserAddress,
+    1000000000000000,
+    ETH_TOKEN,
+    ownerAddress
+  );
+
+  const msg = ethers.utils.hexZeroPad(newUserAddress, 32);
+  const managerSig = await signMessage(msg, accountAddress);
+
+  const receipts = await web3.eth.sendTransaction({
+    from: ownerAddress,
+    to: newUserAddress,
+    value: 1000000000000000,
+    gasLimit: 8000000,
+    gasPrice: 1000000000,
+  });
+  console.log("Send Transaction receipt: " + receipts);
+  try {
+    // const tx = await FactoryContract.createCounterfactualWallet(owner, modules, salt,  refundAmount, ETH_TOKEN, ownerSig, "0x")
+    const tx = await FactoryContractWithSigner.createCounterfactualWallet(
+      ownerAddress,
+      testModules,
+      salt,
+      1000000000000000,
       ETH_TOKEN,
-      owner
+      ownerSig,
+      managerSig,
+      { gasLimit: 8000000, gasPrice: 10000000000 }
     );
-    const msg = ethers.utils.hexZeroPad(futureAddr, 32);
-    const managerSig = await signMessage(msg, account);
-
-    const receipts = await web3.eth.sendTransaction({
-      from: owner,
-      to: futureAddr,
-      value: refundAmount,
-      gasLimit: 8000000,
-      gasPrice: 1000000000,
-    });
-    console.log("Send Transaction receipt: " + receipts);
-    try {
-      // const tx = await FactoryContract.createCounterfactualWallet(owner, modules, salt,  refundAmount, ETH_TOKEN, ownerSig, "0x")
-      const tx = await FactoryContractWithSigner.createCounterfactualWallet(
-        owner,
-        modules,
-        salt,
-        refundAmount,
-        ETH_TOKEN,
-        ownerSig,
-        managerSig,
-        { gasLimit: 8000000, gasPrice: 10000000000 }
-      );
-      console.log(`Success: ${tx} `);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+    console.log(`Success: ${tx} `);
+  } catch (e) {
+    console.log(e);
+  }
+}
