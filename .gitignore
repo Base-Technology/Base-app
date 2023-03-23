@@ -66,3 +66,4 @@ buck-out/
 .vscode
 
 /constants/test_account.js
+yarn.lock
