@@ -42,7 +42,7 @@ const Login = ({ navigation }) => {
         <Text style={{ fontSize: 24, textAlign: 'center', lineHeight: 30 }}>+86 131****8943</Text>
       </View>
       <View style={{ paddingHorizontal: 20, justifyContent: 'center', flexDirection: 'row', marginTop: 20 }}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Home')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Chat')}>
 
           <View style={{ backgroundColor: '#422ddd', padding: 15, borderRadius: 100, width: 300 }}>
             <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Use Current Phone Number</Text>

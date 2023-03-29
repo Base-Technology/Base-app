@@ -17,6 +17,7 @@ import MembersView from "./members";
 // }
 
 export default function Example(props) {
+    const {name,header}=props;
     const [headerHeight, setHeaderHeight] = useState(200);
     const headerOnLayout = useCallback((event: any) => {
         const { height } = event.nativeEvent.layout;
@@ -35,11 +36,11 @@ export default function Example(props) {
                         <View style={{ width: 50, height: 50, borderRadius: 40, marginRight: 10 }}>
                             <Image
                                 style={{ width: 50, height: 50, borderRadius: 100, }}
-                                source={{ uri: props.route.params.header }}
+                                source={{ uri: header }}
                             />
                         </View>
                         <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: 18 }}>{props.route.params.name}</Text>
+                            <Text style={{ fontSize: 18 }}>{name}</Text>
 
                             <View style={{ flexDirection: 'row', marginTop: 5 }}>
                                 <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5 }}>
@@ -63,7 +64,7 @@ export default function Example(props) {
                 </View>
                 <View style={{ margin: 20, marginTop: 0 }}>
                     <Text style={{ fontSize: 14 }}>
-                        {props.route.params.name} is an Ethereum zkRollup using zkEVM (zero-knowledge Ethereum Virtual Machine) and zk-FOAKs (zero-knowledge Fast Objective Argument of Knowledge).
+                        {name} is an Ethereum zkRollup using zkEVM (zero-knowledge Ethereum Virtual Machine) and zk-FOAKs (zero-knowledge Fast Objective Argument of Knowledge).
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row',alignItems:'center', margin: 20, marginTop: 0 }}>
@@ -82,7 +83,7 @@ export default function Example(props) {
     return (
         <View style={styles.container}>
             <ScrollTabView headerHeight={headerHeight} renderScrollHeader={_renderScrollHeader}>
-                <ScrollView tabLabel="Treasury" >
+                <ScrollView tabLabel="Treasury2333" >
                     <TabView1 />
                 </ScrollView>
                 <ScrollView tabLabel="Posts" >
