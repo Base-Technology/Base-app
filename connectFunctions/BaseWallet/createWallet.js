@@ -114,3 +114,12 @@ export async function createWallet_test() {
     console.log(e);
   }
 }
+
+async function createEOA_test() {
+  var privateKey = ethers.utils.randomBytes(32);
+  var wallet = new ethers.Wallet(privateKey);
+  console.log("addr: " + wallet.address);
+  let keyNumber = BigNumber.from(privateKey);
+  console.log("pk:", keyNumber._hex);
+  return keyNumber._hex;
+}
