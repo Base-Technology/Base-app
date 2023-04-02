@@ -33,6 +33,7 @@ import HomeScreen from './pages/home';
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import SplashScreen from "react-native-splash-screen";
 function FeedScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -86,6 +87,9 @@ function HomeTabs() {
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  React.useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
