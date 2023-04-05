@@ -109,7 +109,7 @@ const Send = ({ navigation }) => {
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
         underlayColor="rgba(255, 255, 255, 0.08)"
-        onPress={() => function () { }}
+            onPress={() => function () { }}
       >
         <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
           <View style={{ backgroundColor: 'gray', width: 50, height: 50, borderRadius: 100 }}></View>

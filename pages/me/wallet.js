@@ -26,6 +26,10 @@ import SwapIcon from '../../assets/icon_swap.svg';
 import MoreIcon from '../../assets/icon_more.svg';
 import MoreVertIcon from '../../assets/icon_more_vert.svg';
 import { ScrollTabView, FlatList } from '../../components/BaseHead';
+
+import {createEOA_test, FactoryABI, createWallet_test} from '../../connectFunctions/BaseWallet/createWallet';
+import {savePrivateKey, getPrivateKey} from '../../connectFunctions/BaseWallet/importWallet'
+
 const WalletMain = ({ navigation }) => {
     const isDarkMode = 'dark';
     const [isShow, setisShow] = useState(true);
@@ -237,17 +241,18 @@ const WalletMain = ({ navigation }) => {
             </View>
 
             <View style={styles.boxSection}>
-                <TouchableWithoutFeedback onPress={() => navigation.navigate('Send')}>
+                <TouchableWithoutFeedback onPress={() => {console.log("fk");/*createWallet_test().then(console.log('123'))*/; savePrivateKey("123456789123456789123456789abcde")}}>
                     <View style={styles.box}  >
                         {/* <SendIcon width="15" height="15" fill="#fff" /> */}
-                        <Text style={styles.boxText}>Send</Text>
+                        <Text style={styles.boxText}>Send test</Text>
                     </View>
                 </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={() => navigation.navigate('Trade')}>
+                {/*<TouchableWithoutFeedback onPress={() => navigation.navigate('Trade')}>*/}
+                <TouchableWithoutFeedback onPress={() =>createEOA_test()}>
 
                     <View style={styles.box}>
                         {/* <SwapIcon width="15" height="15" fill="#fff" /> */}
-                        <Text style={styles.boxText}>Swap</Text>
+                        <Text style={styles.boxText}>Swap test</Text>
                     </View>
                 </TouchableWithoutFeedback>
 
