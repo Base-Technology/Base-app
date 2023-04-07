@@ -1,9 +1,12 @@
 // import 助记词 
 // 根据助记词生成私钥
 // 更具私钥找寻对应的base wallet
-// require the module
+import "react-native-get-random-values";
+import "@ethersproject/shims";
+import "@sotatek-anhdao/react-native-secure-random";
 import RNFS from 'react-native-fs';
-// let RNFS = require('react-native-fs');
+import CryptoJS from 'crypto-js';
+import AES from 'crypto-js/aes';
 
 // create a path you want to write to
 // :warning: on iOS, you cannot write into `RNFS.MainBundlePath`,
@@ -15,7 +18,18 @@ let privateKeyPath = RNFS.DocumentDirectoryPath + '/pk.txt';
 // write the file
 
 
-
+export function encode(_data, _key){
+  const sData = AES.encrypt(_data, _key).toString();
+  console.log("sData", sData);
+  return sData;
+}
+export function decode(_sData, _key){
+  const decodeDataBytes = AES.decrypt(_sData, _key);
+  console.log("decodeDataBytes", decodeDataBytes);
+  const decodeData = decodeDataBytes.toString(CryptoJS.enc.Utf8)
+  console.log("decodeData ", decodeData);
+  return decodeData;
+}
 
 export function savePrivateKey_pre() {
   RNFS.writeFile(path, 'Lorem ipsum dolor sit amet', 'utf8')
@@ -31,20 +45,15 @@ export async function savePrivateKey(_pk) {
   console.log("privateKeyPath: ", privateKeyPath);
   RNFS.writeFile(privateKeyPath, _pk, 'utf8')
     .then((success) => {
-      console.log('FILE WRITTEN!');
+      console.log('Save Success!!!');
     })
     .catch((err) => {
-      console.log(err.message);
+      console.log("savePrivateKey", err.message);
     });
 }
 
 export async function getPrivateKey() {
-  RNFS.readFile(privateKeyPath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
-    .then((result) => {
-      console.log('GET RESULT', result);
-      return result;
-    })
-  return -1;
+  return RNFS.readFile(privateKeyPath, 'utf8') // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
 }
 
 export async function deletedPrivateKey() {
@@ -55,6 +64,6 @@ export async function deletedPrivateKey() {
     })
     // `unlink` will throw an error, if the item to unlink does not exist
     .catch((err) => {
-      console.log(err.message);
+      console.log("deletedPrivateKey", err.message);
     });
 }

@@ -26,6 +26,7 @@
     "@sotatek-anhdao/react-native-secure-random": "^1.0.0",
     "@ui-kitten/components": "^5.1.2",
     "@ui-kitten/eva-icons": "^5.1.2",
+    "crypto-js": "3.3.0",
     "eth-revert-reason": "^1.0.3",
     "ethers": "^5.7.2",
     "memoize-one": "^5.1.1",
