@@ -6,7 +6,8 @@ import {
   View,
   TextInput,
   Image,
-  Dimensions
+  Dimensions,
+  Button,
 } from 'react-native';
 import { BaseText as Text } from "../../components/Base";
 
@@ -150,8 +151,6 @@ function MessageList(props) {
       changeMessages(msgs);
     });
   }
-  IMTP.getInstance().connect();
-  IMTP.getInstance().test();
   const renderPlacementItem = (title) => (
     <Text>ddd</Text>
   );
@@ -185,7 +184,10 @@ function MessageList(props) {
           title="Send"
           color="#422DDD"
           onPress={() => {
-            addMessage({ content: value }, (msg) => {
+            IMTP.getInstance().sendMessage({
+              profile_id: '0x2',
+              content: value,
+            }, (msg) => {
               messages.push(msg);
               changeMessages(messages);
               onChangeText('');

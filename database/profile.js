@@ -1,8 +1,8 @@
 import SQLite from './sqlite';
 
-const defaultID = "0x111";
+export const defaultID = "0x1";
 
-export async function queryPrivateKeyByProfileID(id, callback) {
+export async function queryProfileByID(id, callback) {
     if (!id) {
         id = defaultID;
     }
