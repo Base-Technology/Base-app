@@ -92,12 +92,13 @@ export default function Example({ navigation }) {
                 <ScrollView tabLabel="Posts" >
                     <PostView key="p1" />
                 </ScrollView>
-                <ScrollView tabLabel="Collects" >
-                    <PostView key="p2" />
-                </ScrollView>
                 <ScrollView tabLabel="Likes" >
                     <PostView key="p3" />
                 </ScrollView>
+                <ScrollView tabLabel="Collects" >
+                    <PostView key="p2" />
+                </ScrollView>
+
 
                 {/* <TabView1 tabLabel="Posts" />
                 <TabView1 tabLabel="Collects" />

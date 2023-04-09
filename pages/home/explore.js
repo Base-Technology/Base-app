@@ -128,4 +128,4 @@ const WalletMain = ({ navigation }) => {
   );
 };
 
-export default WalletMain;
+export default React.memo(WalletMain);

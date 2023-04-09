@@ -28,7 +28,7 @@ import MomentFullIcon from '../../assets/icon_momentfull.svg';
 import CreateIcon from '../../assets/icon_create.svg';
 const { height } = Dimensions.get('window')
 
-
+let ind=1;
 export default VideoPage = ({ navigation, route }) => {
   let panResponder = PanResponder.create({
     // 用户开始触摸屏幕的时候，是否愿意成为响应者；默认返回false，无法响应，当返回true的时候则可以进行之后的事件传递
@@ -131,13 +131,7 @@ export default VideoPage = ({ navigation, route }) => {
     },
   });
 
-  const [videoList, setVideoList] = useState([{
-    img: 'https://bf.jdd001.top/poster.png',
-    url: 'https://bf.jdd001.top/m1.mp4'
-  },{
-    img: 'https://bf.jdd001.top/poster.png',
-    url: 'https://bf.jdd001.top/m2.mp4'
-  }])
+  const [videoList, setVideoList] = useState([])
   const [isHas, setIsHas] = useState(true)
   const videoRef = useRef([])
   const flatListRef = useRef()
@@ -163,12 +157,11 @@ export default VideoPage = ({ navigation, route }) => {
 
 
   async function loadVodeoData(add) {
-    return;
     const result = {
-      img: 'https://bf.jdd001.top/poster.png',
-      url: 'https://bf.jdd001.top/m2.mp4'
+      // img: 'https://bf.jdd001.top/poster.png',
+      url: 'https://bf.jdd001.top/m'+(Math.random()>0.5&&1||2)+'.mp4'
     }
-    if (result.img) {
+    // if (result.img) {
       if (add) {
         pageRef.current += 1
         setVideoList(videoList.concat([result]))
@@ -179,9 +172,9 @@ export default VideoPage = ({ navigation, route }) => {
         setVideoList([result])
       }
       setIsHas(true)
-    } else {
-      setIsHas(false)
-    }
+    // } else {
+    //   setIsHas(false)
+    // }
 
   }
 
