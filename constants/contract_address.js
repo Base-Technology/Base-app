@@ -1,1 +1,4 @@
 export const FactoryAddress = "0x3a9A86Ff94Cd9cDdE7268F3199938aDBA4990ab6";
+export const baseHubContractAddress = '0x3D1fE055C2d5408C69fE4Dd5A5828784f4b2935F'
+export const profileCreationProxyAddr = '0xE00402374EB27D79761330670873ec393523a86C'
+export const walletContractAddress = "0xbbA9AfB8f1D849537845932076c86d1cE8d5C316"
