@@ -11,6 +11,7 @@ import { FactoryAddress } from "../../constants/contract_address";
 // test import
 import { testBSCprovider } from "../../constants/test-provider";
 import { ownerAddress, ownerPrivateKey, accPrivateKey, accountAddress, testModules } from "../../constants/test_account";
+// import {userPrivateKsy} from "../../constants/test_account";
 
 
 
@@ -19,11 +20,8 @@ const ethers = require("ethers");
 const ETH_TOKEN = ethers.constants.AddressZero;
 const ZERO_BYTES = "0x";
 
-// let FactoryContract;
-// let FactoryContractWithSigner;
 
 async function getContract(_provider, _contractAddress, _contractABI) {
-    console.log("WHY 0 ??????????????????")
     let Contract = new ethers.Contract(
         _contractAddress,
         _contractABI,
@@ -33,11 +31,8 @@ async function getContract(_provider, _contractAddress, _contractABI) {
 }
 
 async function getSignerContract(_Contract, _privateKey, _provider) {
-    console.log("WHY 1 ??????????????????")
     const signer = new ethers.Wallet(_privateKey, _provider);
-    // let signer = provider.getSigner()
     ContractWithSigner = _Contract.connect(signer);
-    // console.log("GSC ",ContractWithSigner, Contract);
     return ContractWithSigner;
 };
 
@@ -54,7 +49,7 @@ async function signRefund(_wallet, _amount, _token, _signer) {
 }
 
 async function signMessage(_message, _signer) {
-    
+
     console.log(`Message: ${_message} annnnd signer: ${_signer}`);
     // const sig = await web3.eth.sign(_message, _signer);
     const sig = await _signer.signMessage(_message);
@@ -66,51 +61,46 @@ async function signMessage(_message, _signer) {
 }
 
 export async function addManager_Factory() {
-    console.log("WHY -1 ??????????????????")
     const FactoryContract = await getContract(testBSCprovider, FactoryAddress, FactoryABI);
     const FactoryContractWithSigner = await getSignerContract(FactoryContract, ownerPrivateKey, testBSCprovider);
-    console.log("WHY??????????????????")
     const e = await FactoryContractWithSigner.addManager(accountAddress);
     console.log("e", e);
 }
 
 
-export async function createWallet_test() {
+export async function createWallet_ver2(_userWallet, _provider, _FactoryContract, _Modules) {
     let newUserAddress;
+    const userAddr = _userWallet.address;
     const salt = ethers.utils.hexZeroPad(
         ethers.BigNumber.from(ethers.utils.randomBytes(20)).toHexString(),
         20
     );
-    const FactoryContract = await getContract(testBSCprovider, FactoryAddress, FactoryABI);
-    const FactoryContractWithSigner = await getSignerContract(FactoryContract, ownerPrivateKey, testBSCprovider);
-    const OwnerWallet = new ethers.Wallet(ownerPrivateKey, testBSCprovider);
-    const SignerWallet = new ethers.Wallet(accPrivateKey, testBSCprovider);
     try {
-        newUserAddress = await FactoryContract.getAddressForCounterfactualWallet(
-            ownerAddress,
+        newUserAddress = await _FactoryContract.getAddressForCounterfactualWallet(
+            accountAddress,
             testModules,
             salt,
-            { from: ownerAddress, gasLimit: 8000000, gasPrice: 1000000000 }
+            { gasLimit: 8000000, gasPrice: 1000000000 }
         );
         console.log("newUserAddress address: " + newUserAddress);
     } catch (e) {
         console.log("WHY error ??????????????????");
         console.log(e);
     }
-    // // const refundAmount =1000000000000000;
-    const refundAmount = 0;
+    const refundAmount = 1000000000000000;
+    // const refundAmount = 0;
 
     const ownerSig = await signRefund(
         newUserAddress,
         refundAmount,
         ETH_TOKEN,
-        OwnerWallet
+        _userWallet
     );
 
     const msg = ethers.utils.hexZeroPad(newUserAddress, 32);
-    const managerSig = await signMessage(msg, SignerWallet);
+    const managerSig = await signMessage(msg, _userWallet);
 
-    const receipts = await OwnerWallet.sendTransaction({
+    const receipts = await _userWallet.sendTransaction({
         to: newUserAddress,
         value: refundAmount,
         gasLimit: 8000000,
@@ -119,9 +109,9 @@ export async function createWallet_test() {
     console.log("Send Transaction receipt: " + receipts);
     try {
         // const tx = await FactoryContract.createCounterfactualWallet(owner, modules, salt,  refundAmount, ETH_TOKEN, ownerSig, "0x")
-        const tx = await FactoryContractWithSigner.createCounterfactualWallet(
-            ownerAddress,
-            testModules,
+        const tx = await _FactoryContract.createCounterfactualWallet(
+            userAddr,
+            _Modules,
             salt,
             refundAmount,
             ETH_TOKEN,
@@ -133,15 +123,19 @@ export async function createWallet_test() {
     } catch (e) {
         console.log(e);
     }
-}
 
+}
+export async function createWallet_test_ver2() {
+    const FactoryContract = await getContract(testBSCprovider, FactoryAddress, FactoryABI);
+    const FactoryContractWithSigner = await getSignerContract(FactoryContract, accPrivateKey, testBSCprovider);
+    const SignerWallet = new ethers.Wallet(accPrivateKey, testBSCprovider);
+    createWallet_ver2(SignerWallet, testBSCprovider, FactoryContractWithSigner, testModules);
+}
 export async function createEOA_test() {
     var privateKey = ethers.utils.randomBytes(32);
     var wallet = new ethers.Wallet(privateKey);
-    console.log("addr: " + wallet.address);
+    // console.log("addr: " + wallet.address);
     let keyNumber = BigNumber.from(privateKey);
-    console.log("pk:", keyNumber._hex);
+    // console.log("pk:", keyNumber._hex);
     return keyNumber._hex;
 }
-
-
