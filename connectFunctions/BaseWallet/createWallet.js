@@ -77,14 +77,14 @@ export async function createWallet_ver2(_userWallet, _provider, _FactoryContract
     );
     try {
         newUserAddress = await _FactoryContract.getAddressForCounterfactualWallet(
-            accountAddress,
-            testModules,
+            userAddr,
+            _Modules,
             salt,
             { gasLimit: 8000000, gasPrice: 1000000000 }
         );
-        console.log("newUserAddress address: " + newUserAddress);
+        // console.log("newUserAddress address: " + newUserAddress);
     } catch (e) {
-        console.log("WHY error ??????????????????");
+        // console.log("WHY error ??????????????????");
         console.log(e);
     }
     const refundAmount = 1000000000000000;
@@ -131,11 +131,17 @@ export async function createWallet_test_ver2() {
     const SignerWallet = new ethers.Wallet(accPrivateKey, testBSCprovider);
     createWallet_ver2(SignerWallet, testBSCprovider, FactoryContractWithSigner, testModules);
 }
+
+export async function createEOA() {
+    var privateKey = ethers.utils.randomBytes(32);
+    let keyNumber = BigNumber.from(privateKey);
+    return keyNumber._hex;
+}
 export async function createEOA_test() {
     var privateKey = ethers.utils.randomBytes(32);
     var wallet = new ethers.Wallet(privateKey);
-    // console.log("addr: " + wallet.address);
+    console.log("addr: " + wallet.address);
     let keyNumber = BigNumber.from(privateKey);
-    // console.log("pk:", keyNumber._hex);
+    console.log("pk:", keyNumber._hex);
     return keyNumber._hex;
 }

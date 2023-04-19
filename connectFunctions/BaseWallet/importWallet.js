@@ -29,7 +29,7 @@ export function decode(_sData, _key){
 }
 
 export async function savePrivateKey(_pk) {
-  console.log("privateKeyPath: ", privateKeyPath);
+  // console.log("privateKeyPath: ", privateKeyPath);
   RNFS.writeFile(privateKeyPath, _pk, 'utf8')
     .then((success) => {
       console.log('Save Success');
