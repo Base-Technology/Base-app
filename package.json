@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ethersproject/providers": "^5.7.2",
     "@ethersproject/shims": "^5.7.0",
     "@eva-design/eva": "^2.1.1",
     "@expo/vector-icons": "^13.0.0",
@@ -22,15 +23,21 @@
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/native-stack": "^6.9.7",
     "@react-navigation/stack": "^6.3.11",
+    "@sotatek-anhdao/react-native-secure-random": "^1.0.0",
     "@ui-kitten/components": "^5.1.2",
     "@ui-kitten/eva-icons": "^5.1.2",
+    "crypto-js": "3.3.0",
+    "eth-revert-reason": "^1.0.3",
+    "axios": "^1.3.5",
     "ethers": "^5.7.2",
     "memoize-one": "^5.1.1",
     "moment": "^2.25.3",
+    "open-im-sdk-rn": "^2.3.4",
     "prop-types": "^15.8.1",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-drawer": "^2.5.1",
+    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-get-random-values": "^1.8.0",
     "react-native-image-picker": "^5.1.0",
@@ -51,8 +58,7 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.2.1",
     "react-native-webview": "^11.26.1",
-    "tween-functions": "^1.0.1",
-    "way-im": "^1.0.7"
+    "tween-functions": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

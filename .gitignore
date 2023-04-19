@@ -62,3 +62,7 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+
+.vscode
+
+/constants/test_account.js

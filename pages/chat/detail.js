@@ -6,7 +6,8 @@ import {
   View,
   TextInput,
   Image,
-  Dimensions
+  Dimensions,
+  Button,
 } from 'react-native';
 import { BaseText as Text } from "../../components/Base";
 
@@ -39,6 +40,7 @@ import ArrowRightIcon from '../../assets/icon_arrow_right.svg';
 import GroupTypeIcon from '../../assets/icon_group_type.svg';
 import { queryMessage, addMessage } from '../../database/message';
 import moment from 'moment';
+import IMTP from '../../imtp/service';
 import Group from "../me/group";
 import Drawer from './Drawer'
 const dw = Dimensions.get('window').width;
@@ -166,7 +168,6 @@ function MessageList(props) {
     <Text>ddd</Text>
   );
 
-
   return <View style={{ flex: 1 }}>
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -199,7 +200,10 @@ function MessageList(props) {
           title="Send"
           color="#422DDD"
           onPress={() => {
-            addMessage({ content: value }, (msg) => {
+            IMTP.getInstance().sendMessage({
+              profile_id: '0x2',
+              content: value,
+            }, (msg) => {
               messages.push(msg);
               changeMessages(messages);
               onChangeText('');

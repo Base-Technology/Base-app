@@ -26,6 +26,7 @@ import SwapIcon from '../../assets/icon_swap.svg';
 import MoreIcon from '../../assets/icon_more.svg';
 import MoreVertIcon from '../../assets/icon_more_vert.svg';
 import { ScrollTabView, FlatList } from '../../components/BaseHead';
+
 const WalletMain = ({ navigation }) => {
     const isDarkMode = 'dark';
     const [isShow, setisShow] = useState(true);
@@ -237,14 +238,13 @@ const WalletMain = ({ navigation }) => {
             </View>
 
             <View style={styles.boxSection}>
-                <TouchableWithoutFeedback onPress={() => navigation.navigate('Send')}>
+                <TouchableWithoutFeedback onPress={() => {navigation.navigate('Send')}>
                     <View style={styles.box}  >
                         {/* <SendIcon width="15" height="15" fill="#fff" /> */}
                         <Text style={styles.boxText}>Send</Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('Trade')}>
-
                     <View style={styles.box}>
                         {/* <SwapIcon width="15" height="15" fill="#fff" /> */}
                         <Text style={styles.boxText}>Swap</Text>

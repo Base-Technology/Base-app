@@ -1,0 +1,753 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "contract IModuleRegistry",
+        "name": "_registry",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IGuardianStorage",
+        "name": "_guardianStorage",
+        "type": "address"
+      },
+      {
+        "internalType": "contract ITransferStorage",
+        "name": "_userWhitelist",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IAuthoriser",
+        "name": "_authoriser",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_uniswapRouter",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_securityPeriod",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_securityWindow",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_lockPeriod",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_recoveryPeriod",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "whitelistAfter",
+        "type": "uint64"
+      }
+    ],
+    "name": "AddedToWhitelist",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "refundAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "refundToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "refundAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Refund",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "bool",
+        "name": "success",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "returnData",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "signedHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "TransactionExecuted",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_guardian",
+        "type": "address"
+      }
+    ],
+    "name": "addGuardian",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_target",
+        "type": "address"
+      }
+    ],
+    "name": "addToWhitelist",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_guardian",
+        "type": "address"
+      }
+    ],
+    "name": "cancelGuardianAddition",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_guardian",
+        "type": "address"
+      }
+    ],
+    "name": "cancelGuardianRevokation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "cancelRecovery",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "_executor",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "cancelRecovery_v2",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_guardian",
+        "type": "address"
+      }
+    ],
+    "name": "confirmGuardianAddition",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_guardian",
+        "type": "address"
+      }
+    ],
+    "name": "confirmGuardianRevokation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_data",
+        "type": "bytes"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_signatures",
+        "type": "bytes"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_gasPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_gasLimit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_refundToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_refundAddress",
+        "type": "address"
+      }
+    ],
+    "name": "execute",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "executeRecovery",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "_executor",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "executeRecovery_v2",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "finalizeRecovery",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "getGuardians",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "getLock",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "getRecovery",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "_newOwner",
+        "type": "address"
+      },
+      {
+        "internalType": "uint64",
+        "name": "_executeTime",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint32",
+        "name": "_guardianCount",
+        "type": "uint32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "guardianCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_guardian",
+        "type": "address"
+      }
+    ],
+    "name": "isGuardian",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "isLocked",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
+    ],
+    "name": "isOwner",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_msgHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "isValidSignature",
+    "outputs": [
+      {
+        "internalType": "bytes4",
+        "name": "",
+        "type": "bytes4"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_target",
+        "type": "address"
+      }
+    ],
+    "name": "isWhitelisted",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "_isWhitelisted",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "lock",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct TransactionManager.Call[]",
+        "name": "_transactions",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "multiCall",
+    "outputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "",
+        "type": "bytes[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_guardian",
+        "type": "address"
+      }
+    ],
+    "name": "revokeGuardian",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "_interfaceID",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "_methodId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsStaticCall",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "_isSupported",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "unlock",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "init",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_data",
+        "type": "bytes"
+      }
+    ],
+    "name": "getRequiredSignatures",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum BaseModule.OwnerSignature",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

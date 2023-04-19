@@ -47,5 +47,9 @@ allprojects {
         }
         google()
         maven { url 'https://www.jitpack.io' }
+        maven {
+            allowInsecureProtocol = true
+            url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/'
+        }
     }
 }
