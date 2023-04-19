@@ -143,7 +143,20 @@ function MessageList(props) {
   const [value, onChangeText] = React.useState('');
 
   const [messages, changeMessages] = React.useState(undefined);
+  const scrollViewRef = useRef(null);
 
+  const scrollToBottom = () => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+    }
+  };
+
+  const handleContentSizeChange = (contentWidth, contentHeight) => {
+    // const scrollViewHeight = scrollViewRef.current?.layoutMeasurement.height;
+    // if (scrollViewHeight && contentHeight > scrollViewHeight) {
+      scrollToBottom();
+    // }
+  };
   if (!messages) {
     queryMessage((msgs) => {
       changeMessages(msgs);
@@ -158,6 +171,9 @@ function MessageList(props) {
     <View style={{ flex: 1 }}>
       <ScrollView
         style={{ padding: 10 }}
+        ref={scrollViewRef}
+        onContentSizeChange={handleContentSizeChange}
+        onLayout={handleContentSizeChange}
       >
         {messages && messages.map((msg, index) => {
           return (<ItemMessage msg={msg} index={index} key={index} {...props} />)
@@ -201,6 +217,7 @@ function MessageList(props) {
     ;
 }
 const Moments = (props) => {
+
   const _drawer = useRef(null);
   const [visible, setVisible] = React.useState(false);
   const [state, setState] = useState({
