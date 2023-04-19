@@ -291,6 +291,11 @@
         "internalType": "bytes",
         "name": "data",
         "type": "bytes"
+      },
+      {
+        "internalType": "uint256",
+        "name": "collectorProfile",
+        "type": "uint256"
       }
     ],
     "name": "collect",
@@ -359,6 +364,11 @@
         "internalType": "struct DataTypes.CollectWithSigData",
         "name": "vars",
         "type": "tuple"
+      },
+      {
+        "internalType": "uint256",
+        "name": "collectorProfile",
+        "type": "uint256"
       }
     ],
     "name": "collectWithSig",
