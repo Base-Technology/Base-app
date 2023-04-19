@@ -1,20 +1,10 @@
-import React, { Component, useRef, useState } from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  TouchableWithoutFeedback,
-  View,
-  TextInput,
-  Image,
-  Dimensions,
-  Button,
-} from 'react-native';
-import { BaseText as Text } from "../../components/Base";
-
+import * as React from 'react';
+import { Dimensions, View, ScrollView, Image, TextInput, TouchableWithoutFeedback, Button, Animated, PanResponder } from 'react-native';
 import { ScrollTabView, ScrollView as NewScrollView, FlatList } from '../../components/BaseHead';
 import BackIcon from "../../assets/icon_arrow_back.svg";
 import { Popover, MenuItem, Tooltip } from '@ui-kitten/components';
 
+import { BaseText as Text } from "../../components/Base";
 import BasePopup from "../../components/BasePopup";
 
 import MoreIcon from '../../assets/icon_more.svg';
@@ -38,14 +28,15 @@ import SelectIcon from '../../assets/icon_select.svg';
 import GroupIcon from '../../assets/icon_group.svg';
 import ArrowRightIcon from '../../assets/icon_arrow_right.svg';
 import GroupTypeIcon from '../../assets/icon_group_type.svg';
+
+import {
+  StyleSheet,
+} from 'react-native';
 import { queryMessage, addMessage } from '../../database/message';
 import moment from 'moment';
-import IMTP from '../../imtp/service';
-import Group from "../me/group";
-import Drawer from './Drawer'
 const dw = Dimensions.get('window').width;
 const dh = Dimensions.get('window').height;
-// Drawer组件
+
 function MessageItem(props) {
   const { msg, index } = props;
   const [visible, setVisible] = React.useState(false);
@@ -155,6 +146,7 @@ function MessageList(props) {
     <Text>ddd</Text>
   );
 
+
   return <View style={{ flex: 1 }}>
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -184,10 +176,7 @@ function MessageList(props) {
           title="Send"
           color="#422DDD"
           onPress={() => {
-            IMTP.getInstance().sendMessage({
-              profile_id: '0x2',
-              content: value,
-            }, (msg) => {
+            addMessage({ content: value }, (msg) => {
               messages.push(msg);
               changeMessages(messages);
               onChangeText('');
@@ -204,19 +193,31 @@ function MessageList(props) {
   </View>
     ;
 }
-const Moments = (props) => {
-  const _drawer = useRef(null);
+const ChatDetail = (props) => {
   const [visible, setVisible] = React.useState(false);
-  const [state, setState] = useState({
-    drawerOpen: false,
-    drawerDisabled: false,
-  })
-  closeDrawer = () => {
-    _drawer.current && _drawer.current.close()
-  };
-  openDrawer = () => {
-    _drawer.current && _drawer.current.open()
-  };
+
+  const pan = React.useRef(new Animated.ValueXY()).current;
+
+  const panResponder = React.useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderGrant: () => {
+        pan.setOffset({
+          x: pan.x._value,
+          y: pan.y._value
+        });
+      },
+      onPanResponderMove: Animated.event(
+        [
+          null,
+          { dx: pan.x, dy: pan.y }
+        ]
+      ),
+      onPanResponderRelease: () => {
+        pan.flattenOffset();
+      }
+    })
+  ).current;
   const MenuItemCustom = ({ title, children }) => <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'rgba(255,255,255,0.03)', paddingVertical: 10, paddingHorizontal: 20, marginBottom: 10 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <View style={{ alignItems: 'center', justifyContent: 'flex-end', flexDirection: 'row' }}>
@@ -238,60 +239,13 @@ const Moments = (props) => {
 
   </View>
   return (
-    <Drawer
-      ref={_drawer}
-      // open={true}
-      side="top"
-      // type: 一共是3种（displace,overlay,static）, 用static就好啦，static让人感觉更舒适一些
-      type="static"
-      // Drawer 展开区域组件
-      content={<Group />}
-      // 响应区域双击可以打开抽屉
-      acceptDoubleTap
-      // styles 和 tweenHandler是设置向左拉后主内容区的颜色，相当于给主内容区加了一个遮罩
-      styles={{
-        mainOverlay: {
-          backgroundColor: 'black',
-          opacity: 0,
-        },
-      }}
-      tweenHandler={(ratio) => ({
-        mainOverlay: {
-          opacity: ratio / 2,
-        }
-      })}
-      // drawer打开后调用的函数
-      onOpen={() => {
-        setState({ drawerOpen: true });
-      }}
-      // drawer关闭后调用的函数
-      onClose={() => {
-        setState({ drawerOpen: false });
-      }}
-
-      captureGestures={false}
-      // 打开/关闭 Drawer所需要的时间
-      tweenDuration={100}
-      // 触发抽屉打开/关闭必须经过的屏幕宽度比例
-      panThreshold={0.08}
-      disabled={state.drawerDisabled}
-      // Drawer打开后有边界距离屏幕右边界的距离
-      openDrawerOffset={(viewport) => {
-        return 0;
-      }}
-      // 拉开抽屉的响应区域
-      panOpenMask={0.2}
-      // 如果为true, 则尝试仅处理水平滑动
-      negotiatePan
-    >
-      {/*主内容区*/}
-      <View style={{ position: 'relative', backgroundColor: '#1e1e1e' }}>
+    <Animated.View {...panResponder.panHandlers} style={{ ...styles.container, backgroundColor: '#1e1e1e' ,transform: [{ translateY: pan.y }]}}>
+      <View  style={{ position: 'relative' }}>
         {/* <TouchableWithoutFeedback onPress={() => props.navigation.navigate(props.route.params.type != 2 && 'DetailGroup' || 'Personal', props.route.params)}> */}
         <View
-          style={{
-            flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
-          }}
-
+          style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
+           }}
+          
         >
           <View style={{ height: 60, padding: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
             <View>
@@ -328,7 +282,7 @@ const Moments = (props) => {
         </View>
         {/* </TouchableWithoutFeedback> */}
       </View>
-      <View style={{ flex: 1, backgroundColor: '#1e1e1e' }}>
+      <View style={{ flex: 1 }}>
         <MessageList {...props} key="s1" />
       </View>
       <BasePopup
@@ -393,13 +347,13 @@ const Moments = (props) => {
             </MenuItemCustom>
           </View>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => props.navigation.navigate('CreateAirdrop')}>
-          <View>
-            <MenuItemCustom title="Create Airdrop">
-              <AirdropIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
-            </MenuItemCustom>
-          </View>
-        </TouchableWithoutFeedback>
+        {/* <TouchableWithoutFeedback onPress={() => props.navigation.navigate('CreateAirdrop')}>
+          <View> */}
+        <MenuItemCustom title="Create Airdrop">
+          <AirdropIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
+        </MenuItemCustom>
+        {/* </View>
+        </TouchableWithoutFeedback> */}
         <MenuItemCustom title="Administrators">
           <ManageIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
         </MenuItemCustom>
@@ -416,18 +370,20 @@ const Moments = (props) => {
           <LeaveIcon width={25} height={25} fill="#fff" style={{ marginRight: 10 }} />
         </MenuItemCustom>
       </BasePopup>
-    </Drawer>
-
+    </Animated.View>
   );
-
 }
-
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(255,255,255,1)',
-    padding: 20,
+    backgroundColor: '#1e1e1e',
     flex: 1,
   },
+  fadingContainer: {
+    position: 'absolute',
+    zIndex: 3,
+    backgroundColor: '#1e1e1e',
+    width: dw,
+    height: dh
+  }
 });
-
-export default Moments;
+export default ChatDetail;
