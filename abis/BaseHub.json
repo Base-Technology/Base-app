@@ -77,11 +77,6 @@
   },
   {
     "inputs": [],
-    "name": "ProfileCreatorNotWhitelisted",
-    "type": "error"
-  },
-  {
-    "inputs": [],
     "name": "ProfileImageURILengthInvalid",
     "type": "error"
   },
@@ -1340,25 +1335,6 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "profileCreator",
-        "type": "address"
-      }
-    ],
-    "name": "isProfileCreatorWhitelisted",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
         "name": "referenceModule",
         "type": "address"
       }
@@ -2453,24 +2429,6 @@
       }
     ],
     "name": "whitelistFollowModule",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "profileCreator",
-        "type": "address"
-      },
-      {
-        "internalType": "bool",
-        "name": "whitelist",
-        "type": "bool"
-      }
-    ],
-    "name": "whitelistProfileCreator",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
