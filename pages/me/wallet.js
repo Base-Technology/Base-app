@@ -238,7 +238,7 @@ const WalletMain = ({ navigation }) => {
             </View>
 
             <View style={styles.boxSection}>
-                <TouchableWithoutFeedback onPress={() => {navigation.navigate('Send')}>
+                <TouchableWithoutFeedback onPress={() => {navigation.navigate('Send')}}>
                     <View style={styles.box}  >
                         {/* <SendIcon width="15" height="15" fill="#fff" /> */}
                         <Text style={styles.boxText}>Send</Text>

@@ -11,19 +11,12 @@ import HomeIcon from '../../assets/icon_home';
 import ChatFullIcon from '../../assets/icon_chatfull.svg';
 import MeIcon from '../../assets/icon_me.svg';
 import MomentIcon from '../../assets/icon_moment.svg';
-import CreateIcon from '../../assets/icon_create.svg';
+import CreateIcon from '../../assets/icon_add_photo.svg';
 
 
 import SearchIcon from '../../assets/icon_search.svg';
 import InviteIcon from '../../assets/icon_person_add.svg';
-import ManageIcon from '../../assets/icon_manage_accounts.svg';
-import TokenIcon from '../../assets/icon_currency_bitcoin.svg';
-import AirdropIcon from '../../assets/icon_airdrop.svg';
-import NotificationsIcon from '../../assets/icon_notifications.svg';
-import LeaveIcon from '../../assets/icon_logout.svg';
-import GroupIcon from '../../assets/icon_group.svg';
-import ArrowRightIcon from '../../assets/icon_arrow_right.svg';
-import GroupTypeIcon from '../../assets/icon_group_type.svg';
+
 import Text from "../../components/BaseText";
 import BasePopup from "../../components/BasePopup";
 const dw = Dimensions.get('window').width;
@@ -96,7 +89,7 @@ const Item = ({ name, content, navigation, header, type, onShowInfo }) => {
         <View style={styles.itemc}>
           <TouchableWithoutFeedback
             underlayColor="rgba(255, 255, 255, 0.08)"
-            onPress={() => onShowInfo&&onShowInfo({name,header})}
+            onPress={() => onShowInfo && onShowInfo({ name, header })}
           >
             <View style={{ width: 50, height: 50, borderRadius: 40, backgroundColor: 'gray', marginRight: 10 }}>
               <Image
@@ -138,28 +131,14 @@ const placements = [
 const Chat = ({ navigation }) => {
 
   const renderItem = ({ item }) => (
-    <Item onShowInfo={(head) =>{ setVisibleInfo(true);setCurrentInfo(head)}} key={item.id + 1} navigation={navigation} {...item} />
+    <Item onShowInfo={(head) => { setVisibleInfo(true); setCurrentInfo(head) }} key={item.id + 1} navigation={navigation} {...item} />
   );
   const [visible, setVisible] = React.useState(false);
   const [visibleInfo, setVisibleInfo] = React.useState(false);
-  const [currentInfo,setCurrentInfo]=React.useState()
+  const [currentInfo, setCurrentInfo] = React.useState()
   const [placementIndex, setPlacementIndex] = React.useState(new IndexPath(4));
   const placement = placements[placementIndex.row];
 
-  const onPlacementSelect = (index) => {
-    setPlacementIndex(index);
-  };
-  const MenuItemCustom = ({ title, children }) => <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'rgba(255,255,255,0.03)', paddingVertical: 10, paddingHorizontal: 20, marginBottom: 10 }}>
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <View style={{ alignItems: 'center', justifyContent: 'flex-end', flexDirection: 'row' }}>
-        {children}
-      </View>
-      <Text style={{ fontSize: 14 }}>{title}</Text>
-    </View>
-    <View>
-      <ArrowRightIcon width={25} height={25} fill="#fff" />
-    </View>
-  </View>
   const MenuItemCustomFrist = ({ title, children }) => <View style={{ padding: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
     <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 3, paddingHorizontal: 10, paddingVertical: 5, justifyContent: 'center', }}>
       <View style={{ alignItems: 'center', justifyContent: 'flex-end', flexDirection: 'row' }}>
@@ -174,20 +153,20 @@ const Chat = ({ navigation }) => {
       onPress={() => setVisible(true)}>
       <View>
         <AddIcon width={25} height={25} fill="#fff" />
-
       </View>
     </TouchableWithoutFeedback>
   );
 
-  const renderPlacementItem = (title) => (
-    <SelectItem title={title} />
-  );
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ paddingHorizontal: 15, paddingVertical: 10, }}>
         <View style={{ position: 'relative' }}>
           <Text style={{ textAlign: 'center', fontSize: 18 }}>Base</Text>
-          <View style={{ position: 'absolute', right: 0 }}>
+          <View style={{ position: 'absolute', right: 0, flexDirection: 'row' }}>
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate('ContactSearch')}>
+              <SearchIcon style={{ marginRight: 10 }} width={30} height={30} fill="#fff" />
+            </TouchableWithoutFeedback>
             <Popover
               anchor={renderToggleButton}
               visible={visible}
@@ -200,12 +179,21 @@ const Chat = ({ navigation }) => {
 
                 <TouchableWithoutFeedback
                   onPress={() => navigation.navigate('CreateGroup')}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 5, padding: 5 }}>
-                    <View style={{ flexDirection: 'column', justifyContent: 'center', marginRight: 10 }}>
-                      <AddGroupIcon width={25} height={25} fill="#fff" />
+                  <View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.1)', padding: 5 }}>
+                      <View style={{ flexDirection: 'column', justifyContent: 'center', marginRight: 10 }}>
+                        <AddGroupIcon width={25} height={25} fill="#fff" />
 
+                      </View>
+                      <Text>Create Group</Text>
                     </View>
-                    <Text>Create Group</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.1)', padding: 5 }}>
+                      <View style={{ flexDirection: 'column', justifyContent: 'center', marginRight: 10 }}>
+                        <AddGroupIcon width={25} height={25} fill="#fff" />
+
+                      </View>
+                      <Text>New Chat</Text>
+                    </View>
                   </View>
                 </TouchableWithoutFeedback>
               </View>
@@ -213,9 +201,9 @@ const Chat = ({ navigation }) => {
           </View>
 
         </View>
-        <View style={{ backgroundColor: 'black', marginTop: 10, padding: 5, borderRadius: 3 }}>
+        {/* <View style={{ backgroundColor: 'black', marginTop: 10, padding: 5, borderRadius: 3 }}>
           <TextInput style={{ padding: 0, color: '#fff' }} placeholderTextColor="#8c8c8c" placeholder={'Search'} />
-        </View>
+        </View> */}
 
       </View>
 
@@ -226,17 +214,17 @@ const Chat = ({ navigation }) => {
       />
       <View style={{ flexDirection: 'row', height: 20, alignItems: 'center', justifyContent: 'space-around', paddingVertical: 20 }}>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Home')}>
-          <HomeIcon width={25} height={25} fill={"#fff"} />
+          <HomeIcon width={30} height={30} fill={"#fff"} />
         </TouchableWithoutFeedback>
-        <ChatFullIcon width={25} height={25} fill={"#fff"} />
+        <ChatFullIcon width={30} height={30} fill={"#fff"} />
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Publish')}>
-          <CreateIcon width={25} height={25} fill={"#fff"} />
+          <CreateIcon width={30} height={30} fill={"#fff"} />
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Moment')}>
-          <MomentIcon width={25} height={25} fill={"#fff"} />
+          <MomentIcon width={30} height={30} fill={"#fff"} />
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Me')}>
-          <MeIcon width={25} height={25} fill={"#fff"} />
+          <MeIcon width={30} height={30} fill={"#fff"} />
         </TouchableWithoutFeedback>
       </View>
       <BasePopup

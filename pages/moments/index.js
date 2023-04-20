@@ -25,7 +25,7 @@ import MeIcon from '../../assets/icon_me.svg';
 import MeFullIcon from '../../assets/icon_mefull.svg';
 import MomentIcon from '../../assets/icon_moment.svg';
 import MomentFullIcon from '../../assets/icon_momentfull.svg';
-import CreateIcon from '../../assets/icon_create.svg';
+import CreateIcon from '../../assets/icon_add_photo.svg';
 const { height } = Dimensions.get('window')
 
 let ind=1;
@@ -203,17 +203,17 @@ export default VideoPage = ({ navigation, route }) => {
     />
     <View style={{ flexDirection: 'row', height: 20, alignItems: 'center', justifyContent: 'space-around', paddingVertical: 20 }}>
       <TouchableWithoutFeedback onPress={() => navigation.navigate('Home')}>
-        <HomeIcon width={25} height={25} fill={"#8c8c8c"} />
+        <HomeIcon width={30} height={30} fill={"#8c8c8c"} />
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={() => navigation.navigate('Chat')}>
-        <ChatIcon width={25} height={25} fill={"#8c8c8c"} />
+        <ChatIcon width={30} height={30} fill={"#8c8c8c"} />
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={() => navigation.navigate('Publish')}>
-        <CreateIcon width={25} height={25} fill={"#8c8c8c"} />
+        <CreateIcon width={30} height={30} fill={"#8c8c8c"} />
       </TouchableWithoutFeedback>
-      <MomentFullIcon width={25} height={25} fill={"#8c8c8c"} />
+      <MomentFullIcon width={30} height={30} fill={"#8c8c8c"} />
       <TouchableWithoutFeedback onPress={() => navigation.navigate('Me')}>
-        <MeIcon width={25} height={25} fill={"#8c8c8c"} />
+        <MeIcon width={30} height={30} fill={"#8c8c8c"} />
       </TouchableWithoutFeedback>
     </View>
     {/* {
