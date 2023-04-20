@@ -185,9 +185,13 @@ const Search = ({ navigation }) => {
     if (type === 'capture') {
       ImagePicker.launchCamera(options, setResponse);
     } else {
-      ImagePicker.launchImageLibrary(options, setResponse);
+      ImagePicker.launchImageLibrary(options, (response) => {
+        setImgList(img => [...img, response?.assets[0]?.uri])
+      });
     }
   }, []);
+
+  const [imgList, setImgList] = useState([]);
   return (
     <View style={{ flex: 1 }}>
       {/* Search */}
@@ -202,18 +206,19 @@ const Search = ({ navigation }) => {
       </View>
       <View style={{ padding: 20, flexDirection: 'row' }}>
         <ScrollView horizontal={true}>
-          {
-            response &&
-            <View style={{ width: 100, height: 100, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.05)', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', marginRight: 10 }}>
-
-              <Image style={{ width: 100, height: 100 }} resizeMode="cover" source={{ uri: response?.assets && response?.assets[0]?.uri }} />
-            </View>
-          }
           <TouchableWithoutFeedback onPress={onButtonPress}>
             <View style={{ width: 100, height: 100, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.05)', justifyContent: 'center', alignItems: 'center' }}>
               <AddIcon width={40} height={40} fill="#8c8c8c" />
             </View>
           </TouchableWithoutFeedback>
+          {
+            imgList.map(item => <View style={{ width: 100, height: 100, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.05)', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', marginLeft: 10 }}>
+
+              <Image style={{ width: 100, height: 100 }} resizeMode="cover" source={{ uri: item }} />
+            </View>)
+
+          }
+
         </ScrollView>
 
       </View>

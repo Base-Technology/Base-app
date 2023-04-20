@@ -1,6 +1,3 @@
-// import 助记词 
-// 根据助记词生成私钥
-// 更具私钥找寻对应的base wallet
 import "react-native-get-random-values";
 import "@ethersproject/shims";
 import "@sotatek-anhdao/react-native-secure-random";
@@ -20,32 +17,22 @@ let privateKeyPath = RNFS.DocumentDirectoryPath + '/pk.txt';
 
 export function encode(_data, _key){
   const sData = AES.encrypt(_data, _key).toString();
-  console.log("sData", sData);
+  // console.log("sData", sData);
   return sData;
 }
 export function decode(_sData, _key){
   const decodeDataBytes = AES.decrypt(_sData, _key);
-  console.log("decodeDataBytes", decodeDataBytes);
+  // console.log("decodeDataBytes", decodeDataBytes);
   const decodeData = decodeDataBytes.toString(CryptoJS.enc.Utf8)
-  console.log("decodeData ", decodeData);
+  // console.log("decodeData ", decodeData);
   return decodeData;
 }
 
-export function savePrivateKey_pre() {
-  RNFS.writeFile(path, 'Lorem ipsum dolor sit amet', 'utf8')
-    .then((success) => {
-      console.log('FILE WRITTEN!');
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-}
-
 export async function savePrivateKey(_pk) {
-  console.log("privateKeyPath: ", privateKeyPath);
+  // console.log("privateKeyPath: ", privateKeyPath);
   RNFS.writeFile(privateKeyPath, _pk, 'utf8')
     .then((success) => {
-      console.log('Save Success!!!');
+      console.log('Save Success');
     })
     .catch((err) => {
       console.log("savePrivateKey", err.message);
@@ -53,7 +40,8 @@ export async function savePrivateKey(_pk) {
 }
 
 export async function getPrivateKey() {
-  return RNFS.readFile(privateKeyPath, 'utf8') // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
+  return RNFS.readFile(privateKeyPath, 'utf8') 
+  // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
 }
 
 export async function deletedPrivateKey() {

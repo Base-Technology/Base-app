@@ -1,0 +1,1 @@
+export const ipfsAddress = "https://luggage.way.network";

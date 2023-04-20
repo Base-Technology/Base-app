@@ -1,10 +1,10 @@
 import SQLite from './sqlite';
-import uuid from 'react-native-uuid';
-import moment from 'moment';
+import IMTP from "../imtp/service";
 
 export async function queryMessage(callback) {
+    const profile = await IMTP.getInstance().getProfile();
     const sqlite = SQLite.getInstance();
-    const results = await sqlite.executeSql(`SELECT * FROM "message" ORDER BY "timestamp"`);
+    const results = await sqlite.executeSql(`SELECT * FROM "message_${profile.id}" ORDER BY "timestamp"`);
     const messages = [];
     for (let i = 0; i < results.rows.length; i++) {
         const message = results.rows.item(i);
@@ -16,15 +16,17 @@ export async function queryMessage(callback) {
     return messages;
 }
 
-export async function addMessage(message, callback) {
+export async function queryLastMessage() {
+    const profile = await IMTP.getInstance().getProfile();
     const sqlite = SQLite.getInstance();
-    // TODO: mock data
-    message.id = uuid.v4();
-    message.state = 0;
-    message.timestamp = moment().valueOf();
-    message.profile_id = '0x123';
-    message.is_send = 1;
-    const results = await sqlite.executeSql(`INSERT into "message" VALUES (?,?,?,?,?,?)`,
+    const results = await sqlite.executeSql(`SELECT * FROM "message_${profile.id}" ORDER BY "timestamp" DESC limit 1`);
+    return results.rows.item(0);
+}
+
+export async function addMessage(message, callback) {
+    const profile = await IMTP.getInstance().getProfile();
+    const sqlite = SQLite.getInstance();
+    const results = await sqlite.executeSql(`INSERT into "message_${profile.id}" VALUES (?,?,?,?,?,?)`,
         [message.id, message.state, message.timestamp, message.profile_id, message.is_send, message.content],
     );
     if (callback) {
