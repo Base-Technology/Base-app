@@ -26,6 +26,10 @@ import CreateToken from './pages/chat/createToken';
 import CreateAirdrop from './pages/chat/createAirdrop';
 import ImportOfAirdrop from './pages/chat/importOfAirdrop';
 import CreateGroup from './pages/chat/createGroup';
+import Contact from './pages/chat/contact';
+import ContactSearch from './pages/chat/contactsearch';
+
+import WalletCreate from './pages/wallet/index';
 
 import Chat from './pages/chat/list';
 import Moment from './pages/moments/index';
@@ -98,8 +102,10 @@ export default function App() {
           theme={MyTheme}
         >
           <Stack.Navigator >
+
             <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Login" component={LoginScreen} />
             <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="LoginOther" component={LoginOtherScreen} />
+            <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="WalletCreate" component={WalletCreate} />
             <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Home" component={HomeScreen} />
             <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Chat" component={Chat} />
             <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Doctor" component={SettingsScreen} />
@@ -109,6 +115,8 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="CreateToken" component={CreateToken} />
             <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="CreateAirdrop" component={CreateAirdrop} />
             <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="ImportOfAirdrop" component={ImportOfAirdrop} />
+            <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Contact" component={Contact} />
+            <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="ContactSearch" component={ContactSearch} />
 
             <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="DetailGroup" component={DetailGroupScreen} />
             <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Yk" component={SettingsScreen2} />

@@ -35,24 +35,27 @@ const Login = ({ navigation }) => {
         </View>
       </View>
       <View style={{ padding: 20 }}>
-        <Text style={{ fontSize: 24, textAlign: 'center', lineHeight: 30 }}>Login</Text>
+        <Text style={{ fontSize: 24, textAlign: 'center', lineHeight: 30 }}>Login with Email</Text>
 
       </View>
-      <View style={{ marginTop: 200 }}>
-        <Text style={{ fontSize: 24, textAlign: 'center', lineHeight: 30 }}>+86 131****8943</Text>
+      <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5 }}>
+        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter email" />
+      </View>
+      <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5 }}>
+        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter password" />
       </View>
       <View style={{ paddingHorizontal: 20, justifyContent: 'center', flexDirection: 'row', marginTop: 20 }}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Chat')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('WalletCreate')}>
 
           <View style={{ backgroundColor: '#422ddd', padding: 15, borderRadius: 100, width: 300 }}>
-            <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Use Current Phone Number</Text>
+            <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Login</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
       <TouchableWithoutFeedback onPress={() => navigation.navigate('LoginOther')}>
         <View style={{ marginTop: 30, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
           <View>
-            <Text style={{ textAlign: 'center', lineHeight: 20, color: '#fff' }}>Via Email or other Phone Number  </Text>
+            <Text style={{ textAlign: 'center', lineHeight: 20, color: '#fff' }}>Recister</Text>
           </View>
           <View style={{ paddingTop: 2 }}>
             <ArrowRightIcon width={15} height={15} fill="#fff" />

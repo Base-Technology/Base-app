@@ -1,7 +1,8 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { View, TouchableWithoutFeedback, ScrollView, Image } from "react-native";
 import Text from "../../components/BaseText";
 import TextInput from "../../components/BaseTextInput";
+import ArrowRightIcon from "../../assets/icon_arrow_right.svg";
 
 import BackIcon from "../../assets/icon_close.svg";
 import CheckIcon from "../../assets/icon_check.svg";
@@ -16,10 +17,20 @@ const Login = ({ navigation }) => {
       name: 'Users'
     }
   ]);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [checked, setChecked] = React.useState(true);
-  const [showCode, setShowCode] = React.useState(false);
-  const [time, setTime] = React.useState(60);
+  const [countdown, setCountdown] = useState(0);
+
+  useEffect(() => {
+    let intervalId;
+
+    if (countdown > 0) {
+      intervalId = setInterval(() => {
+        setCountdown(countdown - 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(intervalId);
+  }, [countdown]);
   return (
     <View style={{ height: 760 }}>
       {/* Search */}
@@ -32,29 +43,45 @@ const Login = ({ navigation }) => {
         </View>
       </View>
       <View style={{ padding: 20 }}>
-        <Text style={{ fontSize: 18, textAlign: 'center', lineHeight: 30, color: '#fff' }}>Login with Email or other Phone Number</Text>
+        <Text style={{ fontSize: 18, textAlign: 'center', lineHeight: 30, color: '#fff' }}>Register with Email</Text>
       </View>
       <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5 }}>
-        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter email or phone number" />
+        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter email" />
       </View>
-      {showCode && <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5,flexDirection:'row',alignItems:'center' }}>
+      <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5, flexDirection: 'row', alignItems: 'center' }}>
         <TextInput style={{ flex: 1 }} placeholderTextColor="#8c8c8c" color="#fff" placeholder="Enter verification code" />
-        <Text>Resend({time}s) </Text>
-      </View>}
+        <TouchableWithoutFeedback onPress={() => {
+         countdown == 0&& setCountdown(60);
+        }}>
+          <Text>{countdown == 0 && 'Send' || `Resend${countdown}s`} </Text>
+        </TouchableWithoutFeedback>
+
+      </View>
+      <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5 }}>
+        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter password" />
+      </View>
+      <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5 }}>
+        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Confirm password" />
+      </View>
       <View style={{ padding: 20, justifyContent: 'center', flexDirection: 'row' }}>
         <TouchableWithoutFeedback onPress={() => {
-          setShowCode(true);
-          setInterval(() => {
-            setTime(data=>{
-              if(data>0) return data-1;
-            });
-          }, 1000); 
-          }}>
+
+        }}>
           <View style={{ backgroundColor: '#422ddd', padding: 15, borderRadius: 100, width: 300 }}>
-            <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Login</Text>
+            <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Register</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Login')}>
+        <View style={{ marginTop: 30, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <View>
+            <Text style={{ textAlign: 'center', lineHeight: 20, color: '#fff' }}>Login</Text>
+          </View>
+          <View style={{ paddingTop: 2 }}>
+            <ArrowRightIcon width={15} height={15} fill="#fff" />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
       <View style={{ paddingHorizontal: 20 }}>
         <Text style={{ marginTop: 10, }}>The unregistered email or phone number will be antomatically registered if login successfuly</Text>
 

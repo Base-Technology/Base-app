@@ -15,7 +15,7 @@ import MeIcon from '../../assets/icon_me.svg';
 import MeFullIcon from '../../assets/icon_mefull.svg';
 import MomentIcon from '../../assets/icon_moment.svg';
 import MomentFullIcon from '../../assets/icon_momentfull.svg';
-import CreateIcon from '../../assets/icon_create.svg';
+import CreateIcon from '../../assets/icon_add_photo.svg';
 function TabView2(props) {
     return (
         <ScrollView {...props}>
@@ -106,19 +106,19 @@ export default function Example({ navigation }) {
             </ScrollTabView>
             <View style={{ flexDirection: 'row', height: 20, alignItems: 'center', justifyContent: 'space-around', paddingVertical: 20 }}>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('Home')}>
-                    <HomeIcon width={25} height={25} fill={"#fff"} />
+                    <HomeIcon width={30} height={30} fill={"#fff"} />
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('Chat')}>
-                    <ChatIcon width={25} height={25} fill={"#fff"} />
+                    <ChatIcon width={30} height={30} fill={"#fff"} />
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('Publish')}>
-                    <CreateIcon width={25} height={25} fill={"#fff"} />
+                    <CreateIcon width={30} height={30} fill={"#fff"} />
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('Moment')}>
-                    <MomentIcon width={25} height={25} fill={"#fff"} />
+                    <MomentIcon width={30} height={30} fill={"#fff"} />
 
                 </TouchableWithoutFeedback>
-                <MeFullIcon width={25} height={25} fill={"#fff"} />
+                <MeFullIcon width={30} height={30} fill={"#fff"} />
 
             </View>
         </View>
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-});
+});30

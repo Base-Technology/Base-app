@@ -10,8 +10,6 @@ import "@sotatek-anhdao/react-native-secure-random";
 import { FactoryAddress } from "../../constants/contract_address";
 // test import
 import { testBSCprovider } from "../../constants/test-provider";
-import { ownerAddress, ownerPrivateKey, accPrivateKey, accountAddress, testModules } from "../../constants/test_account";
-// import {userPrivateKsy} from "../../constants/test_account";
 
 
 
@@ -59,14 +57,6 @@ async function signMessage(_message, _signer) {
     console.log("normalizedSig: " + normalizedSig);
     return normalizedSig;
 }
-
-export async function addManager_Factory() {
-    const FactoryContract = await getContract(testBSCprovider, FactoryAddress, FactoryABI);
-    const FactoryContractWithSigner = await getSignerContract(FactoryContract, ownerPrivateKey, testBSCprovider);
-    const e = await FactoryContractWithSigner.addManager(accountAddress);
-    console.log("e", e);
-}
-
 
 export async function createWallet_ver2(_userWallet, _provider, _FactoryContract, _Modules) {
     let newUserAddress;
@@ -125,12 +115,12 @@ export async function createWallet_ver2(_userWallet, _provider, _FactoryContract
     }
 
 }
-export async function createWallet_test_ver2() {
-    const FactoryContract = await getContract(testBSCprovider, FactoryAddress, FactoryABI);
-    const FactoryContractWithSigner = await getSignerContract(FactoryContract, accPrivateKey, testBSCprovider);
-    const SignerWallet = new ethers.Wallet(accPrivateKey, testBSCprovider);
-    createWallet_ver2(SignerWallet, testBSCprovider, FactoryContractWithSigner, testModules);
-}
+// export async function createWallet_test_ver2() {
+//     const FactoryContract = await getContract(testBSCprovider, FactoryAddress, FactoryABI);
+//     const FactoryContractWithSigner = await getSignerContract(FactoryContract, accPrivateKey, testBSCprovider);
+//     const SignerWallet = new ethers.Wallet(accPrivateKey, testBSCprovider);
+//     createWallet_ver2(SignerWallet, testBSCprovider, FactoryContractWithSigner, testModules);
+// }
 
 export async function createEOA() {
     var privateKey = ethers.utils.randomBytes(32);

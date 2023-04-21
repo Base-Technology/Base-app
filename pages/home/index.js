@@ -22,15 +22,7 @@ import Swiper from 'react-native-swiper'
 import Text from "./BaseText";
 import Explore from "./explore";
 import Follow from "../moments/members";
-import HomeIcon from '../../assets/icon_home';
-import HomeFullIcon from '../../assets/icon_homefull';
-import ChatIcon from '../../assets/icon_chat.svg';
-import ChatFullIcon from '../../assets/icon_chatfull.svg';
-import MeIcon from '../../assets/icon_me.svg';
-import MeFullIcon from '../../assets/icon_mefull.svg';
-import MomentIcon from '../../assets/icon_moment.svg';
-import MomentFullIcon from '../../assets/icon_momentfull.svg';
-import CreateIcon from '../../assets/icon_create_full.svg';
+import BaseMenu from '../../components/BaseMenu';
 const CalendarIcon = (props) => (
   <Icon {...props} name='calendar' />
 );
@@ -332,7 +324,7 @@ const HomeScreen = ({ navigation }) => {
                 <View style={{ flex: 1 }}>
                   <Info headuri="https://cryptologos.cc/logos/thumbs/usd-coin.png?v=023" name="Usdc" />
                   <Info headuri="https://cryptologos.cc/logos/thumbs/bnb.png?v=023" name="Bnb" />
-                  <TouchableWithoutFeedback onPress={() => navigation.navigate('Doctor',{header:'https://bf.jdd001.top/cryptologos/pancakeswap.png',name:'Pancakeswap'})}>
+                  <TouchableWithoutFeedback onPress={() => navigation.navigate('Doctor', { header: 'https://bf.jdd001.top/cryptologos/pancakeswap.png', name: 'Pancakeswap' })}>
                     <View>
                       <Info headuri="https://bf.jdd001.top/cryptologos/pancakeswap.png" name="Pancakeswap" />
                     </View>
@@ -390,21 +382,7 @@ const HomeScreen = ({ navigation }) => {
     </View>
 
     <View style={{ flexDirection: 'row', height: 20, alignItems: 'center', justifyContent: 'space-around', paddingVertical: 20 }}>
-      <HomeFullIcon width={25} height={25} fill={"#fff"} />
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Chat')}>
-
-        <ChatIcon width={25} height={25} fill={"#fff"} />
-      </TouchableWithoutFeedback>
-
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Publish')}>
-        <CreateIcon width={25} height={25} fill={"#fff"} />
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Moment')}>
-        <MomentIcon width={25} height={25} fill={"#fff"} />
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Me')}>
-        <MeIcon width={25} height={25} fill={"#fff"} />
-      </TouchableWithoutFeedback>
+      <BaseMenu navigation={navigation} />
     </View>
   </View>
   );

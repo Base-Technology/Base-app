@@ -83,7 +83,7 @@ export default function Example(props) {
     return (
         <View style={styles.container}>
             <ScrollTabView headerHeight={headerHeight} renderScrollHeader={_renderScrollHeader}>
-                <ScrollView tabLabel="Treasury2333" >
+                <ScrollView tabLabel="Treasury" >
                     <TabView1 />
                 </ScrollView>
                 <ScrollView tabLabel="Posts" >
