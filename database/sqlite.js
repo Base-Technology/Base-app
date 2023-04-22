@@ -48,9 +48,14 @@ export default class SQLite {
             "address" TEXT,
             PRIMARY KEY ("id")
           )`);
+        await this.executeSql(`CREATE TABLE IF NOT EXISTS "identity" (
+            "mail" text NOT NULL,
+            "password" text NOT NULL,
+            PRIMARY KEY ("mail")
+          )`);
 
         // TODO: insert test data
-        await this.insertTestData();
+        // await this.insertTestData();
     }
 
     async insertTestData() {
