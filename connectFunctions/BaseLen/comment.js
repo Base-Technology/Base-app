@@ -1,3 +1,17 @@
+/* 发布评论publication
+* sender : 地址，合约调用的发起者账户，即合约钱包的拥有者
+* wallet ： 对象，合约钱包的合约
+* baseHub ： 对象，Hub和合约
+* profileId : int， 评论者的profileId
+* contentURI ： 评论内容的的标识
+* profileIdPointed ： 被评论publication所在的profile的Id
+* pubId ： publication Id
+* referenceModuleData ： 初始化 follow module 时传递的参数
+* collectModule ： 设置给publication的collect module 地址
+* collectModuleData ： 初始化profile 的 collect module时传递的参数
+* referenceModule ：  传递给reference module的参数
+* referenceModuleInitdata ： 初始化 reference module 时传递的参数
+*/
 export async function comment(
   sender,
   wallet,
