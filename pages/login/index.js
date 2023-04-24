@@ -7,6 +7,8 @@ import CheckIcon from "../../assets/icon_check.svg";
 import VideoScreen from "../../components/BaseVideo";
 import MembersScreen from "../me/members";
 import { Radio } from '@ui-kitten/components';
+import { login } from "../../mail/service";
+import { addIdentity } from "../../database/identity";
 
 const Login = ({ navigation }) => {
   const [tabsData, setTabsData] = useState([
@@ -21,6 +23,8 @@ const Login = ({ navigation }) => {
   ]);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [checked, setChecked] = React.useState(true);
+  const [mail, onChangeMail] = React.useState('');
+  const [password, onChangePassword] = React.useState('');
   return (
     <View style={{ height: 760 }}>
       {/* Search */}
@@ -39,13 +43,17 @@ const Login = ({ navigation }) => {
 
       </View>
       <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5 }}>
-        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter email" />
+        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter email" value={mail} onChangeText={mail => onChangeMail(mail)} />
       </View>
       <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5 }}>
-        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter password" />
+        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter password" secureTextEntry={true} value={password} onChangeText={password => onChangePassword(password)} />
       </View>
       <View style={{ paddingHorizontal: 20, justifyContent: 'center', flexDirection: 'row', marginTop: 20 }}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('WalletCreate')}>
+        <TouchableWithoutFeedback onPress={async () => {
+          await login(mail, password);
+          addIdentity(mail, password);
+          navigation.navigate('WalletCreate');
+        }}>
 
           <View style={{ backgroundColor: '#422ddd', padding: 15, borderRadius: 100, width: 300 }}>
             <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Login</Text>

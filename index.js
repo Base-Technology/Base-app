@@ -2,9 +2,37 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native';
+import { AppRegistry } from 'react-native';
 import App from './App';
-import {name as appName} from './app.json';
-import WalletMain from './pages/me';
+import { name as appName } from './app.json';
+import { queryIdentity } from "./database/identity";
+import { login } from "./mail/service";
+import { queryProfile } from './database/profile';
 
-AppRegistry.registerComponent(appName, () => App);
+// AppRegistry.registerComponent(appName, () => App);
+
+AppRegistry.registerRunnable(appName, async initialProps => {
+    try {
+        let logined = false;
+        const identity = await queryIdentity();
+        if (identity) {
+            try {
+                await login(identity.mail, identity.password);
+                logined = true;
+            } catch (err) { }
+        }
+
+        let hasWallet = false;
+        try {
+            const profile = await queryProfile();
+            if (profile) {
+                hasWallet = true;
+            }
+        } catch (err) { }
+
+        AppRegistry.registerComponent(appName, () => App(logined, hasWallet));
+        AppRegistry.runApplication(appName, initialProps);
+    } catch (err) {
+        console.log(err);
+    }
+});

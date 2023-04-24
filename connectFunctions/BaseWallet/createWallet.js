@@ -7,7 +7,7 @@ import "react-native-get-random-values";
 import "@ethersproject/shims";
 import "@sotatek-anhdao/react-native-secure-random";
 
-import { FactoryAddress } from "../../constants/contract_address";
+import { FactoryAddress, walletModuleAddress } from "../../constants/contract_address";
 // test import
 import { testBSCprovider } from "../../constants/test-provider";
 
@@ -70,7 +70,7 @@ export async function createWallet_ver2(_userWallet, _provider, _FactoryContract
             userAddr,
             _Modules,
             salt,
-            { gasLimit: 8000000, gasPrice: 1000000000 }
+            { gasLimit: 8000000 }
         );
         // console.log("newUserAddress address: " + newUserAddress);
     } catch (e) {
@@ -94,7 +94,6 @@ export async function createWallet_ver2(_userWallet, _provider, _FactoryContract
         to: newUserAddress,
         value: refundAmount,
         gasLimit: 8000000,
-        gasPrice: 1000000000,
     });
     console.log("Send Transaction receipt: " + receipts);
     try {
@@ -107,7 +106,7 @@ export async function createWallet_ver2(_userWallet, _provider, _FactoryContract
             ETH_TOKEN,
             ownerSig,
             managerSig,
-            { gasLimit: 8000000, gasPrice: 10000000000 }
+            { gasLimit: 8000000 }
         );
         console.log(`Success: ${tx} `);
     } catch (e) {
@@ -115,12 +114,14 @@ export async function createWallet_ver2(_userWallet, _provider, _FactoryContract
     }
 
 }
-// export async function createWallet_test_ver2() {
-//     const FactoryContract = await getContract(testBSCprovider, FactoryAddress, FactoryABI);
-//     const FactoryContractWithSigner = await getSignerContract(FactoryContract, accPrivateKey, testBSCprovider);
-//     const SignerWallet = new ethers.Wallet(accPrivateKey, testBSCprovider);
-//     createWallet_ver2(SignerWallet, testBSCprovider, FactoryContractWithSigner, testModules);
-// }
+
+export async function createWallet(accPrivateKey) {
+    const FactoryContract = await getContract(testBSCprovider, FactoryAddress, FactoryABI);
+    const FactoryContractWithSigner = await getSignerContract(FactoryContract, accPrivateKey, testBSCprovider);
+    const SignerWallet = new ethers.Wallet(accPrivateKey, testBSCprovider);
+    await createWallet_ver2(SignerWallet, testBSCprovider, FactoryContractWithSigner, [walletModuleAddress]);
+    return SignerWallet;
+}
 
 export async function createEOA() {
     var privateKey = ethers.utils.randomBytes(32);

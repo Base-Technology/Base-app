@@ -1,11 +1,13 @@
 import React, { Component, useState, useEffect } from "react";
-import { View, TouchableWithoutFeedback, ScrollView, Image } from "react-native";
+import { View, TouchableWithoutFeedback, ScrollView, Image, TextInput } from "react-native";
 import Text from "../../components/BaseText";
-import TextInput from "../../components/BaseTextInput";
 import ArrowRightIcon from "../../assets/icon_arrow_right.svg";
 
 import BackIcon from "../../assets/icon_close.svg";
 import CheckIcon from "../../assets/icon_check.svg";
+
+import { register, verificationCode as sendVerificationCode } from "../../mail/service";
+
 const Login = ({ navigation }) => {
   const [tabsData, setTabsData] = useState([
     {
@@ -18,7 +20,11 @@ const Login = ({ navigation }) => {
     }
   ]);
   const [checked, setChecked] = React.useState(true);
-  const [countdown, setCountdown] = useState(0);
+  const [countdown, setCountdown] = React.useState(0);
+  const [mail, onChangeMail] = React.useState('');
+  const [verificationCode, onChangeverificationCode] = React.useState('');
+  const [password, onChangePassword] = React.useState('');
+  const [confirmPassword, onChangeconfirmPassword] = React.useState('');
 
   useEffect(() => {
     let intervalId;
@@ -46,26 +52,31 @@ const Login = ({ navigation }) => {
         <Text style={{ fontSize: 18, textAlign: 'center', lineHeight: 30, color: '#fff' }}>Register with Email</Text>
       </View>
       <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5 }}>
-        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter email" />
+        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter email" value={mail} onChangeText={mail => onChangeMail(mail)} />
       </View>
       <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5, flexDirection: 'row', alignItems: 'center' }}>
-        <TextInput style={{ flex: 1 }} placeholderTextColor="#8c8c8c" color="#fff" placeholder="Enter verification code" />
+        <TextInput style={{ flex: 1 }} placeholderTextColor="#8c8c8c" color="#fff" placeholder="Enter verification code" value={verificationCode} onChangeText={verificationCode => onChangeverificationCode(verificationCode)} />
         <TouchableWithoutFeedback onPress={() => {
-         countdown == 0&& setCountdown(60);
+          countdown == 0 && setCountdown(60);
+          sendVerificationCode(mail);
         }}>
           <Text>{countdown == 0 && 'Send' || `Resend${countdown}s`} </Text>
         </TouchableWithoutFeedback>
 
       </View>
       <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5 }}>
-        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter password" />
+        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Enter password" secureTextEntry={true} value={password} onChangeText={password => onChangePassword(password)} />
       </View>
       <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5 }}>
-        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Confirm password" />
+        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Confirm password" secureTextEntry={true} value={confirmPassword} onChangeText={confirmPassword => onChangeconfirmPassword(confirmPassword)} />
       </View>
       <View style={{ padding: 20, justifyContent: 'center', flexDirection: 'row' }}>
-        <TouchableWithoutFeedback onPress={() => {
-
+        <TouchableWithoutFeedback onPress={async () => {
+          if (password != confirmPassword) {
+            throw new Error("password and confirm password not match");
+          }
+          await register(mail, password, verificationCode);
+          navigation.navigate('Login');
         }}>
           <View style={{ backgroundColor: '#422ddd', padding: 15, borderRadius: 100, width: 300 }}>
             <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Register</Text>
