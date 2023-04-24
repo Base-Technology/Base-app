@@ -1,0 +1,1 @@
+export const mailAddress = "http://147.182.251.92:12345";
