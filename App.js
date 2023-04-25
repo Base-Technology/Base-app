@@ -103,10 +103,11 @@ export default function App(logined, hasWallet) {
             theme={MyTheme}
           >
             <Stack.Navigator >
+            <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="WalletCreate" component={WalletCreate} />
+             {/* {!hasWallet && (<Stack.Screen options={{ headerShown: false, animation: 'none' }} name="WalletCreate" component={WalletCreate} />)}
 
               {!logined && (<Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Login" component={LoginScreen} />)}
-              {!logined && (<Stack.Screen options={{ headerShown: false, animation: 'none' }} name="LoginOther" component={LoginOtherScreen} />)}
-              {!hasWallet && (<Stack.Screen options={{ headerShown: false, animation: 'none' }} name="WalletCreate" component={WalletCreate} />)}
+              {!logined && (<Stack.Screen options={{ headerShown: false, animation: 'none' }} name="LoginOther" component={LoginOtherScreen} />)} */}
               <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Home" component={HomeScreen} />
               <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Chat" component={Chat} />
               <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Doctor" component={SettingsScreen} />

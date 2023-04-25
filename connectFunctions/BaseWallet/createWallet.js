@@ -125,7 +125,8 @@ export async function createWallet(accPrivateKey) {
 
 export async function createEOA() {
     var privateKey = ethers.utils.randomBytes(32);
-    let keyNumber = BigNumber.from(privateKey);
+    let keyNumber =  ethers.BigNumber.from(privateKey);
+    console.log('keyNumber._hex',keyNumber._hex);
     return keyNumber._hex;
 }
 export async function createEOA_test() {
