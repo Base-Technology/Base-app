@@ -73,16 +73,14 @@ const WalletCreate = ({ navigation }) => {
 
       </View>
       <View style={{ marginHorizontal: 20, borderBottomColor: 'rgba(255,255,255,0.5)', borderBottomWidth: 0.5, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <TextInput placeholderTextColor="#8c8c8c" color="#fff" style={{}} placeholder="Private key" value={privateKey} onChangeText={privateKey => onChangPrivateKey(privateKey)} />
-        <View style={{width:200}}>
+        <TextInput style={{flex:1}} placeholderTextColor="#8c8c8c" color="#fff" placeholder="Private key" value={privateKey} onChangeText={privateKey => onChangPrivateKey(privateKey)} />
+        <View >
           <TouchableWithoutFeedback onPress={() => onGenerate()}>
-
             <Text style={{}}>
               Generate
             </Text>
           </TouchableWithoutFeedback>
         </View>
-
       </View>
       <View style={{ marginTop: 50, justifyContent: 'center', right: 0, left: 0, flexDirection: 'row', alignItems: 'center' }}>
         <Text>We will create an exclusive Profile NFT for you, please makesure you have some balance in BNB in your account
