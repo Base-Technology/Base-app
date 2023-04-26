@@ -1,5 +1,9 @@
 import axios from 'axios';
 import { ipfsAddress } from '../constants/ipfs';
+import RNFS from 'react-native-fs';
+import uuid from 'react-native-uuid';
+
+const tmpPath = RNFS.CachesDirectoryPath + '/';
 
 function getRoundedDate(minutes, d = new Date()) {
     let ms = 1000 * 60 * minutes; // convert minutes to ms
@@ -16,11 +20,12 @@ async function sign(signer) {
     return signature;
 }
 
-export async function uploadFile(file, signer) {
+// fileType image/png
+export async function uploadFile(file, fileType, signer) {
     const signature = await sign(signer);
 
     var formData = new FormData();
-    formData.append('my-file', { uri: file, type: "image/png", name: file.substring(file.lastIndexOf('/') + 1) });
+    formData.append('my-file', { uri: file, type: fileType, name: file.substring(file.lastIndexOf('/') + 1) });
     formData.append('uploaderAddress', signer.address);
     formData.append('encryptId', 0);
     formData.append('signature', signature);
@@ -35,6 +40,20 @@ export async function uploadFile(file, signer) {
         return response.data.cid;
     } catch (err) {
         console.log(err?.response?.data);
+        throw err;
+    }
+}
+
+export async function uploadObject(object, signer) {
+    const name = uuid.v4();
+    try {
+        const filePath = tmpPath + name;
+        await RNFS.writeFile(filePath, JSON.stringify(object), 'utf8');
+        const cid = await uploadFile(`file://${filePath}`, "text/json", signer);
+        await RNFS.unlink(filePath);
+        return cid;
+    } catch {
+        console.log(err);
         throw err;
     }
 }
