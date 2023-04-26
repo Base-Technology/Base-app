@@ -26,9 +26,10 @@ const InfoF = ({ headuri, name }) => (
     </View>
   </View>
 )
-const TempScreen = () => {
+const TempScreen = (props) => {
   const richText = React.useRef();
   const [ind, setInd] = useState(-1);
+  const { onChangeRichEditor } = props;
   const ToolIcon = ({ icon, title, desc }) => {
     return (<View style={{ flexDirection: 'row', marginTop: 10 }}>
       <View style={{ borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.05)', alignItems: 'center', justifyContent: 'center', width: 30, height: 30 }}>
@@ -50,6 +51,7 @@ const TempScreen = () => {
               ref={richText}
               onChange={descriptionText => {
                 console.log("descriptionText:", descriptionText);
+                onChangeRichEditor(descriptionText);
               }}
               placeholder={'Add content'}
               editorStyle={{ backgroundColor: 'rgba(0,0,0,0)', color: '#fff' }}
@@ -192,6 +194,10 @@ const Search = ({ navigation }) => {
   }, []);
 
   const [imgList, setImgList] = useState([]);
+
+  handlerRichEditor = (value) => {
+    console.log(value);
+  }
   return (
     <View style={{ flex: 1 }}>
       {/* Search */}
@@ -227,7 +233,7 @@ const Search = ({ navigation }) => {
         <TextInput placeholderTextColor="#8c8c8c" style={{ fontSize: 16, color: '#ffffff' }} placeholder="Add a title" />
       </View>
       <View style={{ paddingHorizontal: 25, flex: 1, overflow: 'hidden' }}>
-        <TempScreen />
+        <TempScreen onChangeRichEditor={handlerRichEditor} />
         {/* <TextInput style={{ color: '#8c8c8c' }} value="Add text" /> */}
         {/* <RenderHtml
           contentWidth={width}
