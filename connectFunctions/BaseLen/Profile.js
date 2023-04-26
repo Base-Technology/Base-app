@@ -1,56 +1,55 @@
-const ethers = require('ethers')
-import {testBSCprovider} from "../../constants/test-provider";
-import  { baseHubContractAddress,profileCreationProxyAddr,walletContractAddress } from "../../constants/contract_address"
-import { deployerPrivateKey,governancePrivateKey,userPrivateKey,user2PrivateKey } from "../../constants/test_account"
-const BaseWalletABI = require('../../abis/BaseWallet.json')
-const ProxyABI = require('../../abis/proxy.json')
+/* 用于用户创建profile
+* sender : 地址，合约调用的发起者账户，即合约钱包的拥有者
+* wallet ： 对象，合约钱包的合约
+* baseHub ： 对象，Hub和合约
+* handle : 字符串，用户名
+* imageURI ： 字符串 用户头像的标识
+* followModuleAddr : 地址，用户为该profile选择的follow module 的地址
+* followModuleData ： 初始化 follow module 时传递的参数
+* followNFTURI ： 字符串，用于follow NFT 的标识
+*/
+export async function createProfile(
+  sender,
+  wallet,
+  baseHub,
+  handle,
+  imageURI,
+  followModuleAddr,
+  followModuleData,
+  followNFTURI,
+) {
+  const isOwner = wallet.isOwner(sender.address);
+  if (!isOwner) {
+    console.log('sender is not wallet owner');
+    return;
+  }
+  const profileIdbyhandle = await baseHub.callStatic.getProfileIdByHandle(
+    handle,
+  );
+  if (profileIdbyhandle != 0) {
+    console.log('handle repeated!');
+    return 0;
+  }
+  const state = await baseHub.callStatic.getState();
+  if (state != 0) {
+    console.log("hub state != 0 reset before create profile")
+    return 
+  }
 
-const Wallet = new ethers.Contract(walletContractAddress,BaseWalletABI,testBSCprovider)
-
-const MOCK_PROFILE_URI =
-  'https://ipfs.io/ipfs/Qme7ss3ARVgxv6rXqVPiikMJ8u2NLgmgszg13pYrDKEoiu'
-const MOCK_FOLLOW_NFT_URI =
-  'https://ipfs.fleek.co/ipfs/ghostplantghostplantghostplantghostplantghostplantghostplan'
-const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
-
-const profileCreationProxy = new ethers.Contract(profileCreationProxyAddr,ProxyABI,testBSCprovider)
-const user = new ethers.Wallet(userPrivateKey,testBSCprovider)
-// async function createProfileByProxy(sender,handle,imageURI,followModuleAddr,followModuleData,followNFTURI){
-export async function createProfileByProxy(){
-  const sender = user
-  const handle = 'test1profile'
-  const imageURI = MOCK_PROFILE_URI
-  const followModuleAddr = ZERO_ADDRESS
-  const followModuleData = []
-  const followNFTURI = MOCK_FOLLOW_NFT_URI  
-  console.log("=============== create profile ==================")
-    // await baseHub.connect(governance).setState(ProtocolState.Unpaused,{gasLimit: 2400000})
-    const wallet = Wallet.attach("0x51ff771bD01838A38785dA21028Af562ecE48741")
-
-    const methodData = profileCreationProxy.interface.encodeFunctionData("proxyCreateProfile",[{
-      to: sender.address,
+  const methodData = baseHub.interface.encodeFunctionData('createProfile', [
+    {
+      to: wallet.address,
       handle: handle,
       imageURI: imageURI,
       followModule: followModuleAddr,
       followModuleInitData: followModuleData,
       followNFTURI: followNFTURI,
-}])
-    // console.log(methodData)
-    // const tx = await profileCreationProxy.connect(deployer).proxyCreateProfile({
-    //     to: addrTo,
-    //     handle: handle,
-    //     imageURI: imageURI,
-    //     followModule: followModuleAddr,
-    //     followModuleInitData: followModuleData,
-    //     followNFTURI: followNFTURI,
-    //   },{gasLimit: 2400000})
-    const singWallet = await wallet.connect(sender)
+    },
+  ]);
 
-    const tx = await singWallet.addOwner(user.address)
-    // const tx = await singWallet.execute(profileCreationProxyAddr,methodData)
-    // console.log(tx)
-    console.log("finish create profile")
-    return true
+  const tx = await wallet
+    .connect(sender)
+    .execute(baseHub.address, methodData, {
+      gasLimit: 1000000,
+    });
 }
-// createProfileByProxy()
-createProfileByProxy(user,'governance',MOCK_PROFILE_URI,ZERO_ADDRESS,[],MOCK_FOLLOW_NFT_URI)

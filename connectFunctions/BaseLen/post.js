@@ -1,27 +1,50 @@
-const ethers = require('ethers')
-import { testBSCprovider } from "../../constants/test-provider";
-import { baseHubContractAddress } from "../../constants/contract_address";
-import { deployerPrivateKey,governancePrivateKey,userPrivateKey,user2PrivateKey } from "../../constants/test_account";
+/* 用于发布publication
+* sender : 地址，合约调用的发起者账户，即合约钱包的拥有者
+* wallet ： 对象，合约钱包的合约
+* baseHub ： 对象，Hub和合约
+* profileId : int，发帖者的profileid
+* contentURI ： 字符串，内容的标识
+* collectModule : 地址，用户为该publication选定的collect module
+* collectModuleData ： 初始化profile 的 collect module时传递的参数
+* referenceModule ： 地址，用户为该publication选定的reference module
+* referenceModuleData ： 初始化profile 的 reference module时传递的参数
+*/
+export async function post(
+  sender,
+  wallet,
+  baseHub,
+  profileId,
+  contentURI,
+  collectModule,
+  collectModuleData,
+  referenceModule,
+  referenceModuleData,
+) {
+  const owner = await baseHub.callStatic.ownerOf(profileId);
+  const isOwner = wallet.isOwner(sender.address);
 
-const BaseHubABI = require('../../abis/BaseHub.json')
-
-const baseHub = new ethers.Contract(baseHubContractAddress,BaseHubABI,testBSCprovider)
-
-const deployer = new ethers.Wallet(deployerPrivateKey,testBSCprovider)
-const governance = new ethers.Wallet(governancePrivateKey,testBSCprovider)
-const user = new ethers.Wallet(userPrivateKey,testBSCprovider)
-const user2 = new ethers.Wallet(user2PrivateKey,testBSCprovider)
-
-const MOCK_URI = 'https://ipfs.io/ipfs/QmbWqxBEKC3P8tqsKc98xmWNzrzDtRLMiMPL8wBuTGsMnR';
-const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
-const abiCoder = ethers.utils.defaultAbiCoder;
-console.log(abiCoder.encode(['bool'], [true]))
-
-async function post(sender,profileId, contentURI,collectModule,collectModuleData,referenceModule,referenceModuleData){
-     const owner = await baseHub.callStatic.ownerOf(profileId)
-     if(owner != sender.address){
-        console.log("is not owner")
-        return false
-     }
-     await baseHub.connect(sender).post({profileId:profileId,contentURI:contentURI,collectModule:collectModule,collectModuleInitData:collectModuleData,referenceModule:referenceModule,referenceModuleInitData:referenceModuleData})
+  if (!isOwner) {
+    console.log('sender is not wallet owner');
+    return;
+  }
+  if (owner != wallet.address) {
+    console.log('is not owner');
+    return false;
+  }
+  const methodData = baseHub.interface.encodeFunctionData('post', [
+    {
+      profileId: profileId,
+      contentURI: contentURI,
+      collectModule: collectModule,
+      collectModuleInitData: collectModuleData,
+      referenceModule: referenceModule,
+      referenceModuleInitData: referenceModuleData,
+    },
+  ]);
+  const tx = await wallet
+    .connect(sender)
+    .execute(baseHub.address, methodData, {
+      gasLimit: 1000000,
+    });
 }
+

@@ -1,23 +1,18 @@
-const ethers = require('ethers')
-import { testBSCprovider } from "../../constants/test-provider";
-import { baseHubContractAddress } from "../../constants/contract_address";
-import { deployerPrivateKey,governancePrivateKey,userPrivateKey,user2PrivateKey } from "../../constants/test_account";
-
-const BaseHubABI = require('../../abis/BaseHub.json')
-
-const baseHub = new ethers.Contract(baseHubContractAddress,BaseHubABI,testBSCprovider)
-
-const deployer = new ethers.Wallet(deployerPrivateKey,testBSCprovider)
-const governance = new ethers.Wallet(governancePrivateKey,testBSCprovider)
-const user = new ethers.Wallet(userPrivateKey,testBSCprovider)
-const user2 = new ethers.Wallet(user2PrivateKey,testBSCprovider)
-const MOCK_URI =
-  'https://ipfs.io/ipfs/QmbWqxBEKC3P8tqsKc98xmWNzrzDtRLMiMPL8wBuTGsMnR';
-const abiCoder = ethers.utils.defaultAbiCoder;
-const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
-
-async function mirror(
+/* 转载publication
+* sender : 地址，合约调用的发起者账户，即合约钱包的拥有者
+* wallet ： 对象，合约钱包的合约
+* baseHub ： 对象，Hub和合约
+* profileId : 转载者的profileId
+* profileIdPointed ： 被转载publication所属的profileId
+* pubId : publication的id
+* referenceModule ：  传递给reference module的参数
+* referenceModuleData ： 初始化 follow module 时传递的参数
+* referenceModuleInitdata ： 初始化 reference module 时传递的参数
+*/
+export async function mirror(
   sender,
+  wallet,
+  baseHub,
   profileId,
   profileIdPointed,
   pubId,
@@ -25,38 +20,48 @@ async function mirror(
   referenceModule,
   referenceModuleInitdata,
 ) {
+  const isOwner = wallet.isOwner(sender.address);
+  if (!isOwner) {
+    console.log('sender is not wallet owner');
+    return;
+  }
   const name = await baseHub.callStatic.getHandle(profileId);
   if (name == '') {
     console.log('is not id of profile');
     return false;
   }
+
   const owner = await baseHub.callStatic.ownerOf(profileId)
-  if(owner != sender.address){
+  if(owner != wallet.address){
       console.log("is not owner")
       return false
    }
+
   const name2 = await baseHub.callStatic.getHandle(profileIdPointed);
   if (name2 == '') {
     console.log('targer is not profile');
     return false;
   }
+
   const pubCount = await baseHub.callStatic.getPubCount(profileIdPointed);
-  console.log(pubCount.toNumber())
   if (pubCount < pubId) {
     console.log('is not publication of profile');
     return false;
   }
-  const pubCount2 = await baseHub.callStatic.getPubCount(profileId);
-  console.log(pubCount2.toNumber())
-  await baseHub.connect(sender).mirror({
-    profileId: profileId,
-    profileIdPointed: profileIdPointed,
-    pubIdPointed: pubId,
-    referenceModuleData: referenceModuleData,
-    referenceModule: referenceModule,
-    referenceModuleInitData: referenceModuleInitdata,
-  },{gasLimit: 2400000});
-  const pubCount2Last = await baseHub.callStatic.getPubCount(profileId)
-  console.log(pubCount2Last.toNumber())
+
+  const methodData = baseHub.interface.encodeFunctionData('mirror', [
+    {
+      profileId: profileId,
+      profileIdPointed: profileIdPointed,
+      pubIdPointed: pubId,
+      referenceModuleData: referenceModuleData,
+      referenceModule: referenceModule,
+      referenceModuleInitData: referenceModuleInitdata,
+    }
+  ]);
+  const tx = await wallet
+    .connect(sender)
+    .execute(baseHub.address, methodData, {
+      gasLimit: 1000000,
+    });
 }
-mirror(user2, 2, 1, 1, [], ZERO_ADDRESS, []);
