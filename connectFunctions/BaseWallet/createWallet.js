@@ -9,8 +9,7 @@ import "@sotatek-anhdao/react-native-secure-random";
 
 import { FactoryAddress, walletModuleAddress } from "../../constants/contract_address";
 // test import
-import { testBSCprovider } from "../../constants/test-provider";
-
+import { Testbaobab } from "../../constants/test-provider";
 
 
 export const FactoryABI = require('../../abis/Factory.json');
@@ -77,8 +76,8 @@ export async function createWallet_ver2(_userWallet, _provider, _FactoryContract
         // console.log("WHY error ??????????????????");
         console.log(e);
     }
-    const refundAmount = 1000000000000000;
-    // const refundAmount = 0;
+    // const refundAmount = 1000000000000000;
+    const refundAmount = 0;
 
     const ownerSig = await signRefund(
         newUserAddress,
@@ -116,10 +115,10 @@ export async function createWallet_ver2(_userWallet, _provider, _FactoryContract
 }
 
 export async function createWallet(accPrivateKey) {
-    const FactoryContract = await getContract(testBSCprovider, FactoryAddress, FactoryABI);
-    const FactoryContractWithSigner = await getSignerContract(FactoryContract, accPrivateKey, testBSCprovider);
-    const SignerWallet = new ethers.Wallet(accPrivateKey, testBSCprovider);
-    await createWallet_ver2(SignerWallet, testBSCprovider, FactoryContractWithSigner, [walletModuleAddress]);
+    const FactoryContract = await getContract(Testbaobab, FactoryAddress, FactoryABI);
+    const FactoryContractWithSigner = await getSignerContract(FactoryContract, accPrivateKey, Testbaobab);
+    const SignerWallet = new ethers.Wallet(accPrivateKey, Testbaobab);
+    await createWallet_ver2(SignerWallet, Testbaobab, FactoryContractWithSigner, [walletModuleAddress]);
     return SignerWallet;
 }
 
