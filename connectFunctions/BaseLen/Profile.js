@@ -49,6 +49,7 @@ export async function createProfile(
     .execute(baseHub.address, methodData, {
       gasLimit: 1000000,
     });
+  await tx.wait();
 }
 
 export async function getProfileIdByHandle(

@@ -94,6 +94,7 @@ export async function createWallet_ver2(_userWallet, _provider, _FactoryContract
         value: refundAmount,
         gasLimit: 8000000,
     });
+    await receipts.wait();
     console.log("Send Transaction receipt: " + receipts);
     try {
         // const tx = await FactoryContract.createCounterfactualWallet(owner, modules, salt,  refundAmount, ETH_TOKEN, ownerSig, "0x")
@@ -107,6 +108,7 @@ export async function createWallet_ver2(_userWallet, _provider, _FactoryContract
             managerSig,
             { gasLimit: 8000000 }
         );
+        await tx.wait();
         console.log(`Success: ${tx} `);
     } catch (e) {
         console.log(e);
