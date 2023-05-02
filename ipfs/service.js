@@ -68,9 +68,9 @@ export async function downloadFile(cid, uploaderAddress, signer) {
                 uploaderAddress: uploaderAddress,
                 downloaderAddress: signer.address,
                 signature: signature,
-            }
+            },
+            responseType: 'arraybuffer',
         });
-        console.log(response.data);
         return response.data;
     } catch (err) {
         console.log(err?.response?.data);

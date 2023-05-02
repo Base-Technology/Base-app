@@ -16,6 +16,14 @@ import MeFullIcon from '../../assets/icon_mefull.svg';
 import MomentIcon from '../../assets/icon_moment.svg';
 import MomentFullIcon from '../../assets/icon_momentfull.svg';
 import CreateIcon from '../../assets/icon_add_photo.svg';
+import { queryProfile } from '../../database/profile';
+import { getProfileById } from '../../connectFunctions/BaseLen/Profile';
+import { ethers } from "ethers";
+import { baseHubContractAddress } from "../../constants/contract_address";
+import { provider } from "../../constants/test-provider";
+import { downloadFile } from '../../ipfs/service';
+import { Buffer } from 'buffer';
+const BaseHubABI = require('../../abis/BaseHub.json');
 function TabView2(props) {
     return (
         <ScrollView {...props}>
@@ -26,6 +34,25 @@ function TabView2(props) {
 
 export default function Example({ navigation }) {
     const [headerHeight, setHeaderHeight] = useState(200);
+    const [icon, setIcon] = useState(undefined);
+
+    const loadIcon = async () => {
+        if (icon) {
+            return;
+        }
+        const profile = await queryProfile();
+        if (profile) {
+            const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, provider);
+            const res = await getProfileById(baseHub, profile.id);
+            const user = new ethers.Wallet(profile.private_key, provider);
+            const data = await downloadFile(res[4], user.address, user);
+            setIcon({ uri: `data:image/jpeg;base64,${Buffer.from(data).toString('base64')}` });
+        } else {
+            setIcon(require('../../assets/ks.jpg'));
+        }
+    }
+    loadIcon();
+
     const headerOnLayout = useCallback((event: any) => {
         const { height } = event.nativeEvent.layout;
         setHeaderHeight(height);
@@ -43,7 +70,8 @@ export default function Example({ navigation }) {
                         <View style={{ width: 50, height: 50, borderRadius: 40, marginRight: 10 }}>
                             <Image
                                 style={{ width: 50, height: 50, borderRadius: 100, }}
-                                source={require('../../assets/ks.jpg')}
+                                // source={require('../../assets/ks.jpg')}
+                                source={icon}
                             />
                         </View>
                         <View style={{ marginLeft: 10 }}>
@@ -82,7 +110,7 @@ export default function Example({ navigation }) {
 
             </View>
         );
-    }, []);
+    }, [icon]);
 
     return (
         <View style={styles.container}>
@@ -129,4 +157,4 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-});30
+}); 30
