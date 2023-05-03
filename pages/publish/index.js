@@ -19,6 +19,17 @@ import MembersScreen from "../me/members";
 import { useWindowDimensions } from 'react-native';
 import { BaseHeadInfo } from "../../components/Base";
 import * as ImagePicker from 'react-native-image-picker';
+
+import { uploadObject,uploadFile } from "../../ipfs/service";
+
+import { post } from "../../connectFunctions/BaseLen/post";
+import { queryProfile } from "../../database/profile";
+import { ethers } from "ethers";
+import { Testbaobab } from "../../constants/test-provider";
+import { baseHubContractAddress, walletContractAddress } from "../../constants/contract_address";
+const BaseHubABI = require('../../abis/BaseHub.json');
+const WalletABI = require('../../abis/BaseWallet.json');
+
 const InfoF = ({ headuri, name }) => (
   <View style={{ marginTop: 10, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -50,7 +61,6 @@ const TempScreen = (props) => {
             <RichEditor
               ref={richText}
               onChange={descriptionText => {
-                console.log("descriptionText:", descriptionText);
                 onChangeRichEditor(descriptionText);
               }}
               placeholder={'Add content'}
@@ -174,6 +184,8 @@ const Search = ({ navigation }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [response, setResponse] = React.useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [publicationTittle, onChangePublicationTittle] = useState("");
+  const [publicationContent, onChangePublicationContent] = useState("")
   const onButtonPress = React.useCallback((type, options) => {
     // setModalVisible(true);
     // return;
@@ -184,6 +196,7 @@ const Search = ({ navigation }) => {
       includeBase64: false,
       includeExtra: true,
     };
+    console.log(options)
     if (type === 'capture') {
       ImagePicker.launchCamera(options, setResponse);
     } else {
@@ -191,12 +204,13 @@ const Search = ({ navigation }) => {
         setImgList(img => [...img, response?.assets[0]?.uri])
       });
     }
+    console.log("12345asdfqwerzxcv",imgList)
   }, []);
 
   const [imgList, setImgList] = useState([]);
 
   handlerRichEditor = (value) => {
-    console.log(value);
+    onChangePublicationContent(value)
   }
   return (
     <View style={{ flex: 1 }}>
@@ -230,7 +244,7 @@ const Search = ({ navigation }) => {
       </View>
 
       <View style={{ paddingHorizontal: 20, borderBottomColor: '#707070', borderBottomWidth: 0.5 }}>
-        <TextInput placeholderTextColor="#8c8c8c" style={{ fontSize: 16, color: '#ffffff' }} placeholder="Add a title" />
+        <TextInput placeholderTextColor="#8c8c8c" style={{ fontSize: 16, color: '#ffffff' }} placeholder="Add a title" value={publicationTittle} onChangeText={publicationTittle => onChangePublicationTittle(publicationTittle)}/>
       </View>
       <View style={{ paddingHorizontal: 25, flex: 1, overflow: 'hidden' }}>
         <TempScreen onChangeRichEditor={handlerRichEditor} />
@@ -242,7 +256,33 @@ const Search = ({ navigation }) => {
       </View>
       <View style={{ flexDirection: 'row', justifyContent: 'center', paddingVertical: 10, backgroundColor: 'rgba(255,255,255,0)' }}>
         <View style={{ backgroundColor: '#422ddd', padding: 15, borderRadius: 100, width: 300 }}>
-          <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Post</Text>
+          <TouchableWithoutFeedback onPress={async () => {
+            const res = await queryProfile()
+            const pri = res['private_key']
+            const profileId = res['id']
+            const walletAddr = res['address']
+            const user = new ethers.Wallet(pri,Testbaobab)
+
+            let imgcidList = []
+            for(i = 0; i < imgList.length; i++){
+              imgcid = await uploadFile(imgList[i], "image/png", user);
+              imgcidList.push(imgcid)
+            }
+            const data = {
+              "image":imgcidList,
+              "tittle":publicationTittle,
+              "content":publicationContent,
+            }
+            console.log(data)
+            const cid = await uploadObject(data,user);
+            console.log(cid)
+            const baseWallet = new ethers.Contract(walletContractAddress,WalletABI,Testbaobab)
+            const wallet = baseWallet.attach(walletAddr)
+            const baseHub = new ethers.Contract(baseHubContractAddress,BaseHubABI,Testbaobab)
+            await post(user,wallet,baseHub,profileId,cid)
+          }}>
+            <Text style={{ textAlign: 'center', color: '#fff', fontSize: 18 }}>Post</Text>
+          </TouchableWithoutFeedback>
         </View>
       </View>
 
