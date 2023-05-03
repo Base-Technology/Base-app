@@ -38,6 +38,12 @@ import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import SplashScreen from "react-native-splash-screen";
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'http://147.182.251.92:10000/subgraphs/name/base/base-graph',
+  cache: new InMemoryCache(),
+});
 function FeedScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -96,7 +102,7 @@ export default function App(logined, hasWallet) {
       SplashScreen.hide();
     }, []);
     return (
-      <>
+      <ApolloProvider client={client}>
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={{ ...eva.dark }}>
           <NavigationContainer
@@ -133,7 +139,7 @@ export default function App(logined, hasWallet) {
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>
-      </>
+      </ApolloProvider>
     );
   }
 

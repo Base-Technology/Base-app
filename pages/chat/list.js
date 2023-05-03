@@ -19,6 +19,16 @@ import InviteIcon from '../../assets/icon_person_add.svg';
 
 import Text from "../../components/BaseText";
 import BasePopup from "../../components/BasePopup";
+import { useQuery, gql } from '@apollo/client';
+import { string } from 'prop-types';
+
+const GET_DATA = gql`
+{
+  profile(id: "1") {
+    followingCount
+  }
+}
+`;
 const dw = Dimensions.get('window').width;
 const dh = Dimensions.get('window').height;
 const DATA = [
@@ -129,7 +139,14 @@ const placements = [
   'right end',
 ];
 const Chat = ({ navigation }) => {
-
+  // const get = () => {
+    console.log(1111111111111111111)
+    const { loading, error, data } = useQuery(GET_DATA);
+    console.log(loading, error, data)
+  // }
+  // React.useEffect(() => {
+  //   get();
+  // }, []);
   const renderItem = ({ item }) => (
     <Item onShowInfo={(head) => { setVisibleInfo(true); setCurrentInfo(head) }} key={item.id + 1} navigation={navigation} {...item} />
   );
@@ -160,6 +177,7 @@ const Chat = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ paddingHorizontal: 15, paddingVertical: 10, }}>
+        {/* <Text>{JSON.stringify(data)}</Text> */}
         <View style={{ position: 'relative' }}>
           <Text style={{ textAlign: 'center', fontSize: 18 }}>Base</Text>
           <View style={{ position: 'absolute', right: 0, flexDirection: 'row' }}>
