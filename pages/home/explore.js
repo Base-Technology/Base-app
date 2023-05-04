@@ -13,18 +13,32 @@ import {
 import ShareIcon from "../../assets/icon_share.svg";
 
 import Text from "../../components/BaseText";
+import { useQuery, gql } from '@apollo/client';
+import { string } from 'prop-types';
+const GET_DATA = gql`{profile(id: "1") {
+  imageURI,
+}
+}`
 const WalletMain = ({ navigation }) => {
   const isDarkMode = 'dark';
   const [data, setData] = useState([{
-    header: 'https://bf.jdd001.top/s5.png'
+    header: 'https://bf.jdd001.top/s5.png',
+    image: 'https://bf.jdd001.top/s1.png',
+    title:"Base Wallet Base Wallet"
   },
   {
-    header: 'https://bf.jdd001.top/s4.png'
+    header: 'https://bf.jdd001.top/s4.png',
+    image: 'https://bf.jdd001.top/s1.png',
+    title:"Base Wallet Base Wallet"
   },
   {
-    header: 'https://bf.jdd001.top/s3.png'
+    header: 'https://bf.jdd001.top/s3.png',
+    image: 'https://bf.jdd001.top/s1.png',
+    title:"Base Wallet Base Wallet"
   }]);
   const [isModalVisible, setModalVisible] = useState(false);
+  const { loading, error, qdata } = useQuery(GET_DATA);
+    console.log(loading, error, qdata)
   const wait = (timeout) => {
     return new Promise(resolve => {
       setTimeout(resolve, timeout);
@@ -34,12 +48,14 @@ const WalletMain = ({ navigation }) => {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-
+    
     wait(2000).then(() => {
       setRefreshing(false);
       setData(data => {
         let newData = [{
-          header: 'https://bf.jdd001.top/s5.png'
+          header: 'https://bf.jdd001.top/s5.png',
+          image: 'https://bf.jdd001.top/s1.png',
+          title:"Base Wallet Base Wallet"
         },...data];
         return newData;
       })
@@ -78,14 +94,14 @@ const WalletMain = ({ navigation }) => {
           />
           <View style={{ padding: 5 }}>
             <View>
-              <Text style={{ fontSize: 14 }}>Base Wallet Base Wallet</Text>
+              <Text style={{ fontSize: 14 }}>"Base Wallet Base Wallet"</Text>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, marginBottom: 10 }}>
               <View style={{ flexDirection: 'row' }}>
                 <Image
                   resizeMode="cover"
                   style={{ borderRadius: 20, width: 20, height: 20, marginRight: 10 }}
-                  source={{uri:'https://bf.jdd001.top/s1.png'}}
+                  source={props.image}
                 />
                 <Text>Dodo</Text>
               </View>
@@ -110,14 +126,14 @@ const WalletMain = ({ navigation }) => {
           <View style={styles.left}>
             {
               data.map((item,index)=>{
-                return index%2==0&& <Item key={1+index} header={{uri:item.header}}/>
+                return index%2==0&& <Item key={1+index} header={{uri:item.header}} image={{uri:item.image}}/>
               })
             }
           </View>
           <View style={styles.right}>
           {
               data.map((item,index)=>{
-                return index%2!=0&& <Item key={2+index} header={{uri:item.header}}/>||<></>
+                return index%2!=0&& <Item key={2+index} header={{uri:item.header}} image={{uri:item.image}}/>||<></>
               })
             }
           </View>
