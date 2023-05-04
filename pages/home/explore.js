@@ -37,7 +37,7 @@ const WalletMain = ({ navigation }) => {
     title:"Base Wallet Base Wallet"
   }]);
   const [isModalVisible, setModalVisible] = useState(false);
-  const { loading, error, qdata } = useQuery(GET_DATA);
+  const { loading, error, data:qdata } = useQuery(GET_DATA);
     console.log(loading, error, qdata)
   const wait = (timeout) => {
     return new Promise(resolve => {
@@ -121,6 +121,9 @@ const WalletMain = ({ navigation }) => {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={["#422ddd"]} />
       }
     >
+      <Text>{JSON.stringify(qdata)}</Text>
+      <Text>{JSON.stringify(error)}</Text>
+      <Text>{JSON.stringify(loading)}</Text>
       <View style={styles.mainContainer}>
         <View style={styles.list}>
           <View style={styles.left}>
