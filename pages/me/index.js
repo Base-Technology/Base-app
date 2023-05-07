@@ -57,9 +57,10 @@ function FollowingCount( {profileId }){
     const { loading, error, data } = useQuery(GET_DATA);
     if (loading) return <Text>Loading ...</Text>;
     if (error) return <Text>Error :</Text>;
-    if(data['profile']) return (
+
+    return (
         <Text>
-            {JSON.stringify(data['profile']['followingCount'])}
+            {data?.profile?.followerCount}
         </Text>
     );
 }
@@ -77,9 +78,8 @@ export default function Example({ navigation }) {
         if (profile) {
             const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, provider);
             const res = await getProfileById(baseHub, profile.id);
-            setUsername(res[3])
-            setProfileId(parseInt(profile.id, 16))
-            console.log("profileId",profileId)
+            setUsername(res[3]);
+            setProfileId(parseInt(profile.id, 16));
             const user = new ethers.Wallet(profile.private_key, provider);
             console.log(user.address)
             const address = user.address.substring(0,6)+'...'+user.address.substring(user.address.length-5,user.address-1)
@@ -156,7 +156,7 @@ export default function Example({ navigation }) {
 
             </View>
         );
-    }, [icon]);
+    }, [icon, profileId]);
 
     return (
         <View style={styles.container}>
