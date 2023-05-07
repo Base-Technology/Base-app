@@ -184,7 +184,7 @@ const Search = ({ navigation }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [response, setResponse] = React.useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [publicationTittle, onChangePublicationTittle] = useState("");
+  const [publicationTitle, onChangePublicationTitle] = useState("");
   const [publicationContent, onChangePublicationContent] = useState("")
   const onButtonPress = React.useCallback((type, options) => {
     // setModalVisible(true);
@@ -244,7 +244,7 @@ const Search = ({ navigation }) => {
       </View>
 
       <View style={{ paddingHorizontal: 20, borderBottomColor: '#707070', borderBottomWidth: 0.5 }}>
-        <TextInput placeholderTextColor="#8c8c8c" style={{ fontSize: 16, color: '#ffffff' }} placeholder="Add a title" value={publicationTittle} onChangeText={publicationTittle => onChangePublicationTittle(publicationTittle)}/>
+        <TextInput placeholderTextColor="#8c8c8c" style={{ fontSize: 16, color: '#ffffff' }} placeholder="Add a title" value={publicationTitle} onChangeText={publicationTitle => onChangePublicationTitle(publicationTitle)}/>
       </View>
       <View style={{ paddingHorizontal: 25, flex: 1, overflow: 'hidden' }}>
         <TempScreen onChangeRichEditor={handlerRichEditor} />
@@ -261,7 +261,7 @@ const Search = ({ navigation }) => {
             const pri = res['private_key']
             const profileId = res['id']
             const walletAddr = res['address']
-            const user = new ethers.Wallet(pri,Testbaobab)
+            // const user = new ethers.Wallet(pri,Testbaobab)
 
             let imgcidList = []
             for(i = 0; i < imgList.length; i++){
@@ -270,7 +270,7 @@ const Search = ({ navigation }) => {
             }
             const data = {
               "image":imgcidList,
-              "tittle":publicationTittle,
+              "title":publicationTitle,
               "content":publicationContent,
             }
             console.log(data)
