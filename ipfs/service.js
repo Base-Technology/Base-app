@@ -37,6 +37,7 @@ export async function uploadFile(file, fileType, signer) {
             }
         });
         console.log(response.data);
+        await updateAccessControl(response.data.cid, signer.address, "", "makePublic", signer);
         return response.data.cid;
     } catch (err) {
         console.log(err?.response?.data);
@@ -128,14 +129,14 @@ export async function getAccessControl(cid, uploaderAddress, signer) {
     }
 }
 
-export async function updateAccessControl(cid, uploaderAddress, downloaderAddress, add, signer) {
+export async function updateAccessControl(cid, uploaderAddress, downloaderAddress, mode, signer) {
     const signature = await sign(signer);
 
     var formData = new FormData();
 
     formData.append('cid', cid);
     formData.append('uploaderAddress', uploaderAddress);
-    formData.append('mode', add ? 'addDownloader' : 'removeDownloader');
+    formData.append('mode', mode);
     formData.append('downloaderAddress', downloaderAddress);
     formData.append('signature', signature);
     console.log(formData);
