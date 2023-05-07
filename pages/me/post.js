@@ -22,7 +22,7 @@ import { useQuery, gql } from '@apollo/client';
 import { ethers } from "ethers";
 
 import { queryProfile } from "../../database/profile";
-import { downloadFile,updateAccessControl,getAccessControl } from "../../ipfs/service";
+import { downloadFile } from "../../ipfs/service";
 import { Testbaobab } from "../../constants/test-provider";
 
 const WalletMain = ({ navigation }) => {
@@ -34,10 +34,10 @@ const WalletMain = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [img, setimg] = useState(undefined)
   // const user = new ethers.Wallet(pri,Testbaobab)
-  const profile =  async() =>{
+  const profile = async () => {
     const profile = await queryProfile()
     let profileId = profile['id']
-    profileId = parseInt(profileId,16)
+    profileId = parseInt(profileId, 16)
     let privateKey = profile['private_key']
     setProfileId(profileId)
     setPrivateKey(privateKey)
@@ -45,10 +45,7 @@ const WalletMain = ({ navigation }) => {
     const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, Testbaobab);
     const user = new ethers.Wallet(privateKey, Testbaobab);
     const res = await getProfileById(baseHub, profileId);
-    setUsername(res[3])
-    // const accessControl = await getAccessControl(res[4],user.address,user)
-    // console.log("accessControl",accessControl)
-    const accC = await updateAccessControl(res[4],user.address,user.address,true,user)
+    setUsername(res[3]);
     const data = await downloadFile(res[4], user.address, user)
     setimg({ uri: `data:image/jpeg;base64,${Buffer.from(data).toString('base64')}` })
   }
@@ -68,7 +65,7 @@ const WalletMain = ({ navigation }) => {
       }
     }
   }`
-   let { loading, error, data } = useQuery(GET_DATA);
+  let { loading, error, data } = useQuery(GET_DATA);
   // const publications = data['profile']['publications']
   // for (i = 0; i< publications.length;i++){
   //   contentURI = publications[i]['contentURI']
@@ -143,20 +140,20 @@ const WalletMain = ({ navigation }) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.list}>
-        <Item key="aa1" header={{uri:'https://bf.jdd001.top/s3.png'}} username={username} img={img}/>
-        <Item key="aa2" header={{uri:'https://bf.jdd001.top/s4.png'}} />
+        <Item key="aa1" header={{ uri: 'https://bf.jdd001.top/s3.png' }} username={username} img={img} />
+        <Item key="aa2" header={{ uri: 'https://bf.jdd001.top/s4.png' }} />
       </View>
       <View style={styles.list}>
-        <Item key="aa3" header={{uri:'https://bf.jdd001.top/s5.png'}} />
-        <Item key="aa4" header={{uri:'https://bf.jdd001.top/s1.png'}} />
+        <Item key="aa3" header={{ uri: 'https://bf.jdd001.top/s5.png' }} />
+        <Item key="aa4" header={{ uri: 'https://bf.jdd001.top/s1.png' }} />
       </View>
       <View style={styles.list}>
-        <Item key="aa5" header={{uri:'https://bf.jdd001.top/s3.png'}} />
-        <Item key="aa6" header={{uri:'https://bf.jdd001.top/s4.png'}} />
+        <Item key="aa5" header={{ uri: 'https://bf.jdd001.top/s3.png' }} />
+        <Item key="aa6" header={{ uri: 'https://bf.jdd001.top/s4.png' }} />
       </View>
       <View style={styles.list}>
-        <Item key="aa7" header={{uri:'https://bf.jdd001.top/s5.png'}} />
-        <Item key="aa8" header={{uri:'https://bf.jdd001.top/s1.png'}} />
+        <Item key="aa7" header={{ uri: 'https://bf.jdd001.top/s5.png' }} />
+        <Item key="aa8" header={{ uri: 'https://bf.jdd001.top/s1.png' }} />
       </View>
 
     </View>
