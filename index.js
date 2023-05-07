@@ -25,6 +25,7 @@ AppRegistry.registerRunnable(appName, async initialProps => {
         let hasWallet = false;
         try {
             const profile = await queryProfile();
+            console.log(99999999999,profile)
             if (profile) {
                 hasWallet = true;
             }
