@@ -261,7 +261,7 @@ const Search = ({ navigation }) => {
             const pri = res['private_key']
             const profileId = res['id']
             const walletAddr = res['address']
-            // const user = new ethers.Wallet(pri,Testbaobab)
+            const user = new ethers.Wallet(pri,Testbaobab)
 
             let imgcidList = []
             for(i = 0; i < imgList.length; i++){

@@ -79,6 +79,25 @@ export async function downloadFile(cid, uploaderAddress, signer) {
     }
 }
 
+export async function downloadObject(cid, uploaderAddress, signer) {
+    const signature = await sign(signer);
+
+    try {
+        const response = await axios.get(`${ipfsAddress}/api/download`, {
+            params: {
+                cid: cid,
+                uploaderAddress: uploaderAddress,
+                downloaderAddress: signer.address,
+                signature: signature,
+            },
+        });
+        return response.data;
+    } catch (err) {
+        console.log(err?.response?.data);
+        throw err;
+    }
+}
+
 export async function getMetadata(cid, uploaderAddress) {
     try {
         const response = await axios.get(`${ipfsAddress}/api/metadata`, {

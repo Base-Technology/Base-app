@@ -40,11 +40,11 @@ function FollowerCount({ profileId }) {
       }`);
 
     if (loading) return <Text>Loading ...</Text>;
-    if (error) return <Text>Error :(</Text>;
+    if (error) return <Text>Error :</Text>;
 
     return (
         <Text>
-            {JSON.stringify(data)}
+            {data?.profile?.followerCount}
         </Text>
     );
 }
@@ -54,7 +54,7 @@ export default function Example({ navigation }) {
     const [usernam, setUsername] = useState(undefined);
     const [profileId, setProfileId] = useState(0)
     const [followerCount, setFollowerCount] = useState()
-    const [followingCount, setFollowingCount] = useState()
+    const [followingCount, setFollowingCount] = useState();
     const loadIcon = async () => {
         if (icon) {
             return;
@@ -63,8 +63,8 @@ export default function Example({ navigation }) {
         if (profile) {
             const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, provider);
             const res = await getProfileById(baseHub, profile.id);
-            setUsername(res[3])
-            setProfileId(() => { parseInt(profile.id, 16) })
+            setUsername(res[3]);
+            setProfileId(parseInt(profile.id, 16));
             const user = new ethers.Wallet(profile.private_key, provider);
             const data = await downloadFile(res[4], user.address, user);
             setIcon({ uri: `data:image/jpeg;base64,${Buffer.from(data).toString('base64')}` });
@@ -155,7 +155,7 @@ export default function Example({ navigation }) {
                 <View style={{ flexDirection: 'row', margin: 20, marginTop: 0 }}>
                     <Text style={{ marginLeft: 5, marginRight: 15, fontSize: 16, color: '#fff' }}>
 
-                        <FollowerCount />
+                        <FollowerCount profileId={profileId} />
 
                         <Text>Following</Text></Text>
                     <Text style={{ marginLeft: 5, fontSize: 16, color: '#fff' }}>{followerCount} <Text>Followers</Text></Text>
@@ -164,7 +164,7 @@ export default function Example({ navigation }) {
 
             </View>
         );
-    }, [icon]);
+    }, [icon, profileId]);
 
     return (
         <View style={styles.container}>
