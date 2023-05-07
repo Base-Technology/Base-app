@@ -33,28 +33,42 @@ function TabView2(props) {
     );
 }
 function FollowerCount({ profileId }) {
+    console.log("follwerCount profile",profileId)
     const { loading, error, data } = useQuery(gql`{
         profile(id: "${profileId}") {
           followerCount
         }
       }`);
-
+      console.log("data",data)
     if (loading) return <Text>Loading ...</Text>;
-    if (error) return <Text>Error :(</Text>;
-
-    return (
+    if (error) return <Text>Error :</Text>;
+    if(data['profile']) return (
         <Text>
-            {JSON.stringify(data)}
+            {JSON.stringify(data['profile']['followerCount'])}
+        </Text>
+    );
+}
+function FollowingCount( {profileId }){
+    const GET_DATA = gql`{
+        profile(id: "${profileId}") {
+          followingCount
+        }
+      }`
+    const { loading, error, data } = useQuery(GET_DATA);
+    if (loading) return <Text>Loading ...</Text>;
+    if (error) return <Text>Error :</Text>;
+    if(data['profile']) return (
+        <Text>
+            {JSON.stringify(data['profile']['followingCount'])}
         </Text>
     );
 }
 export default function Example({ navigation }) {
     const [headerHeight, setHeaderHeight] = useState(200);
     const [icon, setIcon] = useState(undefined);
-    const [usernam, setUsername] = useState(undefined);
+    const [username, setUsername] = useState(undefined);
     const [profileId, setProfileId] = useState(0)
-    const [followerCount, setFollowerCount] = useState()
-    const [followingCount, setFollowingCount] = useState()
+    const [userAddr, setUserAddr] = useState()
     const loadIcon = async () => {
         if (icon) {
             return;
@@ -64,45 +78,20 @@ export default function Example({ navigation }) {
             const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, provider);
             const res = await getProfileById(baseHub, profile.id);
             setUsername(res[3])
-            setProfileId(() => { parseInt(profile.id, 16) })
+            setProfileId(parseInt(profile.id, 16))
+            console.log("profileId",profileId)
             const user = new ethers.Wallet(profile.private_key, provider);
+            console.log(user.address)
+            const address = user.address.substring(0,6)+'...'+user.address.substring(user.address.length-5,user.address-1)
+            setUserAddr(address)
             const data = await downloadFile(res[4], user.address, user);
             setIcon({ uri: `data:image/jpeg;base64,${Buffer.from(data).toString('base64')}` });
         } else {
             setIcon(require('../../assets/ks.jpg'));
         }
     }
-    // const FollowerCount = async()=>{
-    //     const GET_DATA = gql`{
-    //         profile(id: "${profileId}") {
-    //           followerCount
-    //         }
-    //       }`
-    //     const { loading, error, data } = await useQuery(GET_DATA);
-    //     if(!loading && data)
-    //         setFollowerCount(data)
-    // }
-    const FollowingCount = async () => {
-        const GET_DATA = gql`{
-            profile(id: "${profileId}") {
-              followingCount
-            }
-          }`
-        const { loading, error, data } = await useQuery(GET_DATA);
-        if (!loading && data)
-            setFollowingCount(data)
-    }
+    
     loadIcon();
-    // const GET_DATA = gql`{
-    //     profile(id: "${profileId}") {
-    //       followingCount,
-    //       followerCount
-    //     }
-    //   }`
-    // const { loading, error, data } = useQuery(GET_DATA);
-    // console.log(data)
-    // setFollowingCount(data['followingCount'])
-    // setFollowerCount(data['followerCount'])
     const headerOnLayout = useCallback((event: any) => {
         const { height } = event.nativeEvent.layout;
         setHeaderHeight(height);
@@ -125,17 +114,17 @@ export default function Example({ navigation }) {
                             />
                         </View>
                         <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: 18 }}>{usernam}</Text>
+                            <Text style={{ fontSize: 18 }}>{username}</Text>
 
                             <View style={{ flexDirection: 'row', marginTop: 5 }}>
                                 <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5 }}>
                                     <Text style={{ textAlign: 'center' }}>
-                                        @dodo.base
+                                        {username}
                                     </Text>
                                 </View>
                                 <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, marginLeft: 10, paddingLeft: 5, paddingRight: 5, padding: 0 }}>
                                     <Text style={{ textAlign: 'center', padding: 0 }}>
-                                        0xebaD...89e1
+                                        {userAddr}
                                     </Text>
                                 </View>
                             </View>
@@ -155,10 +144,13 @@ export default function Example({ navigation }) {
                 <View style={{ flexDirection: 'row', margin: 20, marginTop: 0 }}>
                     <Text style={{ marginLeft: 5, marginRight: 15, fontSize: 16, color: '#fff' }}>
 
-                        <FollowerCount />
+                        <FollowingCount profileId={profileId}/>
 
                         <Text>Following</Text></Text>
-                    <Text style={{ marginLeft: 5, fontSize: 16, color: '#fff' }}>{followerCount} <Text>Followers</Text></Text>
+                    <Text style={{ marginLeft: 5, fontSize: 16, color: '#fff' }}>
+                        <FollowerCount profileId={profileId}/>
+                        <Text>Followers</Text>
+                    </Text>
                 </View>
                 {/* </ImageBackground> */}
 
