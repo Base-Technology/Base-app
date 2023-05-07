@@ -32,14 +32,29 @@ function TabView2(props) {
         </ScrollView>
     );
 }
+function FollowerCount({ profileId }) {
+    const { loading, error, data } = useQuery(gql`{
+        profile(id: "${profileId}") {
+          followerCount
+        }
+      }`);
 
+    if (loading) return <Text>Loading ...</Text>;
+    if (error) return <Text>Error :(</Text>;
+
+    return (
+        <Text>
+            {JSON.stringify(data)}
+        </Text>
+    );
+}
 export default function Example({ navigation }) {
     const [headerHeight, setHeaderHeight] = useState(200);
     const [icon, setIcon] = useState(undefined);
     const [usernam, setUsername] = useState(undefined);
-    const [profileId,setProfileId] = useState(0)
-    const [followerCount,setFollowerCount] = useState()
-    const [followingCount,setFollowingCount] = useState()
+    const [profileId, setProfileId] = useState(0)
+    const [followerCount, setFollowerCount] = useState()
+    const [followingCount, setFollowingCount] = useState()
     const loadIcon = async () => {
         if (icon) {
             return;
@@ -49,7 +64,7 @@ export default function Example({ navigation }) {
             const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, provider);
             const res = await getProfileById(baseHub, profile.id);
             setUsername(res[3])
-            setProfileId(()=>{parseInt(profile.id,16)})
+            setProfileId(() => { parseInt(profile.id, 16) })
             const user = new ethers.Wallet(profile.private_key, provider);
             const data = await downloadFile(res[4], user.address, user);
             setIcon({ uri: `data:image/jpeg;base64,${Buffer.from(data).toString('base64')}` });
@@ -57,29 +72,27 @@ export default function Example({ navigation }) {
             setIcon(require('../../assets/ks.jpg'));
         }
     }
-    const FollowerCount = async(profileId)=>{
-        const GET_DATA = gql`{
-            profile(id: "${profileId}") {
-              followerCount
-            }
-          }`
-        const { loading, error, data } = await useQuery(GET_DATA);
-        if(!loading && data)
-            setFollowerCount(data)
-    }
-    const FollowingCount = async(profileId)=>{
+    // const FollowerCount = async()=>{
+    //     const GET_DATA = gql`{
+    //         profile(id: "${profileId}") {
+    //           followerCount
+    //         }
+    //       }`
+    //     const { loading, error, data } = await useQuery(GET_DATA);
+    //     if(!loading && data)
+    //         setFollowerCount(data)
+    // }
+    const FollowingCount = async () => {
         const GET_DATA = gql`{
             profile(id: "${profileId}") {
               followingCount
             }
           }`
         const { loading, error, data } = await useQuery(GET_DATA);
-        if(!loading && data)
+        if (!loading && data)
             setFollowingCount(data)
     }
     loadIcon();
-
-    
     // const GET_DATA = gql`{
     //     profile(id: "${profileId}") {
     //       followingCount,
@@ -140,7 +153,11 @@ export default function Example({ navigation }) {
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row', margin: 20, marginTop: 0 }}>
-                    <Text style={{ marginLeft: 5, marginRight: 15, fontSize: 16, color: '#fff' }}>{followingCount} <Text>Following</Text></Text>
+                    <Text style={{ marginLeft: 5, marginRight: 15, fontSize: 16, color: '#fff' }}>
+
+                        <FollowerCount />
+
+                        <Text>Following</Text></Text>
                     <Text style={{ marginLeft: 5, fontSize: 16, color: '#fff' }}>{followerCount} <Text>Followers</Text></Text>
                 </View>
                 {/* </ImageBackground> */}
