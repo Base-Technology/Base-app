@@ -5,6 +5,7 @@ export const testBSCprovider = new JsonRpcProvider(
     97
 );
 export const Testbaobab = new JsonRpcProvider(
-    "https://api.baobab.klaytn.net:8651",
+    "https://public-node-api.klaytnapi.com/v1/baobab",
     1001
-)
+);
+export const provider = Testbaobab;

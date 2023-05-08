@@ -18,22 +18,19 @@ export async function createProfile(
   followModuleData,
   followNFTURI,
 ) {
-  const isOwner = wallet.isOwner(sender.address);
+  const isOwner = await wallet.isOwner(sender.address);
   if (!isOwner) {
-    console.log('sender is not wallet owner');
-    return;
+    throw new Error('sender is not wallet owner');
   }
   const profileIdbyhandle = await baseHub.callStatic.getProfileIdByHandle(
     handle,
   );
   if (profileIdbyhandle != 0) {
-    console.log('handle repeated!');
-    return 0;
+    throw new Error('handle repeated!');
   }
   const state = await baseHub.callStatic.getState();
   if (state != 0) {
-    console.log("hub state != 0 reset before create profile")
-    return 
+    throw new Error("hub state != 0 reset before create profile")
   }
 
   const methodData = baseHub.interface.encodeFunctionData('createProfile', [
@@ -52,4 +49,23 @@ export async function createProfile(
     .execute(baseHub.address, methodData, {
       gasLimit: 1000000,
     });
+  await tx.wait();
+}
+
+export async function getProfileIdByHandle(
+  baseHub,
+  handle,
+) {
+  return await baseHub.callStatic.getProfileIdByHandle(
+    handle,
+  );
+}
+
+export async function getProfileById(
+  baseHub,
+  id,
+) {
+  return await baseHub.callStatic.getProfile(
+    id,
+  );
 }

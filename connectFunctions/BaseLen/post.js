@@ -1,3 +1,9 @@
+import { freeCollectModuleAddr } from "../../constants/contract_address";
+import { ethers } from "ethers";
+
+const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+const abiCoder = ethers.utils.defaultAbiCoder;
+
 /* 用于发布publication
 * sender : 地址，合约调用的发起者账户，即合约钱包的拥有者
 * wallet ： 对象，合约钱包的合约
@@ -15,21 +21,19 @@ export async function post(
   baseHub,
   profileId,
   contentURI,
-  collectModule,
-  collectModuleData,
-  referenceModule,
-  referenceModuleData,
+  collectModule = freeCollectModuleAddr,
+  collectModuleData = abiCoder.encode(['bool'], [true]),
+  referenceModule = ZERO_ADDRESS,
+  referenceModuleData = [],
 ) {
   const owner = await baseHub.callStatic.ownerOf(profileId);
   const isOwner = wallet.isOwner(sender.address);
 
   if (!isOwner) {
-    console.log('sender is not wallet owner');
-    return;
+    throw new Error('sender is not wallet owner');
   }
   if (owner != wallet.address) {
-    console.log('is not owner');
-    return false;
+    throw new Error('is not profile owner');
   }
   const methodData = baseHub.interface.encodeFunctionData('post', [
     {
@@ -46,5 +50,6 @@ export async function post(
     .execute(baseHub.address, methodData, {
       gasLimit: 1000000,
     });
+  await tx.wait();
 }
 
