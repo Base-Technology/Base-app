@@ -58,9 +58,9 @@ function FollowingCount( {profileId }){
     if (loading) return <Text>Loading ...</Text>;
     if (error) return <Text>Error :</Text>;
 
-    return (
+    if(data['profile']) return (
         <Text>
-            {data?.profile?.followerCount}
+            {JSON.stringify(data['profile']['followingCount'])}
         </Text>
     );
 }
