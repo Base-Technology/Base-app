@@ -7,7 +7,10 @@
 * pubId ： publication Id
 * data：传递给collect module的参数
 */
-export async function collect(sender, wallet, baseHub,collectorProfile, profileId,pubId, data){
+export async function collect(sender, wallet, baseHub,collectorProfile, profileId,pubId, data=[]){
+  console.log("collectorProfile",collectorProfile)
+  console.log("profileId",profileId)
+  console.log("pubId",pubId)
     const name = await baseHub.callStatic.getHandle(profileId)
     if(name == ''){
         console.log('targer is not profile')
@@ -30,11 +33,14 @@ export async function collect(sender, wallet, baseHub,collectorProfile, profileI
     }
 
     const methodData = baseHub.interface.encodeFunctionData('collect', [
-        profileId,pubId, data,collectorProfile
-      ]);
-      const tx = await wallet
-        .connect(sender)
-        .execute(baseHub.address, methodData, {
-          gasLimit: 1000000,
-        });
+      profileId,pubId, data,collectorProfile
+    ]);
+    const tx = await wallet
+      .connect(sender)
+      .execute(baseHub.address, methodData, {
+        gasLimit: 1000000,
+      });
+  await tx.wait()
+  console.log("tx",tx)
+    
 }

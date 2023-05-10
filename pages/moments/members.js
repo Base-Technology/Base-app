@@ -20,6 +20,8 @@ import { queryProfile } from "../../database/profile";
 import { Buffer } from 'buffer';
 import { downloadFile, downloadObject } from "../../ipfs/service";
 import { Testbaobab } from "../../constants/test-provider";
+import { collect } from "../../connectFunctions/BaseLen/collect";
+import { mirror } from "../../connectFunctions/BaseLen/mirror";
 
 import { baseHubContractAddress, walletContractAddress } from "../../constants/contract_address";
 import { getProfileById } from '../../connectFunctions/BaseLen/Profile';
@@ -72,7 +74,7 @@ const Publication = ({privateKey})=>{
       const publications = data['publications']
       for(i = 0; i < publications.length; i=i+1){
         views.push(
-            <Item key={i} profileId={publications[i]['profileId']} privateKey={privateKey} contentURI={publications[i]['contentURI']} timestamp={publications[i]['timestamp']} commentCount={publications[i]['commentCount']}/>
+            <Item key={i} profileId={publications[i]['profileId']} privateKey={privateKey} contentURI={publications[i]['contentURI']} timestamp={publications[i]['timestamp']} commentCount={publications[i]['commentCount']} pubId={publications[i]['pubId']}/>
           );
       }
     }
@@ -98,6 +100,9 @@ const [title, setTitle] = useState('');
 const [content, setContent] = useState('')
 const [userAddr, setUserAddr] = useState('')
 const [time, setTime] = useState("")
+const [longText, setLongText] = useState(false);
+const myScrollView = useRef();
+
 const getdata = async(profileID,privateKey,contentURI,timestamp)=>{
   user = new ethers.Wallet(privateKey,Testbaobab)
   const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, Testbaobab);
@@ -211,11 +216,47 @@ getdata(props.profileId, props.privateKey, props.contentURI,props.timestamp)
           <Text style={{ marginLeft: 5, marginRight: 20 }}>{props.commentCount}</Text>
           <FavoriteIcon width={23} height={23} fill="#fff" />
           <Text style={{ marginLeft: 5, marginRight: 20 }}>420</Text>
-          <StarIcon width={23} height={23} fill="#fff" />
+          <TouchableWithoutFeedback
+            onPress={async() => {
+              console.log("start ")
+              const res = await queryProfile()
+              const pri = res['private_key']
+              const profileId = res['id']
+              const walletAddr = res['address']
+              const user = new ethers.Wallet(pri,Testbaobab)
+
+              const baseWallet = new ethers.Contract(walletContractAddress,WalletABI,Testbaobab)
+              const wallet = baseWallet.attach(walletAddr)
+              const baseHub = new ethers.Contract(baseHubContractAddress,BaseHubABI,Testbaobab)
+
+              await collect(user,wallet,baseHub,profileId,props.profileId,props.pubId,)
+              console.log("collected...")
+            }}
+          >
+            <StarIcon width={23} height={23} fill="#fff" />
+          </TouchableWithoutFeedback>
           <Text style={{ marginLeft: 5, }}>909</Text>
         </View>
         <View>
-          <ShareIcon width={23} height={23} fill="#fff" />
+        <TouchableWithoutFeedback
+            onPress={async() => {
+              console.log("start ")
+              const res = await queryProfile()
+              const pri = res['private_key']
+              const profileId = res['id']
+              const walletAddr = res['address']
+              const user = new ethers.Wallet(pri,Testbaobab)
+
+              const baseWallet = new ethers.Contract(walletContractAddress,WalletABI,Testbaobab)
+              const wallet = baseWallet.attach(walletAddr)
+              const baseHub = new ethers.Contract(baseHubContractAddress,BaseHubABI,Testbaobab)
+
+              await mirror(user,wallet,baseHub,profileId,props.profileId,props.pubId)
+              console.log("mirror...")
+            }}
+          >
+            <ShareIcon width={23} height={23} fill="#fff" />
+          </TouchableWithoutFeedback>
         </View>
 
       </View>

@@ -1,3 +1,4 @@
+const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 /* 转载publication
 * sender : 地址，合约调用的发起者账户，即合约钱包的拥有者
 * wallet ： 对象，合约钱包的合约
@@ -16,9 +17,9 @@ export async function mirror(
   profileId,
   profileIdPointed,
   pubId,
-  referenceModuleData,
-  referenceModule,
-  referenceModuleInitdata,
+  referenceModuleData = [],
+  referenceModule = ZERO_ADDRESS,
+  referenceModuleInitdata = [],
 ) {
   const isOwner = wallet.isOwner(sender.address);
   if (!isOwner) {
