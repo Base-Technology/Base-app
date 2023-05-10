@@ -10,6 +10,24 @@ import Text from '../home/BaseText'
 import { Tooltip, Button } from '@ui-kitten/components';
 import { BaseSwiper, BaseVideo, BaseText } from '../../components/Base';
 import { Dimensions } from 'react-native';
+import { useWindowDimensions } from 'react-native';
+
+import { useQuery, gql } from '@apollo/client';
+import { string } from 'prop-types';
+import { ethers } from "ethers";
+
+import { queryProfile } from "../../database/profile";
+import { Buffer } from 'buffer';
+import { downloadFile, downloadObject } from "../../ipfs/service";
+import { Testbaobab } from "../../constants/test-provider";
+
+import { baseHubContractAddress, walletContractAddress } from "../../constants/contract_address";
+import { getProfileById } from '../../connectFunctions/BaseLen/Profile';
+import { iterateObserversSafely } from '@apollo/client/utilities';
+import RenderHtml from 'react-native-render-html'
+
+const BaseHubABI = require('../../abis/BaseHub.json');
+const WalletABI = require('../../abis/BaseWallet.json');
 const { width, height } = Dimensions.get("window");
 const DATA = [
   {
@@ -28,105 +46,196 @@ const DATA = [
 ];
 
 
-
-const Momnet = ({ navigation }) => {
-  const renderItem = ({ item }) => (
-    <Item {...item} />
+const GET_DATA = gql`{
+  publications{
+    id,
+    profileId,
+    pubId,
+    contentURI,
+    timestamp,
+    collectModule,
+    collectModuleReturnData,
+    referenceModule,
+    referenceModuleReturnData,
+    commentCount
+  }
+}`
+const Publication = ({privateKey})=>{
+  if(!privateKey) return
+  const { loading, error, data } = useQuery(GET_DATA);
+  if (loading) return <Text>Loading ...</Text>;
+  if (error) return <Text>Error :</Text>;
+  const views = [];
+  
+  if(data){
+    if(data['publications']){
+      const publications = data['publications']
+      for(i = 0; i < publications.length; i=i+1){
+        views.push(
+            <Item key={i} profileId={publications[i]['profileId']} privateKey={privateKey} contentURI={publications[i]['contentURI']} timestamp={publications[i]['timestamp']} commentCount={publications[i]['commentCount']}/>
+          );
+      }
+    }
+  }
+  return(
+  <View>
+    {views.map((view, index) => {
+      return view;
+    })}
+    <View style={{ height: 100 }}></View>
+  </View>
   );
-  const myScrollView = useRef();
-  const Item = ({ title, content, header, poster, video }) => {
+}
+const Item = (props) => {
+if(props.profileId <= 22)
+  return
+const { width } = useWindowDimensions()
+const [modalVisible, setModalVisible] = useState(false);
+const [icon, setIcon] = useState(undefined)
+const [username,setUsername] = useState(undefined)  
+const [image, setImage] = useState([]);
+const [title, setTitle] = useState('');
+const [content, setContent] = useState('')
+const [userAddr, setUserAddr] = useState('')
+const [time, setTime] = useState("")
+const getdata = async(profileID,privateKey,contentURI,timestamp)=>{
+  user = new ethers.Wallet(privateKey,Testbaobab)
+  const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, Testbaobab);
+  const baseWallet = new ethers.Contract(walletContractAddress, WalletABI, Testbaobab)
+  const profileOwner = await baseHub.callStatic.ownerOf(profileID)
+  const wallet = await baseWallet.attach(profileOwner)
+  const owner = await wallet.getOwners()
+  
+  const address = owner[0].substring(0,6)+'...'+owner[0].substring(user.address.length-5,user.address-1)
+  setUserAddr(address)
+  const res = await getProfileById(baseHub, profileID);
+  setUsername(res[3])
+  const data = await downloadFile(res[4], owner[0], user)
+  setIcon({ uri: `data:image/jpeg;base64,${Buffer.from(data).toString('base64')}`})
+  
+  const object = await downloadObject(contentURI, owner[0], user);
+  
+  setTitle(object.title);
+  const content = {html: `
+  ${object.content}`}
+  setContent(content)
+  let imgs = []
+  for(i=0;i<object.image.length;i++){
+    const imgdata = await downloadFile(object.image[i], owner[0], user);
+    imgs = [...imgs,{ uri: `data:image/jpeg;base64,${Buffer.from(imgdata).toString('base64')}` }]
+  }
+  setImage(imgs);
+  const t = new Date(parseInt(timestamp)*1000).toLocaleString()
+  setTime(t)
+}
+getdata(props.profileId, props.privateKey, props.contentURI,props.timestamp)
+  return (
+    <View style={styles.item}>
+      <View style={{ ...styles.itemc, flexDirection: 'row', alignItems: 'center', margin: 20 }}>
+        <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
+          <Image
+            style={{ width: 50, height: 50, borderRadius: 100, }}
+            source={icon}
+          />
+        </View>
+        <View style={{ marginLeft: 10 }}>
+          <Text >{username}</Text>
+          <View style={{ flexDirection: 'row', marginTop: 5 }}>
+            <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5 }}>
+              <Text style={{ textAlign: 'center', fontSize: 8 }}>
+                @dodo.base
+              </Text>
+            </View>
+            <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, marginLeft: 10, paddingLeft: 5, paddingRight: 5, padding: 0 }}>
+              <Text style={{ textAlign: 'center', padding: 0, fontSize: 8 }}>
+                {userAddr}
+              </Text>
+            </View>
+            <Text style={{ marginLeft: 10, fontSize: 8 }}>{time}</Text>
 
-    return (
-      <View style={styles.item}>
-        <View style={{ ...styles.itemc, flexDirection: 'row', alignItems: 'center', margin: 20 }}>
-          <View style={{ width: 40, height: 40, borderRadius: 40, marginRight: 10 }}>
-            <Image
-              style={{ width: 50, height: 50, borderRadius: 100, }}
-              source={header}
+          </View>
+        </View>
+      </View>
+      <View style={{ marginTop: 10, overflow: 'hidden' }}>
+        {/* <Image source={poster} /> */}
+        {
+          <BaseSwiper imgs={image}/>
+        }
+
+      </View>
+      <View style={{ margin: 20, marginBottom: 0, marginTop: 10 }}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            setModalVisible(true);
+          }}>
+          <View>
+            <BaseText style={{ fontSize: 14, marginBottom: 5 }}>{title}</BaseText>
+            <BaseText style={{ lineHeight: 20 }}> 
+            <RenderHtml
+              style={{color:"white"}}
+              contentWidth={width}
+              source={content}
             />
+            </BaseText>
           </View>
-          <View style={{ marginLeft: 10 }}>
-            <Text >Elon Musk</Text>
-            <View style={{ flexDirection: 'row', marginTop: 5 }}>
-              <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, paddingLeft: 5, paddingRight: 5 }}>
-                <Text style={{ textAlign: 'center', fontSize: 8 }}>
-                  @dodo.base
-                </Text>
-              </View>
-              <View style={{ justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 5, marginLeft: 10, paddingLeft: 5, paddingRight: 5, padding: 0 }}>
-                <Text style={{ textAlign: 'center', padding: 0, fontSize: 8 }}>
-                  0xebaD...89e1
-                </Text>
-              </View>
-              <Text style={{ marginLeft: 10, fontSize: 8 }}>1 days ago</Text>
 
-            </View>
-          </View>
-        </View>
-        <View style={{ marginTop: 10, overflow: 'hidden' }}>
-          {/* <Image source={poster} /> */}
-          {
-            !video && <BaseSwiper /> || <View style={{ width: width, height: 200 }}>
-              <BaseVideo />
-            </View>
-          }
+        </TouchableWithoutFeedback>
 
+        <View style={{ position: 'absolute', right: 0, bottom: 0 }}>
+          <BaseText>
+            More
+          </BaseText>
         </View>
-        <View style={{ margin: 20, marginBottom: 0, marginTop: 10 }}>
+      </View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 20, }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <TouchableWithoutFeedback
             onPress={() => {
               setModalVisible(true);
-            }}>
-            <View>
-              <BaseText style={{ fontSize: 14, marginBottom: 5 }}>What is Fox Tech?</BaseText>
-              <BaseText style={{ lineHeight: 20 }}>Way Network is a universal solution to enable interchain transaction with trustless and valid delivery. It's the first chain-wide interoperability protocol that provides a powerful low-level...
-              </BaseText>
-            </View>
 
+              setTimeout(() => {
+                setLongText(!longText);
+
+                if (!longText) {
+                  myScrollView.current.scrollTo({ x: 0, y: 300, animated: true });
+
+                }
+
+              }, 100);
+              // myScrollView.scrollTo({ x: 0, y: 100, animated: true })
+            }}
+          >
+            <CommentIcon width={23} height={23} fill="#fff" />
           </TouchableWithoutFeedback>
 
-          <View style={{ position: 'absolute', right: 0, bottom: 0 }}>
-            <BaseText>
-              More
-            </BaseText>
-          </View>
+          <Text style={{ marginLeft: 5, marginRight: 20 }}>{props.commentCount}</Text>
+          <FavoriteIcon width={23} height={23} fill="#fff" />
+          <Text style={{ marginLeft: 5, marginRight: 20 }}>420</Text>
+          <StarIcon width={23} height={23} fill="#fff" />
+          <Text style={{ marginLeft: 5, }}>909</Text>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 20, }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                setModalVisible(true);
-
-                setTimeout(() => {
-                  setLongText(!longText);
-
-                  if (!longText) {
-                    myScrollView.current.scrollTo({ x: 0, y: 300, animated: true });
-
-                  }
-
-                }, 100);
-                // myScrollView.scrollTo({ x: 0, y: 100, animated: true })
-              }}
-            >
-              <CommentIcon width={23} height={23} fill="#fff" />
-            </TouchableWithoutFeedback>
-
-            <Text style={{ marginLeft: 5, marginRight: 20 }}>134</Text>
-            <FavoriteIcon width={23} height={23} fill="#fff" />
-            <Text style={{ marginLeft: 5, marginRight: 20 }}>420</Text>
-            <StarIcon width={23} height={23} fill="#fff" />
-            <Text style={{ marginLeft: 5, }}>909</Text>
-          </View>
-          <View>
-            <ShareIcon width={23} height={23} fill="#fff" />
-          </View>
-
+        <View>
+          <ShareIcon width={23} height={23} fill="#fff" />
         </View>
 
-      </View >
-    );
+      </View>
+
+    </View >
+  );
+}
+const Momnet = ({ navigation }) => {
+  const [privateKey, setPrivateKey] = useState();
+
+  const profile =  async() =>{
+    const profile = await queryProfile()
+    let privateKey = profile['private_key']
+    setPrivateKey(privateKey)
   }
+  profile()
+  const renderItem = () => (
+    <Publication privateKey={privateKey}/>
+  );
+  const myScrollView = useRef();
   const [modalVisible, setModalVisible] = useState(false);
   const [longText, setLongText] = useState(false);
   return (
