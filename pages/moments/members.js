@@ -62,78 +62,80 @@ const GET_DATA = gql`{
     commentCount
   }
 }`
-const Publication = ({privateKey})=>{
-  if(!privateKey) return
+const Publication = ({ privateKey }) => {
+  if (!privateKey) return
   const { loading, error, data } = useQuery(GET_DATA);
   if (loading) return <Text>Loading ...</Text>;
   if (error) return <Text>Error :</Text>;
   const views = [];
-  
-  if(data){
-    if(data['publications']){
+
+  if (data) {
+    if (data['publications']) {
       const publications = data['publications']
-      for(i = 0; i < publications.length; i=i+1){
+      for (i = 0; i < publications.length; i = i + 1) {
         views.push(
-            <Item key={i} profileId={publications[i]['profileId']} privateKey={privateKey} contentURI={publications[i]['contentURI']} timestamp={publications[i]['timestamp']} commentCount={publications[i]['commentCount']} pubId={publications[i]['pubId']}/>
-          );
+          <Item key={i} profileId={publications[i]['profileId']} privateKey={privateKey} contentURI={publications[i]['contentURI']} timestamp={publications[i]['timestamp']} commentCount={publications[i]['commentCount']} pubId={publications[i]['pubId']} />
+        );
       }
     }
   }
-  return(
-  <View>
-    {views.map((view, index) => {
-      return view;
-    })}
-    <View style={{ height: 100 }}></View>
-  </View>
+  return (
+    <View>
+      {views.map((view, index) => {
+        return view;
+      })}
+      <View style={{ height: 100 }}></View>
+    </View>
   );
 }
 const Item = (props) => {
-if(props.profileId <= 22)
-  return
-const { width } = useWindowDimensions()
-const [modalVisible, setModalVisible] = useState(false);
-const [icon, setIcon] = useState(undefined)
-const [username,setUsername] = useState(undefined)  
-const [image, setImage] = useState([]);
-const [title, setTitle] = useState('');
-const [content, setContent] = useState('')
-const [userAddr, setUserAddr] = useState('')
-const [time, setTime] = useState("")
-const [longText, setLongText] = useState(false);
-const myScrollView = useRef();
+  if (props.profileId <= 22)
+    return
+  const { width } = useWindowDimensions()
+  const [modalVisible, setModalVisible] = useState(false);
+  const [icon, setIcon] = useState(undefined)
+  const [username, setUsername] = useState(undefined)
+  const [image, setImage] = useState([]);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('')
+  const [userAddr, setUserAddr] = useState('')
+  const [time, setTime] = useState("")
+  const [longText, setLongText] = useState(false);
+  const myScrollView = useRef();
 
-const getdata = async(profileID,privateKey,contentURI,timestamp)=>{
-  user = new ethers.Wallet(privateKey,Testbaobab)
-  const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, Testbaobab);
-  const baseWallet = new ethers.Contract(walletContractAddress, WalletABI, Testbaobab)
-  const profileOwner = await baseHub.callStatic.ownerOf(profileID)
-  const wallet = await baseWallet.attach(profileOwner)
-  const owner = await wallet.getOwners()
-  
-  const address = owner[0].substring(0,6)+'...'+owner[0].substring(user.address.length-5,user.address-1)
-  setUserAddr(address)
-  const res = await getProfileById(baseHub, profileID);
-  setUsername(res[3])
-  const data = await downloadFile(res[4], owner[0], user)
-  setIcon({ uri: `data:image/jpeg;base64,${Buffer.from(data).toString('base64')}`})
-  
-  const object = await downloadObject(contentURI, owner[0], user);
-  
-  setTitle(object.title);
-  const content = {html: `
-  ${object.content}`}
-  setContent(content)
-  let imgs = []
-  for(i=0;i<object.image.length;i++){
-    const imgdata = await downloadFile(object.image[i], owner[0], user);
-    imgs = [...imgs,{ uri: `data:image/jpeg;base64,${Buffer.from(imgdata).toString('base64')}` }]
+  const getdata = async (profileID, privateKey, contentURI, timestamp) => {
+    user = new ethers.Wallet(privateKey, Testbaobab)
+    const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, Testbaobab);
+    const baseWallet = new ethers.Contract(walletContractAddress, WalletABI, Testbaobab)
+    const profileOwner = await baseHub.callStatic.ownerOf(profileID)
+    const wallet = await baseWallet.attach(profileOwner)
+    const owner = await wallet.getOwners()
+
+    const address = owner[0].substring(0, 6) + '...' + owner[0].substring(user.address.length - 5, user.address - 1)
+    setUserAddr(address)
+    const res = await getProfileById(baseHub, profileID);
+    setUsername(res[3])
+    const data = await downloadFile(res[4], owner[0], user)
+    setIcon({ uri: `data:image/jpeg;base64,${Buffer.from(data).toString('base64')}` })
+
+    const object = await downloadObject(contentURI, owner[0], user);
+
+    setTitle(object.title);
+    const content = {
+      html: `
+  ${object.content}`
+    }
+    setContent(content)
+    let imgs = []
+    for (i = 0; i < object.image.length; i++) {
+      const imgdata = await downloadFile(object.image[i], owner[0], user);
+      imgs = [...imgs, { uri: `data:image/jpeg;base64,${Buffer.from(imgdata).toString('base64')}` }]
+    }
+    setImage(imgs);
+    const t = new Date(parseInt(timestamp) * 1000).toLocaleString()
+    setTime(t)
   }
-  setImage(imgs);
-  const t = new Date(parseInt(timestamp)*1000).toLocaleString()
-  setTime(t)
-}
-getdata(props.profileId, props.privateKey, props.contentURI,props.timestamp)
+  getdata(props.profileId, props.privateKey, props.contentURI, props.timestamp)
   return (
     <View style={styles.item}>
       <View style={{ ...styles.itemc, flexDirection: 'row', alignItems: 'center', margin: 20 }}>
@@ -164,7 +166,7 @@ getdata(props.profileId, props.privateKey, props.contentURI,props.timestamp)
       <View style={{ marginTop: 10, overflow: 'hidden' }}>
         {/* <Image source={poster} /> */}
         {
-          <BaseSwiper imgs={image}/>
+          <BaseSwiper imgs={image} />
         }
 
       </View>
@@ -175,12 +177,12 @@ getdata(props.profileId, props.privateKey, props.contentURI,props.timestamp)
           }}>
           <View>
             <BaseText style={{ fontSize: 14, marginBottom: 5 }}>{title}</BaseText>
-            <BaseText style={{ lineHeight: 20 }}> 
-            <RenderHtml
-              style={{color:"white"}}
-              contentWidth={width}
-              source={content}
-            />
+            <BaseText style={{ lineHeight: 20 }}>
+              <RenderHtml
+                baseStyle={{ color: "white" }}
+                contentWidth={width}
+                source={content}
+              />
             </BaseText>
           </View>
 
@@ -217,19 +219,19 @@ getdata(props.profileId, props.privateKey, props.contentURI,props.timestamp)
           <FavoriteIcon width={23} height={23} fill="#fff" />
           <Text style={{ marginLeft: 5, marginRight: 20 }}>420</Text>
           <TouchableWithoutFeedback
-            onPress={async() => {
+            onPress={async () => {
               console.log("start ")
               const res = await queryProfile()
               const pri = res['private_key']
               const profileId = res['id']
               const walletAddr = res['address']
-              const user = new ethers.Wallet(pri,Testbaobab)
+              const user = new ethers.Wallet(pri, Testbaobab)
 
-              const baseWallet = new ethers.Contract(walletContractAddress,WalletABI,Testbaobab)
+              const baseWallet = new ethers.Contract(walletContractAddress, WalletABI, Testbaobab)
               const wallet = baseWallet.attach(walletAddr)
-              const baseHub = new ethers.Contract(baseHubContractAddress,BaseHubABI,Testbaobab)
+              const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, Testbaobab)
 
-              await collect(user,wallet,baseHub,profileId,props.profileId,props.pubId,)
+              await collect(user, wallet, baseHub, profileId, props.profileId, props.pubId,)
               console.log("collected...")
             }}
           >
@@ -238,20 +240,20 @@ getdata(props.profileId, props.privateKey, props.contentURI,props.timestamp)
           <Text style={{ marginLeft: 5, }}>909</Text>
         </View>
         <View>
-        <TouchableWithoutFeedback
-            onPress={async() => {
+          <TouchableWithoutFeedback
+            onPress={async () => {
               console.log("start ")
               const res = await queryProfile()
               const pri = res['private_key']
               const profileId = res['id']
               const walletAddr = res['address']
-              const user = new ethers.Wallet(pri,Testbaobab)
+              const user = new ethers.Wallet(pri, Testbaobab)
 
-              const baseWallet = new ethers.Contract(walletContractAddress,WalletABI,Testbaobab)
+              const baseWallet = new ethers.Contract(walletContractAddress, WalletABI, Testbaobab)
               const wallet = baseWallet.attach(walletAddr)
-              const baseHub = new ethers.Contract(baseHubContractAddress,BaseHubABI,Testbaobab)
+              const baseHub = new ethers.Contract(baseHubContractAddress, BaseHubABI, Testbaobab)
 
-              await mirror(user,wallet,baseHub,profileId,props.profileId,props.pubId)
+              await mirror(user, wallet, baseHub, profileId, props.profileId, props.pubId)
               console.log("mirror...")
             }}
           >
@@ -267,14 +269,14 @@ getdata(props.profileId, props.privateKey, props.contentURI,props.timestamp)
 const Momnet = ({ navigation }) => {
   const [privateKey, setPrivateKey] = useState();
 
-  const profile =  async() =>{
+  const profile = async () => {
     const profile = await queryProfile()
     let privateKey = profile['private_key']
     setPrivateKey(privateKey)
   }
   profile()
   const renderItem = () => (
-    <Publication privateKey={privateKey}/>
+    <Publication privateKey={privateKey} />
   );
   const myScrollView = useRef();
   const [modalVisible, setModalVisible] = useState(false);
@@ -504,4 +506,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default  React.memo(Momnet);
+export default React.memo(Momnet);
