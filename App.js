@@ -26,6 +26,7 @@ import CreateToken from './pages/chat/createToken';
 import CreateAirdrop from './pages/chat/createAirdrop';
 import ImportOfAirdrop from './pages/chat/importOfAirdrop';
 import CreateGroup from './pages/chat/createGroup';
+import CreateChat from './pages/chat/createChat';
 import Contact from './pages/chat/contact';
 import ContactSearch from './pages/chat/contactsearch';
 
@@ -118,6 +119,7 @@ export default function App(logined, hasWallet) {
               <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Personal" component={Personal} />
               <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="Invite" component={Invite} />
               <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="CreateGroup" component={CreateGroup} />
+              <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="CreateChat" component={CreateChat} />
               <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="CreateToken" component={CreateToken} />
               <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="CreateAirdrop" component={CreateAirdrop} />
               <Stack.Screen options={{ headerShown: false, animation: 'none' }} name="ImportOfAirdrop" component={ImportOfAirdrop} />

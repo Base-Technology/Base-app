@@ -140,9 +140,9 @@ const placements = [
 ];
 const Chat = ({ navigation }) => {
   // const get = () => {
-    console.log(1111111111111111111)
-    const { loading, error, data } = useQuery(GET_DATA);
-    console.log(loading, error, data)
+  console.log(1111111111111111111)
+  const { loading, error, data } = useQuery(GET_DATA);
+  console.log(loading, error, data)
   // }
   // React.useEffect(() => {
   //   get();
@@ -195,9 +195,10 @@ const Chat = ({ navigation }) => {
             >
               <View>
 
-                <TouchableWithoutFeedback
-                  onPress={() => navigation.navigate('CreateGroup')}>
-                  <View>
+
+                <View>
+                  <TouchableWithoutFeedback
+                    onPress={() => navigation.navigate('CreateGroup')}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.1)', padding: 5 }}>
                       <View style={{ flexDirection: 'column', justifyContent: 'center', marginRight: 10 }}>
                         <AddGroupIcon width={25} height={25} fill="#fff" />
@@ -205,6 +206,9 @@ const Chat = ({ navigation }) => {
                       </View>
                       <Text>Create Group</Text>
                     </View>
+                  </TouchableWithoutFeedback>
+                  <TouchableWithoutFeedback
+                    onPress={() => navigation.navigate('CreateChat')}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.1)', padding: 5 }}>
                       <View style={{ flexDirection: 'column', justifyContent: 'center', marginRight: 10 }}>
                         <AddGroupIcon width={25} height={25} fill="#fff" />
@@ -212,8 +216,9 @@ const Chat = ({ navigation }) => {
                       </View>
                       <Text>New Chat</Text>
                     </View>
-                  </View>
-                </TouchableWithoutFeedback>
+                  </TouchableWithoutFeedback>
+
+                </View>
               </View>
             </Popover>
           </View>
